@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,17 +19,17 @@ import kotlinx.dom.appendElement
 
 @Composable
 fun App() {
-    var videoUrl1 by remember { mutableStateOf("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4") }
-    var videoUrl by remember { mutableStateOf("http://sample.vodobox.com/planete_interdite/planete_interdite_alternate.m3u8") }
+    var videoUrl by remember { mutableStateOf("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4") }
     val videoId = "dynamic-video-js"
 
     MaterialTheme {
-
+        Text("Vikram Singh outer ")
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text("Vikram Singh inner")
             HtmlView(
                 modifier = Modifier.fillMaxWidth().height(300.dp),
                 factory = {
@@ -40,8 +41,7 @@ fun App() {
                     video.setAttribute("data-setup","{}")
                     video.appendElement("source") {
                         setAttribute("src",videoUrl)
-                        // setAttribute("type","video/mp4")
-                        setAttribute("type","application/x-mpegURL")
+                        setAttribute("type","video/mp4")
                     }
                     video
                 }
