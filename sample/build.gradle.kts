@@ -13,15 +13,16 @@ kotlin {
     val rootDirPath = project.rootDir.path
     val projectDirPath = project.projectDir.path
 
-    wasmJs {
-        compilerOptions {
-            freeCompilerArgs.add("-Xwasm-attach-js-exception")
-            freeCompilerArgs.add("-Xwasm-use-new-exception-proposal")
-        }
-
-        generateTypeScriptDefinitions()
-        outputModuleName = "sample"
-        browser {
+    listOf(
+        wasmJs{
+            compilerOptions {
+                freeCompilerArgs.add("-Xwasm-attach-js-exception")
+                freeCompilerArgs.add("-Xwasm-use-new-exception-proposal")
+            }
+        },
+        js()
+    ).forEach { target ->
+        target.browser {
 
             commonWebpackConfig {
                 cssSupport {
@@ -38,29 +39,11 @@ kotlin {
                 }
             }
         }
-        binaries.executable()
-    }
 
-    js {
-        useEsModules()
-        outputModuleName = "samplejs"
-        browser {
-            commonWebpackConfig {
-                cssSupport {
-                    enabled.set(true)
-                }
-                outputFileName = "samplejs.js"
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        add(rootDirPath)
-                        add(projectDirPath)
-                    }
-                    sourceMaps = true
-                    port = 3001
-                }
-            }
-        }
-        binaries.executable()
+        target.generateTypeScriptDefinitions()
+        target.outputModuleName = "sample"
+        target.useEsModules()
+        target.binaries.executable()
     }
 
     sourceSets {
@@ -76,7 +59,7 @@ kotlin {
 
         webMain.dependencies {
             implementation(npm("video.js", "8.6.1"))
-            implementation(project(":htmlInterop"))
+            implementation(projects.htmlInterop)
         }
     }
 }
