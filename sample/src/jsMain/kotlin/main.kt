@@ -9,7 +9,7 @@ import org.jetbrains.skiko.wasm.onWasmReady
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
     onWasmReady {
-        CanvasBasedWindow("Wonderous Compose") {
+        CanvasBasedWindow {
             CompositionLocalProvider(LocalLayerContainer provides document.getElementById("components")!!) {
                 App()
             }
