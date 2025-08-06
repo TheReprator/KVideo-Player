@@ -26,17 +26,16 @@ import com.hamama.kwhi.HtmlView
 import external.videojs
 import kotlinx.browser.document
 import kotlinx.browser.window
-import modals.VideoInitOptionsModal
 import modals.VideoPlayer
-import modals.VideoSource
-import util.isVideoJsFuncAvailable
 import util.loadCss
 import util.loadJs
-import util.newJsObject
 import utils.VIDEO_JS_CSS_ID
 import utils.VIDEO_JS_CSS_URL
 import utils.VIDEO_JS_ID
 import utils.VIDEO_JS_URL
+import utils.createVideoOptionsObject
+import utils.createVideoSource
+import utils.isVideoJsFuncAvailable
 
 @Composable
 fun App() {
@@ -174,25 +173,4 @@ fun listenErrorEvents(player: VideoPlayer) {
         println("'Internet connection present!'")
         player.play()
     })
-}
-
-
-fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoInitOptionsModal {
-
-    val source = createVideoSource(videoSrcUrl, videoType)
-
-    val options = newJsObject<VideoInitOptionsModal>()
-    options.controls = true
-    options.autoplay = false // Defaulting to false as per your previous code
-    options.preload = "auto"
-    options.sources = listOf(source).toJsArray()
-    return options
-}
-
-
-fun createVideoSource(videoSrcUrl: String, videoType: String): VideoSource {
-    val source = newJsObject<VideoSource>()
-    source.src = videoSrcUrl
-    //source.type = videoType
-    return source
 }

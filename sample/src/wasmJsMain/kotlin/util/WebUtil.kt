@@ -72,8 +72,3 @@ suspend fun unLoadJSModule(url: String) {
         document.head?.appendChild(link)
     }
 }
-
-
-fun isVideoJsFuncAvailable(): Boolean = js("typeof videojs === 'function'")
-
-fun <T : JsAny> newJsObject(): T = js("({})")

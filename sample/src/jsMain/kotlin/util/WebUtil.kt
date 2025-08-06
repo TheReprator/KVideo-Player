@@ -48,12 +48,3 @@ suspend fun loadCss(url: String) {
         document.head?.appendChild(link)
     }
 }
-
-
-fun isVideoJsFuncAvailable(): Boolean = js("typeof videojs === 'function'")
-
-fun <T : Any> newJsObject(): T = js("({})")
-
-fun jsTypeOf(o: Any): String {
-    return js("typeof o")
-}
