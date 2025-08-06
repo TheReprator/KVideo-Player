@@ -2,11 +2,14 @@
 
 package external
 
+import modals.PlatformVideoInitOptions
+import modals.PlatformVideoSource
+
 @JsModule("video.js")
 external fun videojs(playerId: String): VideoJSPlayer
 
 @JsModule("video.js")
-external fun videojs(id: JsAny, options: VideoJsOptions?, ready: VideoJSPlayer?.() -> Unit = definedExternally): VideoJSPlayer
+external fun videojs(id: JsAny, options: VideoInitOptions?, ready: VideoJSPlayer?.() -> Unit = definedExternally): VideoJSPlayer
 
 external interface VideoJSPlayer: JsAny {
     fun dispose()
@@ -21,26 +24,6 @@ external interface VideoJSPlayer: JsAny {
     fun off()
 }
 
-external interface VideoSource: JsAny {
-    var src: String
-    var type: String?
-}
+external interface VideoSource: PlatformVideoSource
 
-external interface VideoJsOptions : JsAny {
-    var controls: Boolean?
-    var autoplay: Boolean?
-
-    var loop: Boolean?
-
-    var poster: String?
-    var preload: String?
-
-    var src: String?
-
-    var autoPlay: Boolean?
-
-    var muted: Boolean?
-
-    var id: String?
-    var sources: JsArray<VideoSource>?
-}
+external interface VideoInitOptions : PlatformVideoInitOptions

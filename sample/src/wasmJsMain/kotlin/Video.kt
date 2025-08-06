@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import com.hamama.kwhi.HtmlView
+import external.VideoInitOptions
 import external.VideoJSPlayer
-import external.VideoJsOptions
 import external.VideoSource
 import external.videojs
 import kotlinx.browser.document
@@ -170,11 +170,11 @@ fun listenErrorEvents(player: VideoJSPlayer) {
 }
 
 
-fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoJsOptions {
+fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoInitOptions {
 
     val source = createVideoSource(videoSrcUrl, videoType)
 
-    val options = newJsObject<VideoJsOptions>()
+    val options = newJsObject<VideoInitOptions>()
     options.controls = true
     options.autoplay = false // Defaulting to false as per your previous code
     options.preload = "auto"

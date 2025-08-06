@@ -1,11 +1,9 @@
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
@@ -17,7 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +22,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import com.hamama.kwhi.HtmlView
 import external.Player
-import external.VideoJsOptions
+import external.VideoInitOptions
 import external.VideoSource
 import external.videojs
 import kotlinx.browser.document
@@ -33,6 +30,7 @@ import kotlinx.browser.window
 import util.isVideoJsFuncAvailable
 import util.loadCss
 import util.loadJs
+import util.newJsObject
 
 const val VIDEO_JS_URL = "https://vjs.zencdn.net/8.6.1/video.min.js"
 const val VIDEO_JS_CSS_URL = "https://vjs.zencdn.net/8.6.1/video-js.css"
@@ -177,16 +175,23 @@ fun listenErrorEvents(player: Player) {
 }
 
 
-fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoJsOptions {
+fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoInitOptions {
     val source = createVideoSource(videoSrcUrl, videoType)
 
-    val options = VideoJsOptions(controls = true, autoplay = false, preload = "auto",
-        sources = arrayOf(source))
-    return options
+    val videoOption = newJsObject<VideoInitOptions>().apply {
+        this.controls = true
+        this.autoplay = false
+        this.preload = "auto"
+        this.sources = arrayOf(source)
+    }
+    return videoOption
 }
 
 
 fun createVideoSource(videoSrcUrl: String, videoType: String): VideoSource {
-    val source = VideoSource(src = videoSrcUrl, type = videoType)
+    val source = newJsObject<VideoSource>().apply {
+        this.src = videoSrcUrl
+        this.type = videoType
+    }
     return source
 }
