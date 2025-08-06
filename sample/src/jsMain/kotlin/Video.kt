@@ -34,6 +34,9 @@ import utils.VIDEO_JS_URL
 import utils.createVideoOptionsObject
 import utils.createVideoSource
 import utils.isVideoJsFuncAvailable
+import web.cssom.ClassName
+import web.dom.ElementId
+import web.html.HTMLElement
 
 @Composable
 fun App() {
@@ -111,9 +114,9 @@ fun playVideos(videoElementId: String, updatePlayer: VideoPlayer?.() -> Unit) {
     HtmlView(
         modifier = Modifier.width(600.dp).height(500.dp),
         factory = {
-            val videoElement = document.createElement("video-js")
-            videoElement.id = videoElementId
-            videoElement.className = "vjs-big-play-centered"
+            val videoElement = document.createElement("video-js") as HTMLElement
+            videoElement.id = ElementId(videoElementId)
+            videoElement.className = ClassName("vjs-big-play-centered")
             videoElement
         },
         update = { videoElement ->

@@ -7,8 +7,6 @@ import kotlinx.browser.document
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
     CanvasBasedWindow(canvasElementId = "ComposeTarget") {
-        CompositionLocalProvider(LocalLayerContainer provides document.body!!) {
             App()
-        }
     }
 }

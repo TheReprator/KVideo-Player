@@ -8,19 +8,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateObserver
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.*
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.round
-import kotlinx.browser.document
-import kotlinx.dom.appendElement
-import kotlinx.dom.createElement
-import org.w3c.dom.Document
-import org.w3c.dom.Element
-import org.w3c.dom.HTMLElement
-import kotlin.random.Random
+import web.dom.Document
+import web.dom.Element
+import web.dom.document
+import web.html.HTMLElement
+import kotlin.js.js
 
 val NoOpUpdate: Element.() -> Unit = {}
 
@@ -119,20 +116,15 @@ private fun changeCoordinates(element: Element,width: Float,height: Float,x: Flo
     }
 """)
 
-
-
 @Composable
 fun <T : Element> HtmlView(
     factory: Document.() -> T,
     modifier: Modifier = Modifier,
     update: (T) -> Unit = NoOpUpdate
 ) {
-
-
-
     val componentInfo = remember { ComponentInfo<T>() }
 
-    val root = LocalLayerContainer.current
+    val root = document.body
     val density = LocalDensity.current.density
     val focusManager = LocalFocusManager.current
     val focusSwitcher = remember { FocusSwitcher(componentInfo, focusManager) }
@@ -148,7 +140,7 @@ fun <T : Element> HtmlView(
     }
 
     DisposableEffect(factory) {
-        componentInfo.container = document.createElement("div",NoOpUpdate)
+        componentInfo.container = createElementWith("div",NoOpUpdate)
         componentInfo.component = document.factory()
         root.insertBefore(componentInfo.container,root.firstChild)
         componentInfo.container.append(componentInfo.component)
@@ -165,6 +157,14 @@ fun <T : Element> HtmlView(
     }
 }
 
+private fun <T : HTMLElement> createElementWith(
+    tagName: String,
+    update: T.() -> Unit = {}
+): T {
+    val element = document.createElement(tagName) as T
+    element.update()
+    return element
+}
 
 private class Updater<T : Element>(
     private val component: T,
