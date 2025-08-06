@@ -30,15 +30,9 @@ import external.VideoSource
 import external.videojs
 import kotlinx.browser.document
 import kotlinx.browser.window
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import org.w3c.dom.HTMLDivElement
-import org.w3c.dom.HTMLElement
 import util.isVideoJsFuncAvailable
 import util.loadCss
 import util.loadJs
-import util.newJsObject
-import kotlin.js.unsafeCast
 
 const val VIDEO_JS_URL = "https://vjs.zencdn.net/8.6.1/video.min.js"
 const val VIDEO_JS_CSS_URL = "https://vjs.zencdn.net/8.6.1/video-js.css"
@@ -62,8 +56,6 @@ fun App() {
             }
         }
 
-        val scope =
-            rememberCoroutineScope() // Get a coroutine scope tied to this composable's lifecycle
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -81,17 +73,6 @@ fun App() {
                 println("4 inside update App AnimatedVisibility $isPlayerLibraryReady")
                 playVideos(videoElementId, {
                     player = this
-
-                    scope.launch {
-                        delay(500) // Delay for 500 milliseconds (adjust as needed)
-                        println("JS: Delay finished. Calling updatePlayer.")
-                        player?.controls_ = true
-                        player?.autoplay(true)
-                        player?.preload("auto")
-                        player?.src("https://cdn.bitmovin.com/content/assets/sintel/sintel.mpd")
-
-                    }
-
                     listenErrorEvents(player!!)
                 })
             }
