@@ -7,25 +7,22 @@ plugins {
 }
 
 kotlin {
-    wasmJs {
-        compilerOptions {
-            freeCompilerArgs.add("-Xwasm-attach-js-exception")
-        }
-
-        outputModuleName = "htmlInterop"
-        browser()
-        binaries.library()
+    listOf(
+        wasmJs{
+            compilerOptions {
+                freeCompilerArgs.add("-Xwasm-attach-js-exception")
+            }
+        },
+        js()
+    ).forEach { target ->
+        target.outputModuleName = "htmlInterop"
+        target.browser()
+        target.binaries.library()
     }
 
-    js {
-        outputModuleName = "htmlInteropJS"
-        browser()
-        binaries.library()
-    }
-    
     sourceSets {
 
-        commonMain.dependencies {
+        webMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
