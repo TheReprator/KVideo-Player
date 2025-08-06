@@ -13,6 +13,7 @@ suspend fun loadJs(url: String) {
         val script = document.createElement("script") as HTMLScriptElement
         script.src = url
         script.type = "application/javascript"
+        script.id = "vikramJS"
         script.onload = {
             println("Loaded script: $url")
             continuation.resume(Unit)
@@ -30,6 +31,29 @@ suspend fun loadJs(url: String) {
 
 suspend fun loadCss(url: String) {
     suspendCoroutine<Unit> { continuation ->
+        val link = document.createElement("link") as HTMLLinkElement
+        link.rel = "stylesheet"
+        link.href = url
+        link.type = "text/css"
+        link.id = "vikramCSS"
+        link.onload = {
+            println("Loaded CSS: $url")
+            continuation.resume(Unit)
+        }
+        link.onerror = { event, source, lineno, colno, error ->
+            val errorMessage =
+                "Error loading CSS: $url. Source: $source, Line: $lineno, Col: $colno, Error: ${error?.toString()}"
+            println(errorMessage)
+            continuation.resumeWithException(Exception(errorMessage))
+            null
+        }
+        document.head?.appendChild(link)
+    }
+}
+
+suspend fun unLoadJSModule(url: String) {
+    suspendCoroutine<Unit> { continuation ->
+
         val link = document.createElement("link") as HTMLLinkElement
         link.rel = "stylesheet"
         link.href = url

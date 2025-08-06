@@ -1,12 +1,8 @@
-@file:JsModule("video.js")
-@file:JsNonModule
+package modals
 
-package external
+import kotlin.js.JsAny
 
-import kotlin.js.*
-
-@JsName("default")
-open external class Player() {
+external interface VideoPlayer  {
     fun dispose()
     fun play()
     fun pause()
@@ -14,7 +10,7 @@ open external class Player() {
     fun load()
     fun poster(src: String?): String?
     fun isDisposed(): Boolean?
-    fun on(eventName: String, callback: (Any) -> Unit)
+    fun on(eventName: String, callback: (JsAny) -> Unit)
     fun off(eventName: String)
     fun off()
 }

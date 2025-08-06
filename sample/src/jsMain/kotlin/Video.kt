@@ -21,19 +21,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import com.hamama.kwhi.HtmlView
-import external.Player
-import external.VideoInitOptions
-import external.VideoSource
 import external.videojs
 import kotlinx.browser.document
 import kotlinx.browser.window
+import modals.VideoInitOptionsModal
+import modals.VideoPlayer
+import modals.VideoSource
 import util.isVideoJsFuncAvailable
 import util.loadCss
 import util.loadJs
 import util.newJsObject
-
-const val VIDEO_JS_URL = "https://vjs.zencdn.net/8.6.1/video.min.js"
-const val VIDEO_JS_CSS_URL = "https://vjs.zencdn.net/8.6.1/video-js.css"
+import utils.VIDEO_JS_CSS_ID
+import utils.VIDEO_JS_CSS_URL
+import utils.VIDEO_JS_ID
+import utils.VIDEO_JS_URL
 
 @Composable
 fun App() {
@@ -42,7 +43,7 @@ fun App() {
     MaterialTheme {
         var isPlayerLibraryReady by remember { mutableStateOf(false) }
         val videoElementId = remember { "dynamic-video-js-${kotlin.random.Random.nextInt()}" }
-        var player by remember { mutableStateOf<Player?>(null) } // Hold the player instance
+        var player by remember { mutableStateOf<VideoPlayer?>(null) } // Hold the player instance
         println("2 inside update App MaterialTheme")
 
         LaunchedEffect(Unit) {
@@ -86,13 +87,19 @@ fun App() {
                 if (false == player!!.isDisposed()) {
                     player!!.dispose()
                 }
+
+                val videoCssModule = document.getElementById(VIDEO_JS_CSS_ID) ?: return@onDispose
+                document.head?.removeChild(videoCssModule)
+
+                val videoJsModule = document.getElementById(VIDEO_JS_ID) ?: return@onDispose
+                document.head?.removeChild(videoJsModule)
             }
         }
     }
 }
 
 @Composable
-fun playVideos(videoElementId: String, updatePlayer: Player?.() -> Unit) {
+fun playVideos(videoElementId: String, updatePlayer: VideoPlayer?.() -> Unit) {
     val videoOptions by remember {
         mutableStateOf(
             createVideoOptionsObject(
@@ -122,7 +129,7 @@ fun playVideos(videoElementId: String, updatePlayer: Player?.() -> Unit) {
 }
 
 @OptIn(ExperimentalWasmJsInterop::class)
-fun changeVideoSource(player: Player) {
+fun changeVideoSource(player: VideoPlayer) {
     println("6 inside update App changeVideoSource")
     val src = createVideoSource(
         videoSrcUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -133,7 +140,7 @@ fun changeVideoSource(player: Player) {
     player.src(src)
 }
 
-fun listenErrorEvents(player: Player) {
+fun listenErrorEvents(player: VideoPlayer) {
     println("7 inside update App listenErrorEvents")
     player.on("error") {
         println("EVENT: Vikram error, Player: ")
@@ -175,10 +182,10 @@ fun listenErrorEvents(player: Player) {
 }
 
 
-fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoInitOptions {
+fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoInitOptionsModal {
     val source = createVideoSource(videoSrcUrl, videoType)
 
-    val videoOption = newJsObject<VideoInitOptions>().apply {
+    val videoOption = newJsObject<VideoInitOptionsModal>().apply {
         this.controls = true
         this.autoplay = false
         this.preload = "auto"

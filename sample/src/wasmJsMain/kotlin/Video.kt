@@ -23,26 +23,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import com.hamama.kwhi.HtmlView
-import external.VideoInitOptions
-import external.VideoJSPlayer
-import external.VideoSource
 import external.videojs
 import kotlinx.browser.document
 import kotlinx.browser.window
+import modals.VideoInitOptionsModal
+import modals.VideoPlayer
+import modals.VideoSource
 import util.isVideoJsFuncAvailable
 import util.loadCss
 import util.loadJs
 import util.newJsObject
-
-const val VIDEO_JS_URL = "https://vjs.zencdn.net/8.6.1/video.min.js"
-const val VIDEO_JS_CSS_URL = "https://vjs.zencdn.net/8.6.1/video-js.css"
+import utils.VIDEO_JS_CSS_ID
+import utils.VIDEO_JS_CSS_URL
+import utils.VIDEO_JS_ID
+import utils.VIDEO_JS_URL
 
 @Composable
 fun App() {
     MaterialTheme {
         var isPlayerLibraryReady by remember { mutableStateOf(false) }
         val videoElementId = remember { "dynamic-video-js-${kotlin.random.Random.nextInt()}" }
-        var player by remember { mutableStateOf<VideoJSPlayer?>(null) } // Hold the player instance
+        var player by remember { mutableStateOf<VideoPlayer?>(null) } // Hold the player instance
 
         LaunchedEffect(Unit) {
             loadJs(VIDEO_JS_URL)
@@ -84,13 +85,19 @@ fun App() {
                 if (false == player!!.isDisposed()) {
                     player!!.dispose()
                 }
+
+                val videoCssModule = document.getElementById(VIDEO_JS_CSS_ID) ?: return@onDispose
+                document.head?.removeChild(videoCssModule)
+
+                val videoJsModule = document.getElementById(VIDEO_JS_ID) ?: return@onDispose
+                document.head?.removeChild(videoJsModule)
             }
         }
     }
 }
 
 @Composable
-fun playVideos(videoElementId: String, updatePlayer: VideoJSPlayer?.() -> Unit) {
+fun playVideos(videoElementId: String, updatePlayer: VideoPlayer?.() -> Unit) {
     val videoOptions by remember {
         mutableStateOf(
             createVideoOptionsObject(
@@ -118,7 +125,7 @@ fun playVideos(videoElementId: String, updatePlayer: VideoJSPlayer?.() -> Unit) 
 }
 
 @OptIn(ExperimentalWasmJsInterop::class)
-fun changeVideoSource(player: VideoJSPlayer) {
+fun changeVideoSource(player: VideoPlayer) {
     val src = createVideoSource(
         videoSrcUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
         videoType = "video/mp4"
@@ -129,13 +136,13 @@ fun changeVideoSource(player: VideoJSPlayer) {
 }
 
 
-fun listenErrorEvents(player: VideoJSPlayer) {
+fun listenErrorEvents(player: VideoPlayer) {
     player.on("error") {
-        println("EVENT: Vikram error, Player: $this")
+        println("EVENT: Vikram error, Player: ")
     }
 
     player.on("play") {
-        println("EVENT: Vikram play, Player: ${this}")
+        println("EVENT: Vikram play, Player: ")
     }
 
     player.on("playing") {
@@ -143,19 +150,19 @@ fun listenErrorEvents(player: VideoJSPlayer) {
     }
 
     player.on("ended") {
-        println("EVENT: Vikram ended, Player: $this")
+        println("EVENT: Vikram ended, Player: ")
     }
 
     player.on("waiting") { // When buffering causes a pause
-        println("EVENT: Vikram waiting (buffering started), Player: $this")
+        println("EVENT: Vikram waiting (buffering started), Player: ")
     }
 
     player.on("stalled") { // When the browser is trying to fetch data but it's not coming
-        println("EVENT: Vikram stalled, Player: $this")
+        println("EVENT: Vikram stalled, Player: ")
     }
 
     player.on("buffer_start") { // When the browser is trying to fetch data but it's not coming
-        println("EVENT: Vikram buffer_start, Player: $this")
+        println("EVENT: Vikram buffer_start, Player: ")
     }
 
     window.addEventListener("offline", callback = { event ->
@@ -170,11 +177,11 @@ fun listenErrorEvents(player: VideoJSPlayer) {
 }
 
 
-fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoInitOptions {
+fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoInitOptionsModal {
 
     val source = createVideoSource(videoSrcUrl, videoType)
 
-    val options = newJsObject<VideoInitOptions>()
+    val options = newJsObject<VideoInitOptionsModal>()
     options.controls = true
     options.autoplay = false // Defaulting to false as per your previous code
     options.preload = "auto"
