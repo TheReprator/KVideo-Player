@@ -78,9 +78,5 @@ kotlin {
             implementation(npm("video.js", "8.6.1"))
             implementation(project(":htmlInterop"))
         }
-
-        wasmJsMain.dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-browser:0.4")
-        }
     }
 }
