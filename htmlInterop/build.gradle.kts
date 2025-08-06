@@ -18,7 +18,7 @@ kotlin {
     }
 
     js {
-        outputModuleName = "htmlInterop"
+        outputModuleName = "htmlInteropJS"
         browser()
         binaries.library()
     }

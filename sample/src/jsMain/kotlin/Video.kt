@@ -1,9 +1,11 @@
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
@@ -15,33 +17,41 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import com.hamama.kwhi.HtmlView
-import external.VideoJSPlayer
+import external.Player
 import external.VideoJsOptions
 import external.VideoSource
 import external.videojs
 import kotlinx.browser.document
 import kotlinx.browser.window
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.w3c.dom.HTMLDivElement
+import org.w3c.dom.HTMLElement
 import util.isVideoJsFuncAvailable
 import util.loadCss
 import util.loadJs
 import util.newJsObject
-import kotlin.random.Random
+import kotlin.js.unsafeCast
 
 const val VIDEO_JS_URL = "https://vjs.zencdn.net/8.6.1/video.min.js"
 const val VIDEO_JS_CSS_URL = "https://vjs.zencdn.net/8.6.1/video-js.css"
 
 @Composable
 fun App() {
+    println("1 inside update App")
+
     MaterialTheme {
         var isPlayerLibraryReady by remember { mutableStateOf(false) }
-        val videoElementId = remember { "dynamic-video-js-${Random.nextInt()}" }
-        var player by remember { mutableStateOf<VideoJSPlayer?>(null) } // Hold the player instance
+        val videoElementId = remember { "dynamic-video-js-${kotlin.random.Random.nextInt()}" }
+        var player by remember { mutableStateOf<Player?>(null) } // Hold the player instance
+        println("2 inside update App MaterialTheme")
 
         LaunchedEffect(Unit) {
             loadJs(VIDEO_JS_URL)
@@ -52,12 +62,15 @@ fun App() {
             }
         }
 
+        val scope =
+            rememberCoroutineScope() // Get a coroutine scope tied to this composable's lifecycle
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            println("2 inside update App Column $isPlayerLibraryReady")
             Button(onClick = { changeVideoSource(player!!) }) {
                 Text("Change Source")
             }
@@ -65,17 +78,28 @@ fun App() {
             Divider(Modifier.height(50.dp).fillMaxWidth())
 
             AnimatedVisibility(isPlayerLibraryReady) {
-
+                println("4 inside update App AnimatedVisibility $isPlayerLibraryReady")
                 playVideos(videoElementId, {
                     player = this
+
+                    scope.launch {
+                        delay(500) // Delay for 500 milliseconds (adjust as needed)
+                        println("JS: Delay finished. Calling updatePlayer.")
+                        player?.controls_ = true
+                        player?.autoplay(true)
+                        player?.preload("auto")
+                        player?.src("https://cdn.bitmovin.com/content/assets/sintel/sintel.mpd")
+
+                    }
+
                     listenErrorEvents(player!!)
                 })
             }
-
         }
 
         DisposableEffect(LocalLifecycleOwner.current) {
             onDispose {
+                println("00 inside update App DisposableEffect onDispose $isPlayerLibraryReady")
                 if (null == player) {
                     return@onDispose
                 }
@@ -89,7 +113,7 @@ fun App() {
 }
 
 @Composable
-fun playVideos(videoElementId: String, updatePlayer: VideoJSPlayer?.() -> Unit) {
+fun playVideos(videoElementId: String, updatePlayer: Player?.() -> Unit) {
     val videoOptions by remember {
         mutableStateOf(
             createVideoOptionsObject(
@@ -98,6 +122,7 @@ fun playVideos(videoElementId: String, updatePlayer: VideoJSPlayer?.() -> Unit) 
             )
         )
     }
+
     HtmlView(
         modifier = Modifier.width(600.dp).height(500.dp),
         factory = {
@@ -114,10 +139,12 @@ fun playVideos(videoElementId: String, updatePlayer: VideoJSPlayer?.() -> Unit) 
             }
         }
     )
+
 }
 
 @OptIn(ExperimentalWasmJsInterop::class)
-fun changeVideoSource(player: VideoJSPlayer) {
+fun changeVideoSource(player: Player) {
+    println("6 inside update App changeVideoSource")
     val src = createVideoSource(
         videoSrcUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
         videoType = "video/mp4"
@@ -127,14 +154,14 @@ fun changeVideoSource(player: VideoJSPlayer) {
     player.src(src)
 }
 
-
-fun listenErrorEvents(player: VideoJSPlayer) {
+fun listenErrorEvents(player: Player) {
+    println("7 inside update App listenErrorEvents")
     player.on("error") {
         println("EVENT: Vikram error, Player: ")
     }
 
     player.on("play") {
-        println("EVENT: Vikram play, Player: ")
+        println("EVENT: Vikram play, Player:")
     }
 
     player.on("playing") {
@@ -142,7 +169,7 @@ fun listenErrorEvents(player: VideoJSPlayer) {
     }
 
     player.on("ended") {
-        println("EVENT: Vikram ended, Player: ")
+        println("EVENT: Vikram ended, Player:")
     }
 
     player.on("waiting") { // When buffering causes a pause
@@ -170,21 +197,15 @@ fun listenErrorEvents(player: VideoJSPlayer) {
 
 
 fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoJsOptions {
-
     val source = createVideoSource(videoSrcUrl, videoType)
 
-    val options = newJsObject<VideoJsOptions>()
-    options.controls = true
-    options.autoplay = false // Defaulting to false as per your previous code
-    options.preload = "auto"
-    options.sources = listOf(source).toTypedArray()
+    val options = VideoJsOptions(controls = true, autoplay = false, preload = "auto",
+        sources = arrayOf(source))
     return options
 }
 
 
 fun createVideoSource(videoSrcUrl: String, videoType: String): VideoSource {
-    val source = newJsObject<VideoSource>()
-    source.src = videoSrcUrl
-    //source.type = videoType
+    val source = VideoSource(src = videoSrcUrl, type = videoType)
     return source
 }

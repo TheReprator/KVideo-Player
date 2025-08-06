@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
+    kotlin("plugin.js-plain-objects") version libs.versions.kotlin
 }
 
 kotlin {
@@ -41,9 +42,13 @@ kotlin {
     }
 
     js {
+        useEsModules()
         outputModuleName = "samplejs"
         browser {
             commonWebpackConfig {
+                cssSupport {
+                    enabled.set(true)
+                }
                 outputFileName = "samplejs.js"
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
                     static = (static ?: mutableListOf()).apply {
