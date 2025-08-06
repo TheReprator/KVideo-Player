@@ -6,21 +6,23 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kotlin.serialization)
+    kotlin("plugin.js-plain-objects") version libs.versions.kotlin
 }
 
 kotlin {
-    wasmJs {
-        compilerOptions {
-            freeCompilerArgs.add("-Xwasm-attach-js-exception")
-            freeCompilerArgs.add("-Xwasm-use-new-exception-proposal")
-        }
+    val rootDirPath = project.rootDir.path
+    val projectDirPath = project.projectDir.path
 
-        generateTypeScriptDefinitions()
-        outputModuleName = "sample"
-        browser {
-            val rootDirPath = project.rootDir.path
-            val projectDirPath = project.projectDir.path
+    listOf(
+        wasmJs{
+            compilerOptions {
+                freeCompilerArgs.add("-Xwasm-attach-js-exception")
+                freeCompilerArgs.add("-Xwasm-use-new-exception-proposal")
+            }
+        },
+        js()
+    ).forEach { target ->
+        target.browser {
 
             commonWebpackConfig {
                 cssSupport {
@@ -37,42 +39,27 @@ kotlin {
                 }
             }
         }
-        binaries.executable()
-    }
 
-    js {
-        outputModuleName = "sample"
-        browser {
-            commonWebpackConfig {
-                outputFileName = "sample.js"
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
-                        add(project.projectDir.path)
-                    }
-                    port = 3001
-                }
-            }
-        }
-        binaries.executable()
+        target.generateTypeScriptDefinitions()
+        target.outputModuleName = "sample"
+        target.useEsModules()
+        target.binaries.executable()
     }
 
     sourceSets {
 
         commonMain.dependencies {
-            implementation(libs.kotlinx.serialization)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(project(":htmlInterop"))
         }
 
         webMain.dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-browser:0.4")
             implementation(npm("video.js", "8.6.1"))
+            implementation(projects.htmlInterop)
         }
     }
 }

@@ -8,7 +8,6 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-
 suspend fun loadJs(url: String) {
     suspendCoroutine<Unit> { continuation ->
         val script = document.createElement("script") as HTMLScriptElement
