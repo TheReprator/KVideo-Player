@@ -23,6 +23,7 @@ kotlin {
     sourceSets {
 
         webMain.dependencies {
+            api("org.jetbrains.kotlin-wrappers:kotlin-browser:2025.8.5")
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)

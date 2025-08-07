@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
-    kotlin("plugin.js-plain-objects") version libs.versions.kotlin
 }
 
 kotlin {
@@ -16,7 +15,6 @@ kotlin {
     listOf(
         wasmJs{
             compilerOptions {
-                freeCompilerArgs.add("-Xwasm-attach-js-exception")
                 freeCompilerArgs.add("-Xwasm-use-new-exception-proposal")
             }
         },
