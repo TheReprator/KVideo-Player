@@ -1,6 +1,7 @@
 @file:OptIn(ExperimentalWasmJsInterop::class)
 
-import androidx.compose.animation.AnimatedVisibility
+package ui
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,35 +25,56 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import com.hamama.kwhi.HtmlView
 import external.videojs
-import kotlinx.browser.document
-import kotlinx.browser.window
 import modals.VideoPlayer
-import util.loadCss
-import util.loadJs
 import utils.VIDEO_JS_CSS_ID
 import utils.VIDEO_JS_CSS_URL
 import utils.VIDEO_JS_ID
 import utils.VIDEO_JS_URL
+import utils.appGetElementById
 import utils.createVideoOptionsObject
 import utils.createVideoSource
 import utils.isVideoJsFuncAvailable
+import utils.loadCss
+import utils.loadJsScript
 import web.cssom.ClassName
 import web.dom.ElementId
-import web.html.HTMLElement
+import web.dom.document
+import web.events.Event
+import web.events.EventHandler
+import web.events.OFFLINE
+import web.events.ONLINE
+import web.events.addEventListener
+import web.window.window
+import kotlin.js.ExperimentalWasmJsInterop
+import kotlin.js.JsException
+import kotlin.random.Random
 
 @Composable
-fun App() {
+fun AppVideoPlayer() {
+
+    println("1 AppVideoPlayer 1")
+
     MaterialTheme {
-        var isPlayerLibraryReady by remember { mutableStateOf(false) }
-        val videoElementId = remember { "dynamic-video-js-${kotlin.random.Random.nextInt()}" }
-        var player by remember { mutableStateOf<VideoPlayer?>(null) } // Hold the player instance
+        var isError by remember { mutableStateOf<Boolean?>(null) }
+
+        println("1 AppVideoPlayer 2")
 
         LaunchedEffect(Unit) {
-            loadJs(VIDEO_JS_URL)
-            loadCss(VIDEO_JS_CSS_URL)
-            if (isVideoJsFuncAvailable()) {
-                println("SUCCESS: videojs function IS available globally.")
-                isPlayerLibraryReady = true
+            try {
+                loadJsScript(VIDEO_JS_URL, VIDEO_JS_ID)
+                loadCss(VIDEO_JS_CSS_URL, VIDEO_JS_CSS_ID)
+                if (isVideoJsFuncAvailable()) {
+                    println("1 AppVideoPlayer 3")
+                    isError = false
+                }
+            } catch (e: JsException) {
+                isError = true
+                println("1 AppVideoPlayer 3.1 error: ${e.message}")
+                e.printStackTrace()
+            } catch (e: Exception) {
+                isError = true
+                println("1 AppVideoPlayer 3.2 error: ${e.message}")
+                e.printStackTrace()
             }
         }
 
@@ -61,45 +83,66 @@ fun App() {
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            Button(onClick = { changeVideoSource(player!!) }) {
-                Text("Change Source")
-            }
-
-            Divider(Modifier.height(50.dp).fillMaxWidth())
-
-            AnimatedVisibility(isPlayerLibraryReady) {
-
-                playVideos(videoElementId, {
-                    player = this
-                    listenErrorEvents(player!!)
-                })
-            }
-
-        }
-
-        DisposableEffect(LocalLifecycleOwner.current) {
-            onDispose {
-                if (null == player) {
-                    return@onDispose
+            println("1 AppVideoPlayer 4")
+            if (null != isError) {
+                println("1 AppVideoPlayer 4.1")
+                if (true == isError) {
+                    Text(text = "An error occured while loading video script and css while downloading from server. Please referesh")
+                } else {
+                    PrepareVideoSetup()
                 }
-                player!!.off()
-                if (false == player!!.isDisposed()) {
-                    player!!.dispose()
-                }
-
-                val videoCssModule = document.getElementById(VIDEO_JS_CSS_ID) ?: return@onDispose
-                document.head?.removeChild(videoCssModule)
-
-                val videoJsModule = document.getElementById(VIDEO_JS_ID) ?: return@onDispose
-                document.head?.removeChild(videoJsModule)
             }
         }
     }
 }
 
 @Composable
-fun playVideos(videoElementId: String, updatePlayer: VideoPlayer?.() -> Unit) {
+fun PrepareVideoSetup() {
+    println("2 handleVideoView ")
+
+    val videoElementId = remember { "dynamic-video-js-${Random.nextInt()}" }
+    var player by remember { mutableStateOf<VideoPlayer?>(null) } // Hold the player instance
+
+    Button(onClick = {
+        changeVideoSource(player!!)
+    }) {
+        Text("Change Video Source")
+    }
+
+    Divider(Modifier.height(50.dp).fillMaxWidth())
+
+    VideoScreen(videoElementId, {
+        println("2 handleVideoView 1")
+        player = this
+        listenErrorEvents(player!!)
+    })
+
+    DisposableEffect(LocalLifecycleOwner.current) {
+        onDispose {
+            println("2 handleVideoView 2")
+            if (null == player) {
+                return@onDispose
+            }
+            player!!.off()
+            if (false == player!!.isDisposed()) {
+                player!!.dispose()
+            }
+
+            val videoCssModule = appGetElementById(VIDEO_JS_CSS_ID) ?: return@onDispose
+            document.head.removeChild(videoCssModule)
+
+            val videoJsModule = appGetElementById(VIDEO_JS_ID) ?: return@onDispose
+            document.head.removeChild(videoJsModule)
+        }
+    }
+}
+
+
+@Composable
+fun VideoScreen(videoElementId: String, updatePlayer: VideoPlayer?.() -> Unit) {
+
+    println("3 VideoScreen")
+
     val videoOptions by remember {
         mutableStateOf(
             createVideoOptionsObject(
@@ -108,16 +151,20 @@ fun playVideos(videoElementId: String, updatePlayer: VideoPlayer?.() -> Unit) {
             )
         )
     }
+
     HtmlView(
         modifier = Modifier.width(600.dp).height(500.dp),
         factory = {
-            val videoElement = document.createElement("video-js") as HTMLElement
+            println("3 VideoScreen HtmlView 1")
+            val videoElement = document.createElement("video-js")
             videoElement.id = ElementId(videoElementId)
             videoElement.className = ClassName("vjs-big-play-centered")
             videoElement
         },
         update = { videoElement ->
+            println("3 VideoScreen HtmlView 2")
             if ((videoElement.getAttribute("data-vjs-player") == null)) {
+                println("3 VideoScreen HtmlView 2.1")
                 val newVidePlayer = videojs(videoElement, videoOptions)
                 updatePlayer(newVidePlayer)
                 videoElement.setAttribute("data-vjs-player", "true")
@@ -126,8 +173,8 @@ fun playVideos(videoElementId: String, updatePlayer: VideoPlayer?.() -> Unit) {
     )
 }
 
-@OptIn(ExperimentalWasmJsInterop::class)
 fun changeVideoSource(player: VideoPlayer) {
+    println("6 inside update App changeVideoSource")
     val src = createVideoSource(
         videoSrcUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
         videoType = "video/mp4"
@@ -137,14 +184,15 @@ fun changeVideoSource(player: VideoPlayer) {
     player.src(src)
 }
 
-
 fun listenErrorEvents(player: VideoPlayer) {
+    println("4 listenErrorEvents")
+
     player.on("error") {
         println("EVENT: Vikram error, Player: ")
     }
 
     player.on("play") {
-        println("EVENT: Vikram play, Player: ")
+        println("EVENT: Vikram play, Player:")
     }
 
     player.on("playing") {
@@ -152,7 +200,7 @@ fun listenErrorEvents(player: VideoPlayer) {
     }
 
     player.on("ended") {
-        println("EVENT: Vikram ended, Player: ")
+        println("EVENT: Vikram ended, Player:")
     }
 
     player.on("waiting") { // When buffering causes a pause
@@ -167,12 +215,13 @@ fun listenErrorEvents(player: VideoPlayer) {
         println("EVENT: Vikram buffer_start, Player: ")
     }
 
-    window.addEventListener("offline", callback = { event ->
-        println("'Internet connection lost!'")
+    window.addEventListener(Event.OFFLINE, EventHandler { event: Event ->
+        println("Internet connection lost!")
         player.pause()
     })
 
-    window.addEventListener("online", callback = { event ->
+
+    window.addEventListener(Event.ONLINE, EventHandler { event: Event ->
         println("'Internet connection present!'")
         player.play()
     })

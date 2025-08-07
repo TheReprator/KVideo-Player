@@ -15,7 +15,6 @@ kotlin {
     listOf(
         wasmJs{
             compilerOptions {
-                freeCompilerArgs.add("-Xwasm-attach-js-exception")
                 freeCompilerArgs.add("-Xwasm-use-new-exception-proposal")
             }
         },

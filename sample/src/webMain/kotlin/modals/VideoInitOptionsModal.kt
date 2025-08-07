@@ -1,8 +1,10 @@
 package modals
 
+import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.js.JsAny
 import kotlin.js.JsArray
 
+@OptIn(ExperimentalWasmJsInterop::class)
 external interface VideoInitOptionsModal: JsAny  {
     var controls: Boolean?
 
