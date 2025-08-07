@@ -47,6 +47,7 @@ kotlin {
     sourceSets {
 
         commonMain.dependencies {
+            implementation(projects.videoFramework)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -56,8 +57,7 @@ kotlin {
         }
 
         webMain.dependencies {
-            implementation(npm("video.js", "8.6.1"))
-            implementation(projects.htmlInterop)
+            implementation(libs.kotlin.wrapper.browser)
         }
     }
 }

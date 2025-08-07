@@ -15,20 +15,24 @@ kotlin {
         },
         js()
     ).forEach { target ->
-        target.outputModuleName = "htmlInterop"
+        target.outputModuleName = "videoFramework"
         target.browser()
         target.binaries.library()
     }
 
     sourceSets {
 
-        webMain.dependencies {
-            api("org.jetbrains.kotlin-wrappers:kotlin-browser:2025.8.5")
+        commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
+        }
+
+        webMain.dependencies {
+            implementation(npm("video.js", "8.6.1"))
+            implementation(libs.kotlin.wrapper.browser)
         }
     }
 }

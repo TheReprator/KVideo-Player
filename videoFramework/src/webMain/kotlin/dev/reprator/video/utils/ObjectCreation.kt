@@ -1,7 +1,7 @@
-package utils
+package dev.reprator.video.utils
 
-import modals.VideoInitOptionsModal
-import modals.VideoSource
+import dev.reprator.video.modals.VideoInitOptionsModal
+import dev.reprator.video.modals.VideoSource
 import kotlin.js.toJsArray
 
 fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoInitOptionsModal {

@@ -18,5 +18,5 @@ dependencyResolutionManagement {
     }
 }
 
-include(":htmlInterop")
+include(":videoFramework")
 include(":sample")

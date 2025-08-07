@@ -1,9 +1,8 @@
-package external
+package dev.reprator.video.external
 
-import modals.VideoInitOptionsModal
-import modals.VideoPlayer
+import dev.reprator.video.modals.VideoInitOptionsModal
+import dev.reprator.video.modals.VideoPlayer
 import web.dom.Element
-import kotlin.js.JsAny
 import kotlin.js.JsModule
 import kotlin.js.JsName
 

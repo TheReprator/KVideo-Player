@@ -1,4 +1,4 @@
-package com.hamama.kwhi
+package dev.reprator.video.webInterlop
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable

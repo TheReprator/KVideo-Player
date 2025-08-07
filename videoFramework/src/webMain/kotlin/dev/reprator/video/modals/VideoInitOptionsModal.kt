@@ -1,4 +1,4 @@
-package modals
+package dev.reprator.video.modals
 
 import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.js.JsAny

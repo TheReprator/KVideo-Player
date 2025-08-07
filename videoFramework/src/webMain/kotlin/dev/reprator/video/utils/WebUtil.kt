@@ -1,4 +1,4 @@
-package utils
+package dev.reprator.video.utils
 
 import web.dom.ElementId
 import web.dom.document
@@ -13,7 +13,6 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import kotlin.js.JsAny
 import kotlin.js.js
-
 
 suspend fun loadJsScript(url: String, id: String) {
     suspendCoroutine<Unit> { continuation ->
