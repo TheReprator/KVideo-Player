@@ -12,12 +12,9 @@ class VideoPlayerImpl(private val webVideoPlayer: InternalVideoPlayer): VideoPla
 
     override fun play() = webVideoPlayer.play()
 
-
     override fun pause() = webVideoPlayer.pause()
 
-
     override fun isDisposed(): Boolean = webVideoPlayer.isDisposed()
-
 
     override fun dispose() {
         webVideoPlayer.dispose()
