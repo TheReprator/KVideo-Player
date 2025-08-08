@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalWasmJsInterop::class)
+
 package dev.reprator.video.webInterlop
 
 import androidx.compose.foundation.layout.Box
@@ -17,6 +19,7 @@ import web.dom.Document
 import web.dom.Element
 import web.dom.document
 import web.html.HTMLElement
+import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.js.js
 
 val NoOpUpdate: Element.() -> Unit = {}
