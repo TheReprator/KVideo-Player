@@ -31,9 +31,9 @@ suspend fun loadJsScript(url: String, id: String) {
             continuation.resume(Unit)
         }
 
-        script.errorEvent.addHandler {
+     /*   script.errorEvent.addHandler {
             continuation.resumeWithException(RuntimeException("Failed to load JS script: $url"))
-        }
+        }*/
 
         document.head.appendChild(script)
     }
@@ -47,9 +47,9 @@ suspend fun loadCss(url: String, id: String) {
         link.id = appCreateElement(id)
         link.type = "text/css"
 
-        link.errorEvent.addHandler {
+        /*link.errorEvent.addHandler {
             continuation.resumeWithException(RuntimeException("Failed to load script: $url"))
-        }
+        }*/
 
         link.loadEvent.addHandler {
             println("CSS loaded: $url")

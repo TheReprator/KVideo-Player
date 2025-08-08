@@ -18,10 +18,11 @@ actual fun PlatformVideoView(
         factory = {
             webPlayerController.videoElement.value
         },
-        update = { videoElement ->
+        /*update = { videoElement ->
             if ((videoElement.getAttribute("data-vjs-player") == null)) {
                 videoElement.setAttribute("data-vjs-player", "true")
             }
-        }
+        }*/
+        //Not needed
     )
 }

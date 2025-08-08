@@ -3,7 +3,7 @@
 package dev.reprator.video.platform.impl
 
 import androidx.compose.runtime.mutableStateOf
-import dev.reprator.video.external.videojs
+import dev.reprator.video.platform.external.videojs
 import dev.reprator.video.modals.VideoInitOptionModal
 import dev.reprator.video.utils.VIDEO_JS_CSS_ID
 import dev.reprator.video.utils.VIDEO_JS_CSS_URL
@@ -44,15 +44,10 @@ class PlaybackStateControllerImpl() : PlayerController {
         try {
             loadJsScript(VIDEO_JS_URL, VIDEO_JS_ID)
             loadCss(VIDEO_JS_CSS_URL, VIDEO_JS_CSS_ID)
-            if (isVideoJsFuncAvailable()) {
-                println("1 PlaybackStateControllerImpl")
-                return true
-            }
+            return isVideoJsFuncAvailable()
         } catch (e: JsException) {
-            println("1 PlaybackStateControllerImpl 1.1 error: ${e.message}")
             e.printStackTrace()
         } catch (e: Exception) {
-            println("1 PlaybackStateControllerImpl 1.2 error: ${e.message}")
             e.printStackTrace()
         }
         return false
@@ -77,7 +72,6 @@ class PlaybackStateControllerImpl() : PlayerController {
     override fun stopEventTracking() {
         TRACKING_WINDOW_LIST.forEach {
             window.removeEventListener(it, {
-                println("${it} callback removed")
             })
         }
     }
