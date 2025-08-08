@@ -7,5 +7,5 @@ interface VideoPlayer {
     fun pause()
     fun isDisposed(): Boolean
     fun dispose()
-    fun chaneMedia(videoSource: VideoSource)
+    fun changeMedia(videoSource: VideoSource)
 }

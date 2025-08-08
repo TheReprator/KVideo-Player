@@ -67,7 +67,7 @@ fun changeVideoSource(player: VideoPlayer) {
         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
         "video/mp4", "https://i.ytimg.com/vi/aqz-KE-bpKQ/maxresdefault.jpg"
     )
-    player.chaneMedia(videoSource)
+    player.changeMedia(videoSource)
 }
 
 

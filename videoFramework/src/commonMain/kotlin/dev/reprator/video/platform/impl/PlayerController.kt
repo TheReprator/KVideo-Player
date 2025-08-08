@@ -7,6 +7,4 @@ interface PlayerController {
     val player: VideoPlayer
     suspend fun setupPlayer(): Boolean
     fun initPlayer(initOptions: VideoInitOptionModal)
-    fun startEventTracking()
-    fun stopEventTracking()
 }

@@ -29,7 +29,7 @@ class VideoPlayerImpl(private val webVideoPlayer: InternalVideoPlayer): VideoPla
         document.head.removeChild(videoJsModule)
     }
 
-    override fun chaneMedia(videoSource: VideoSource) {
+    override fun changeMedia(videoSource: VideoSource) {
         val src = createVideoSource(
             videoSrcUrl = videoSource.src,
             videoType = videoSource.type
