@@ -1,11 +1,12 @@
+@file:OptIn(ExperimentalWasmJsInterop::class)
+
 package dev.reprator.video.modals
 
 import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.js.JsAny
 import kotlin.js.JsArray
 
-@OptIn(ExperimentalWasmJsInterop::class)
-external interface VideoInitOptionsModal: JsAny  {
+external interface InternalVideoInitOptionsModal: JsAny  {
     var controls: Boolean?
 
     var autoplay: Boolean?
@@ -24,5 +25,5 @@ external interface VideoInitOptionsModal: JsAny  {
 
     var id: String?
 
-    var sources: JsArray<VideoSource>?
+    var sources: JsArray<InternalVideoSource>?
 }

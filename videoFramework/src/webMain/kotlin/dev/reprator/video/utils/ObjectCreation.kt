@@ -1,14 +1,17 @@
+@file:OptIn(ExperimentalWasmJsInterop::class)
+
 package dev.reprator.video.utils
 
-import dev.reprator.video.modals.VideoInitOptionsModal
-import dev.reprator.video.modals.VideoSource
+import dev.reprator.video.modals.InternalVideoInitOptionsModal
+import dev.reprator.video.modals.InternalVideoSource
+import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.js.toJsArray
 
-fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoInitOptionsModal {
+fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): InternalVideoInitOptionsModal {
 
     val source = createVideoSource(videoSrcUrl, videoType)
 
-    val options = newJsObject<VideoInitOptionsModal>()
+    val options = newJsObject<InternalVideoInitOptionsModal>()
     options.controls = true
     options.autoplay = false // Defaulting to false as per your previous code
     options.preload = "auto"
@@ -17,8 +20,8 @@ fun createVideoOptionsObject(videoSrcUrl: String, videoType: String): VideoInitO
 }
 
 
-fun createVideoSource(videoSrcUrl: String, videoType: String): VideoSource {
-    val source = newJsObject<VideoSource>()
+fun createVideoSource(videoSrcUrl: String, videoType: String): InternalVideoSource {
+    val source = newJsObject<InternalVideoSource>()
     source.src = videoSrcUrl
     //source.type = videoType
     return source

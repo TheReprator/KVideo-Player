@@ -1,6 +1,4 @@
-@file:OptIn(ExperimentalWasmJsInterop::class)
-
-package ui
+package dev.reprator.video.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -23,84 +21,57 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
-import dev.reprator.video.external.videojs
-import dev.reprator.video.utils.VIDEO_JS_CSS_ID
-import dev.reprator.video.utils.VIDEO_JS_CSS_URL
-import dev.reprator.video.utils.VIDEO_JS_ID
-import dev.reprator.video.utils.VIDEO_JS_URL
-import dev.reprator.video.utils.appGetElementById
-import dev.reprator.video.utils.createVideoOptionsObject
-import dev.reprator.video.utils.createVideoSource
-import dev.reprator.video.utils.isVideoJsFuncAvailable
-import dev.reprator.video.utils.loadCss
-import dev.reprator.video.utils.loadJsScript
-import dev.reprator.video.webInterlop.HtmlView
-import web.cssom.ClassName
-import web.dom.ElementId
-import web.dom.document
-import web.events.Event
-import web.events.EventHandler
-import web.events.OFFLINE
-import web.events.ONLINE
-import web.events.addEventListener
-import web.window.window
-import kotlin.js.ExperimentalWasmJsInterop
-import kotlin.js.JsException
+import dev.reprator.video.platform.impl.PlaybackStateController
+import dev.reprator.video.platform.impl.VideoInitOptionModal
+import dev.reprator.video.platform.impl.VideoPlayer
+import dev.reprator.video.platform.impl.VideoSource
+import kvideo_player.videoframework.generated.resources.Res
+import kvideo_player.videoframework.generated.resources.video_error_setup
+import org.jetbrains.compose.resources.stringResource
 import kotlin.random.Random
 
 @Composable
-fun AppVideoPlayer() {
+fun AppVideoPlayer(stateController: PlaybackStateController) {
+
+    var isAppInitialized by remember { mutableStateOf<Boolean?>(null) }
 
     println("1 AppVideoPlayer 1")
 
-    MaterialTheme {
-        var isError by remember { mutableStateOf<Boolean?>(null) }
+    LaunchedEffect(Unit) {
+        isAppInitialized = stateController.setupPlayer()
+    }
 
-        println("1 AppVideoPlayer 2")
-
-        LaunchedEffect(Unit) {
-            try {
-                loadJsScript(VIDEO_JS_URL, VIDEO_JS_ID)
-                loadCss(VIDEO_JS_CSS_URL, VIDEO_JS_CSS_ID)
-                if (isVideoJsFuncAvailable()) {
-                    println("1 AppVideoPlayer 3")
-                    isError = false
-                }
-            } catch (e: JsException) {
-                isError = true
-                println("1 AppVideoPlayer 3.1 error: ${e.message}")
-                e.printStackTrace()
-            } catch (e: Exception) {
-                isError = true
-                println("1 AppVideoPlayer 3.2 error: ${e.message}")
-                e.printStackTrace()
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        println("1 AppVideoPlayer 1.1: $isAppInitialized")
+        when (isAppInitialized) {
+            null -> {
+                CircularProgressIndicator()
             }
-        }
+            false -> {
+                Text(text = stringResource(Res.string.video_error_setup))
+            }
+            true -> {
+                val videoSource = VideoSource("https://cdn.bitmovin.com/content/assets/sintel/sintel.mpd",
+                "application/dash+xml", "")
+                val videoInitOptions = VideoInitOptionModal(poster = null, id = null, sources = listOf(videoSource))
 
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            println("1 AppVideoPlayer 4")
-            if (null != isError) {
-                println("1 AppVideoPlayer 4.1")
-                if (true == isError) {
-                    Text(text = "An error occured while loading video script and css while downloading from server. Please referesh")
-                } else {
-                    PrepareVideoSetup()
-                }
+                stateController.initPlayer({}, videoInitOptions)
+                PrepareVideoSetup(stateController)
             }
         }
     }
 }
 
 @Composable
-fun PrepareVideoSetup() {
+fun PrepareVideoSetup(stateController: PlaybackStateController) {
     println("2 handleVideoView ")
 
     val videoElementId = remember { "dynamic-video-js-${Random.nextInt()}" }
-    var player by remember { mutableStateOf<`InternalVideoPlayer.web.kt`?>(null) } // Hold the player instance
+    var player by remember { mutableStateOf<VideoPlayer?>(null) } // Hold the player instance
 
     Button(onClick = {
         changeVideoSource(player!!)
@@ -138,7 +109,7 @@ fun PrepareVideoSetup() {
 
 
 @Composable
-fun VideoScreen(videoElementId: String, updatePlayer: `InternalVideoPlayer.web.kt`?.() -> Unit) {
+fun VideoScreen(videoElementId: String, updatePlayer: VideoPlayer?.() -> Unit) {
 
     println("3 VideoScreen")
 
@@ -172,7 +143,7 @@ fun VideoScreen(videoElementId: String, updatePlayer: `InternalVideoPlayer.web.k
     )
 }
 
-fun changeVideoSource(player: `InternalVideoPlayer.web.kt`) {
+fun changeVideoSource(player: VideoPlayer) {
     println("6 inside update App changeVideoSource")
     val src = createVideoSource(
         videoSrcUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -183,7 +154,7 @@ fun changeVideoSource(player: `InternalVideoPlayer.web.kt`) {
     player.src(src)
 }
 
-fun listenErrorEvents(player: `InternalVideoPlayer.web.kt`) {
+fun listenErrorEvents(player: VideoPlayer) {
     println("4 listenErrorEvents")
 
     player.on("error") {
