@@ -1,4 +1,4 @@
-rootProject.name = "KotlinWasmHtmlInterop"
+rootProject.name = "KVideo-Player"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -16,5 +16,5 @@ dependencyResolutionManagement {
     }
 }
 
-include(":htmlInterop")
+include(":videoFramework")
 include(":sample")
