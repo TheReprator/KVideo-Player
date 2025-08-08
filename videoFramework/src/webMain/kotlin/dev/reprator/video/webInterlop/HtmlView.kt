@@ -19,7 +19,10 @@ import web.dom.Document
 import web.dom.Element
 import web.dom.document
 import web.html.HTMLElement
+<<<<<<<< HEAD:videoFramework/src/webMain/kotlin/dev/reprator/video/webInterlop/HtmlView.kt
 import kotlin.js.ExperimentalWasmJsInterop
+========
+>>>>>>>> d1fc4c195e81848a378447c81d3abac92fecd585:htmlInterop/src/webMain/kotlin/com/hamama/kwhi/HtmlView.kt
 import kotlin.js.js
 
 val NoOpUpdate: Element.() -> Unit = {}
