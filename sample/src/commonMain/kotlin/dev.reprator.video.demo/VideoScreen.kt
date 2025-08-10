@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.reprator.video.modals.VideoInitOptionModal
 import dev.reprator.video.modals.VideoSource
-import dev.reprator.video.platform.impl.PlaybackStateControllerImpl
+import dev.reprator.video.platform.impl.PlayerController
 import dev.reprator.video.platform.impl.VideoPlayer
 import dev.reprator.video.ui.KVideoPlayer
 
@@ -31,14 +31,14 @@ val videoInitOptions =
     VideoInitOptionModal(poster = null, id = null, sources = listOf(videoSource))
 
 @Composable
-fun VideoScreen() {
+fun VideoScreen(playerController: PlayerController) {
 
     val videoInitOptions by remember {
         mutableStateOf(videoInitOptions)
     }
 
     val mediaController by remember {
-        mutableStateOf(PlaybackStateControllerImpl())
+        mutableStateOf(playerController)
     }
 
     Column(

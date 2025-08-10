@@ -20,6 +20,8 @@ kotlin {
         target.binaries.library()
     }
 
+    jvm("desktop")
+
     sourceSets {
 
         commonMain.dependencies {
@@ -33,6 +35,12 @@ kotlin {
         webMain.dependencies {
             implementation(npm("video.js", "8.6.1"))
             implementation(libs.kotlin.wrapper.browser)
+        }
+
+        val desktopMain by getting
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.desktop.media.vlc)
         }
     }
 }

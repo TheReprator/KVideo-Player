@@ -20,7 +20,7 @@ import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.js.JsException
 import kotlin.random.Random
 
-class PlaybackStateControllerImpl() : PlayerController {
+class PlaybackStateControllerImplWeb : PlayerController {
 
     override lateinit var player: VideoPlayer
 
@@ -49,6 +49,6 @@ class PlaybackStateControllerImpl() : PlayerController {
         val videoInitObject = createVideoOptionsObject(initOptions)
         val webPlayer = videojs(videoElement.value, videoInitObject)
 
-        player = VideoPlayerImpl(webPlayer)
+        player = VideoPlayerImplWeb(webPlayer)
     }
 }

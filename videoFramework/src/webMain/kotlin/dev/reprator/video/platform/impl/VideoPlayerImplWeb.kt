@@ -8,7 +8,7 @@ import dev.reprator.video.utils.appGetElementById
 import dev.reprator.video.utils.createVideoSource
 import web.dom.document
 
-class VideoPlayerImpl(private val webVideoPlayer: InternalVideoPlayer): VideoPlayer {
+class VideoPlayerImplWeb(private val webVideoPlayer: InternalVideoPlayer): VideoPlayer {
 
     override fun play() = webVideoPlayer.play()
 
