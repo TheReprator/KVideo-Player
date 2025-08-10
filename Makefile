@@ -11,6 +11,12 @@ cleanBuild: clear
 	$(GRADLEW) clean
 	@echo "✅ Done!"
 
+# List gradle task
+taskList: cleanBuild
+	@echo "⏳ Task List"
+	$(GRADLEW) task
+	@echo "✅ Done!"
+
 # Run wasm build
 buildWasmWeb: cleanBuild
 	@echo "⏳Web Wasm build"
@@ -21,6 +27,12 @@ buildWasmWeb: cleanBuild
 buildJsWeb: cleanBuild
 	@echo "⏳Web JS Hot build"
 	$(GRADLEW) sample:jsBrowserDevelopmentRun --continuous
+	@echo "✅ Done!"
+
+# Run Desktop hot reload build
+buildDesktop: cleanBuild
+	@echo "⏳Desktop Hot reload build"
+	$(GRADLEW) sample:run
 	@echo "✅ Done!"
 
 # Git count on a branch

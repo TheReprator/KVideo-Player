@@ -11,6 +11,10 @@
 - [ShreyashKore/wonderous_compose](https://github.com/ShreyashKore/wonderous_compose)  
   Helped me figure out the trick to make it run on Kotlin/JS.
 
+- [https://github.com/open-ani/mediamp/tree/main/mediamp-vlc)  
+  Thanks to this, now i can run the desktop app without depending on system, whether vlc is installed or not, i
+   can ship the vlc binaries with my code, to run
+
 ---
 
 ## 🎬 Demo

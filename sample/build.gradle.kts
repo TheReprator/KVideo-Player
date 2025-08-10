@@ -74,30 +74,22 @@ kotlin {
     }
 }
 
-private val desktopPackageName = "dev.reprator.videos.demo"
-
-tasks.withType<ComposeHotRun>().configureEach {
-    mainClass = "$desktopPackageName.MainKt"
-}
-
 compose.desktop {
+    val desktopPackageName = "dev.reprator.video.demo"
+
     application {
         mainClass = "$desktopPackageName.MainKt"
 
         nativeDistributions {
+
+            appResourcesRootDir.set(file("appResources"))
+
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = desktopPackageName
             packageVersion = "1.0.0"
             includeAllModules = true
 
-            linux {
-                iconFile.set(project.file("resources/LinuxIcon.png"))
-            }
-            windows {
-                iconFile.set(project.file("resources/WindowsIcon.ico"))
-            }
             macOS {
-                iconFile.set(project.file("resources/MacosIcon.icns"))
                 bundleID = desktopPackageName
             }
         }
@@ -106,4 +98,8 @@ compose.desktop {
             configurationFiles.from("compose-desktop.pro")
         }
     }
+}
+
+tasks.withType<JavaExec> {
+    systemProperty("compose.application.resources.dir", file("appResources").absolutePath)
 }
