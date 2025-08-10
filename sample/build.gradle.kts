@@ -2,7 +2,6 @@
 
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.compose.reload.gradle.ComposeHotRun
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
@@ -69,9 +68,18 @@ kotlin {
         val desktopMain by getting
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
-            implementation(libs.desktop.media.vlc)
         }
     }
+}
+
+val extractedResourcesDir = layout.buildDirectory.dir("extractedVideoFrameworkResources")
+
+val copyVideoFrameworkResources by tasks.registering(Copy::class) {
+    val frameworkJarProvider = project(":videoFramework").tasks.named("desktopJar", Jar::class.java).flatMap { it.archiveFile }
+    from(zipTree(frameworkJarProvider)) {
+        include("appResources/**")
+    }
+    into(extractedResourcesDir)
 }
 
 compose.desktop {
@@ -82,7 +90,9 @@ compose.desktop {
 
         nativeDistributions {
 
-            appResourcesRootDir.set(file("appResources"))
+            tasks.withType<org.jetbrains.compose.desktop.application.tasks.AbstractJPackageTask>().configureEach {
+                dependsOn(copyVideoFrameworkResources)
+            }
 
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = desktopPackageName
@@ -101,5 +111,6 @@ compose.desktop {
 }
 
 tasks.withType<JavaExec> {
+    dependsOn(copyVideoFrameworkResources)
     systemProperty("compose.application.resources.dir", file("appResources").absolutePath)
 }

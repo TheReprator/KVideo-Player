@@ -14,15 +14,17 @@ class VideoPlayerJvmImpl(val mediaPlayer: EmbeddedMediaPlayer): VideoPlayer {
     }
 
     override fun isDisposed(): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     override fun dispose() {
-        TODO("Not yet implemented")
+        mediaPlayer.release()
     }
 
     override fun changeMedia(videoSource: VideoSource) {
-        TODO("Not yet implemented")
+        mediaPlayer.submit {
+            mediaPlayer.media().play(videoSource.src)
+        }
     }
 
 }

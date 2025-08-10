@@ -10,25 +10,16 @@ class PlaybackStateControllerImplJvm() : PlayerController {
     lateinit var component: CallbackMediaPlayerComponent
 
     override suspend fun setupPlayer(): Boolean {
-        NativeDiscovery().discover()
+       val isLibFound = NativeDiscovery().discover()
+        if(!isLibFound)
+            return false
         component = CallbackMediaPlayerComponent()
         player = VideoPlayerJvmImpl(component.mediaPlayer())
         return true
     }
 
     override fun initPlayer(initOptions: VideoInitOptionModal) {
-        //component.mediaPlayer().videoSurface().
-        /*
-        *  val controls: Boolean = true,
-    val autoplay: Boolean = false,
-    val poster: String?,
-    val preload: String = "auto",
-    val autoPlay: Boolean = false,
-    val muted: Boolean = false,
-    val id: String?,
-    val sources: List<VideoSource>)
-        * */
-        TODO("Not yet implemented")
+        component.mediaPlayer().media().play(initOptions.sources.first().src)
     }
 
 }
