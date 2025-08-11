@@ -5,7 +5,6 @@ data class VideoInitOptionModal(
     val autoplay: Boolean = false,
     val poster: String?,
     val preload: String = "auto",
-    val autoPlay: Boolean = false,
     val muted: Boolean = false,
     val id: String?,
     val sources: List<VideoSource>)

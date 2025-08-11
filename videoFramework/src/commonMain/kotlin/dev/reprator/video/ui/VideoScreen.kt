@@ -48,7 +48,7 @@ fun KVideoPlayer(
 
             true -> {
                 stateController.initPlayer(videoInitOptions)
-                PrepareVideoSetup(stateController, modifier = Modifier)
+                PrepareVideoSetup(stateController, modifier = modifier)
             }
         }
     }
