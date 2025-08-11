@@ -30,7 +30,7 @@ buildJsWeb: cleanBuild
 	@echo "✅ Done!"
 
 # Run Desktop hot reload build
-buildDesktop: cleanBuild
+buildDesktop:
 	@echo "⏳Desktop Hot reload build"
 	$(GRADLEW) sample:run
 	@echo "✅ Done!"

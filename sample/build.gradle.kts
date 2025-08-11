@@ -90,10 +90,6 @@ compose.desktop {
 
         nativeDistributions {
 
-            tasks.withType<org.jetbrains.compose.desktop.application.tasks.AbstractJPackageTask>().configureEach {
-                dependsOn(copyVideoFrameworkResources)
-            }
-
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = desktopPackageName
             packageVersion = "1.0.0"

@@ -45,3 +45,30 @@ Check out the video demo showing how `VideoWeb-KMP` works:
 
 ## ⏭️ Next Upcoming Target
 - Android or Desktop
+
+
+## To add native binaries
+2. So far, your file tree should look like this:
+   ```
+   desktopApp/
+    |- appResources/
+    |  |- macos-arm64/
+    |  |  |- lib/
+    |  |  |  |- libvlc.dylib
+    |  |  |- plugins/
+    |  |  |  |- xxx.dylib
+    |  |- macos-x64/
+    |  |  |- lib/
+    |  |  |  |- libvlc.dylib
+    |  |  |- plugins/
+    |  |  |  |- xxx.dylib
+    |  |- windows-x64/
+    |  |  |- lib/
+    |  |  |  |- libvlc.dll
+    |  |  |  |- plugins/
+    |  |- linux-x64/
+    |  |  |- lib/
+    |  |  |  |- libvlc.so
+    |- src/
+    |- build.gradle.kts
+   ```
