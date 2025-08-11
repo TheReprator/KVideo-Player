@@ -3,6 +3,7 @@
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import java.util.Locale
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -72,16 +73,6 @@ kotlin {
     }
 }
 
-val extractedResourcesDir = layout.buildDirectory.dir("extractedVideoFrameworkResources")
-
-val copyVideoFrameworkResources by tasks.registering(Copy::class) {
-    val frameworkJarProvider = project(":videoFramework").tasks.named("desktopJar", Jar::class.java).flatMap { it.archiveFile }
-    from(zipTree(frameworkJarProvider)) {
-        include("appResources/**")
-    }
-    into(extractedResourcesDir)
-}
-
 compose.desktop {
     val desktopPackageName = "dev.reprator.video.demo"
 
@@ -106,7 +97,35 @@ compose.desktop {
     }
 }
 
+val extractedResourcesDir = layout.buildDirectory.dir("extractedVideoFrameworkResources")
+
+val copyVideoFrameworkResources by tasks.registering(Copy::class) {
+    val frameworkJarProvider = project(":videoFramework").tasks.named("desktopJar", Jar::class.java).flatMap { it.archiveFile }
+    from(zipTree(frameworkJarProvider)) {
+        val osName = System.getProperty("os.name", "").lowercase(Locale.getDefault())
+        val osArch = System.getProperty("os.arch", "").lowercase(Locale.getDefault())
+        val includePath = when {
+            osName.contains("mac") && (osArch == "aarch64" || osArch == "arm64") -> "macos-arm64"
+            osName.contains("mac") && (osArch == "x86_64" || osArch == "amd64") -> "macos-x86_64"
+            osName.contains("win") && (osArch == "amd64" || osArch == "x86_64") -> "windows-x64"
+            osName.contains("linux") && (osArch == "amd64" || osArch == "x86_64") -> "linux-x64"
+            else -> {
+                return@from
+            }
+        }
+        include("appResources/$includePath/**")
+    }
+    into(extractedResourcesDir)
+}
+
 tasks.withType<JavaExec> {
-    dependsOn(copyVideoFrameworkResources)
-    systemProperty("compose.application.resources.dir", file("appResources").absolutePath)
+    if (name == "run" || name == "desktopRun" || name == "runDesktop") {
+        dependsOn(copyVideoFrameworkResources)
+
+        val nativesPath = extractedResourcesDir.get().asFile.absolutePath
+        systemProperty("java.library.path", nativesPath)
+        systemProperty("vlcj.log", "DEBUG")
+
+        systemProperty("compose.application.resources.dir", file("appResources").absolutePath)
+    }
 }
