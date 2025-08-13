@@ -28,8 +28,7 @@ class VideoPlayerImplWeb(private val webVideoPlayer: InternalVideoPlayer): Video
 
     override fun changeMedia(videoSource: VideoSource) {
         val src = createVideoSource(
-            videoSrcUrl = videoSource.src,
-            videoType = videoSource.type
+            videoSrcUrl = videoSource.src
         )
         webVideoPlayer.poster(videoSource.poster)
         webVideoPlayer.src(src)

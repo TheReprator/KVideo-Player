@@ -33,7 +33,7 @@ kotlin {
         }
 
         webMain.dependencies {
-            implementation(npm("video.js", "8.6.1"))
+            implementation(npm("video.js", "8.23.4"))
             implementation(libs.kotlin.wrapper.browser)
         }
 
