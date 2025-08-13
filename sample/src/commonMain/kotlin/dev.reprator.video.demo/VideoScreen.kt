@@ -23,7 +23,7 @@ import dev.reprator.video.ui.KVideoPlayer
 
 
 val videoSource = VideoSource(
-    "https://thetestdata.com/assets/video/avi/200MB_1080P_THETESTDATA.COM_AVI.avi", ""
+    "http://sample.vodobox.com/planete_interdite/planete_interdite_alternate.m3u8", ""
 )
 
 val videoInitOptions =
