@@ -11,7 +11,7 @@ import kotlin.js.toJsArray
 fun createVideoOptionsObject(initOptions: VideoInitOptionModal): InternalVideoInitOptionsModal {
 
     val sourceList = initOptions.sources.map {
-        createVideoSource(it.src, it.type)
+        createVideoSource(it.src)
     }
 
     val options = newJsObject<InternalVideoInitOptionsModal>()
@@ -23,9 +23,9 @@ fun createVideoOptionsObject(initOptions: VideoInitOptionModal): InternalVideoIn
     return options
 }
 
-fun createVideoSource(videoSrcUrl: String, videoType: String): InternalVideoSource {
+fun createVideoSource(videoSrcUrl: String): InternalVideoSource {
     val source = newJsObject<InternalVideoSource>()
     source.src = videoSrcUrl
-    //source.type = videoType
+    source.type = getMimetype(videoSrcUrl)
     return source
 }

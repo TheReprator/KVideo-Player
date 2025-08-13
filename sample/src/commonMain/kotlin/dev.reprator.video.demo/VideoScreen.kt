@@ -23,8 +23,7 @@ import dev.reprator.video.ui.KVideoPlayer
 
 
 val videoSource = VideoSource(
-    "https://cdn.bitmovin.com/content/assets/sintel/sintel.mpd",
-    "application/dash+xml", ""
+    "http://sample.vodobox.com/planete_interdite/planete_interdite_alternate.m3u8", ""
 )
 
 val videoInitOptions =
@@ -65,7 +64,7 @@ fun VideoScreen(playerController: PlayerController) {
 fun changeVideoSource(player: VideoPlayer) {
     val videoSource = VideoSource(
         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-        "video/mp4", "https://i.ytimg.com/vi/aqz-KE-bpKQ/maxresdefault.jpg"
+        "https://i.ytimg.com/vi/aqz-KE-bpKQ/maxresdefault.jpg"
     )
     player.changeMedia(videoSource)
 }
