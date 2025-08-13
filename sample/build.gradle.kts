@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.hotReload)
+    alias(libs.plugins.android.application)
 }
 
 kotlin {
@@ -49,6 +50,7 @@ kotlin {
     }
 
     jvm("desktop")
+    androidTarget()
 
     sourceSets {
 
@@ -70,7 +72,48 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
+
+        androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
+        }
     }
+}
+
+android {
+    val packageName = "dev.reprator.video.demo"
+    namespace = packageName
+    compileSdk =
+        libs.versions.android.compileSdk
+            .get()
+            .toInt()
+
+    defaultConfig {
+        applicationId = packageName
+        minSdk =
+            libs.versions.android.minSdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.android.targetSdk
+                .get()
+                .toInt()
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+        }
+    }
+}
+
+composeCompiler {
+    reportsDestination = layout.buildDirectory.dir("andoridApp_compose_compiler")
+    metricsDestination = layout.buildDirectory.dir("androidApp_compose_metric")
+    stabilityConfigurationFiles.addAll(
+        project.layout.projectDirectory.file("scripts/compose-stability.conf"),
+    )
 }
 
 compose.desktop {

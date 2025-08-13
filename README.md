@@ -24,17 +24,20 @@
 **Desktop Demo:**  
 ![Desktop Demo](others/demo/desktop.gif)
 
+**Android Demo:**  
+![Desktop Demo](others/demo/android.gif)
+
 ---
 
 ## ✅ Completed Platform Targets
 - Kotlin/WASM
 - Kotlin/JS
 - Kotlin/Desktop (**bundled VLC binaries — no external installation needed**)
+- Android/Phone
 
 ---
 
 ## 🚧 Pending Platform Targets
-- Android
 - iOS
 - TV
 
@@ -56,7 +59,7 @@
 ---
 
 ## ⏭️ Next Upcoming Target
-- **Android**
+- **TV/IOS**
 
 ---
 
@@ -90,6 +93,7 @@ Desktop support ships with **pre-bundled VLC binaries**, meaning it works even i
    ```
 
 ### Notes:
+- It is in very early stage, so mostly are for development purposes, once all platform integrated, will deep dive into proper functional
 - Currently, **macOS binaries** are included. You can extend this to other platforms by adding respective VLC builds.
 - On the **first run**, VLC may take ~2 minutes to cache/generate `plugins.dat`.  
   From the **second run onward**, startup time reduces to ~7–10 seconds.
