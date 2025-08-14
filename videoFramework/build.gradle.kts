@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.android.library)
 }
 
 kotlin {
@@ -21,6 +22,7 @@ kotlin {
     }
 
     jvm("desktop")
+    androidTarget()
 
     sourceSets {
 
@@ -42,5 +44,30 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation(libs.desktop.media.vlc)
         }
+
+        androidMain.dependencies {
+            implementation(libs.android.media3.exoplayer)
+            implementation(libs.android.media3.exoplayer.dash)
+            implementation(libs.android.media3.exoplayer.hls)
+            implementation(libs.android.media3.exoplayer.smoothstreaming)
+            implementation(libs.android.media3.ui)
+            implementation(libs.android.media3.ui.compose)
+        }
     }
+}
+
+composeCompiler {
+    reportsDestination = layout.buildDirectory.dir("shared_compose_compiler")
+    metricsDestination = layout.buildDirectory.dir("shared_compose_metric")
+    stabilityConfigurationFiles.addAll(
+        project.layout.projectDirectory.file("scripts/compose-stability.conf"),
+    )
+}
+
+android {
+    namespace = "dev.reprator.video"
+    compileSdk =
+        libs.versions.android.compileSdk
+            .get()
+            .toInt()
 }

@@ -1,4 +1,5 @@
 http://sample.vodobox.com/planete_interdite/planete_interdite_alternate.m3u8
+https://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest
 rtsp://807e9439d5ca.entrypoint.cloud.wowza.com:1935/app-rC94792j/068b9c9a_stream2
 https://thetestdata.com/assets/video/mp4/highquality/4K_4_Thetestdata.mp4
 https://thetestdata.com/assets/video/mp4/highquality/5k_Thetestdata.mp4
@@ -8,9 +9,9 @@ https://thetestdata.com/assets/video/flv/480/200MB_480P_THETESTDATA.COM_flv.flv
 https://thetestdata.com/assets/video/mkv/1080/200MB_1080P_THETESTDATA.COM_mkv.mkv
 https://thetestdata.com/assets/video/mov/480/200MB_480P_THETESTDATA.COM_mov.mov
 https://thetestdata.com/assets/video/mpeg/480/200MB_480P_THETESTDATA.COM_mpeg.mpeg
-https://thetestdata.com/assets/video/wmv/200MB_1080P_THETESTDATA.COM_WMV.wmv
-https://thetestdata.com/assets/video/avi/200MB_1080P_THETESTDATA.COM_AVI.avi
-https://thetestdata.com/assets/video/amv/200MB_1080P_THETESTDATA.COM_AMV.amv
+https://thetestdata.com/assets/video/wmv/200MB_1080P_THETESTDATA.COM_WMV.wmv //
+https://thetestdata.com/assets/video/avi/200MB_1080P_THETESTDATA.COM_AVI.avi //
+https://thetestdata.com/assets/video/amv/200MB_1080P_THETESTDATA.COM_AMV.amv //
 
 
 

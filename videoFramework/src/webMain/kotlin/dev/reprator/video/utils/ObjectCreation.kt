@@ -25,7 +25,7 @@ fun createVideoOptionsObject(initOptions: VideoInitOptionModal): InternalVideoIn
 
 fun createVideoSource(videoSrcUrl: String): InternalVideoSource {
     val source = newJsObject<InternalVideoSource>()
-    source.src = videoSrcUrl
+    source.src = "https://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest"
     source.type = getMimetype(videoSrcUrl)
     return source
 }
