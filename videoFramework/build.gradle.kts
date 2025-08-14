@@ -24,6 +24,18 @@ kotlin {
     jvm("desktop")
     androidTarget()
 
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+            baseName = "VideoFrameWork"
+            freeCompilerArgs += "-Xbinary=bundleId=dev.reprator.video"
+        }
+    }
+
     sourceSets {
 
         commonMain.dependencies {
