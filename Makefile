@@ -35,6 +35,13 @@ buildDesktop:
 	$(GRADLEW) sample:run
 	@echo "✅ Done!"
 
+# Run IOS build
+buildIOS: cleanBuild
+	@echo "⏳IOS build"
+	chmod +x ./scripts/ios_script.sh
+	./scripts/ios_script.sh
+	@echo "✅ Done!"
+
 # Git count on a branch
 gitCount:
 	@echo "⏳Git count on a branch"

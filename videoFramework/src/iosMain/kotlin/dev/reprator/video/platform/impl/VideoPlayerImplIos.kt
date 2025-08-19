@@ -1,29 +1,41 @@
 package dev.reprator.video.platform.impl
 
 import dev.reprator.video.modals.VideoSource
-import dev.reprator.video.platform.impl.VideoPlayer
+import platform.AVFoundation.AVPlayerItem
+import platform.AVFoundation.pause
+import platform.AVFoundation.play
+import platform.AVFoundation.replaceCurrentItemWithPlayerItem
+import platform.AVKit.AVPlayerViewController
+import platform.Foundation.NSURL
 
-class VideoPlayerImplIos(): VideoPlayer {
+class VideoPlayerImplIos(private val playerController: AVPlayerViewController): VideoPlayer {
 
+    private var isDisposed = false
 
     override fun play() {
-        TODO()
+        playerController.player!!.play()
     }
 
     override fun pause() {
-        TODO()
+        playerController.player!!.pause()
     }
 
     override fun isDisposed(): Boolean {
-        TODO()
+        return isDisposed
     }
 
     override fun dispose() {
-        TODO()
+        playerController.player!!.pause()
+        playerController.player!!.replaceCurrentItemWithPlayerItem(null)
+        playerController.player = null
+
+        isDisposed = true
     }
 
     override fun changeMedia(videoSource: VideoSource) {
-        TODO()
+        val mediaItem = AVPlayerItem(NSURL.URLWithString(videoSource.src)!!)
+        playerController.player!!.replaceCurrentItemWithPlayerItem(mediaItem)
+        playerController.player!!.play()
     }
 
 }

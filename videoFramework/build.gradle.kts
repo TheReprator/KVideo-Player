@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -32,7 +33,6 @@ kotlin {
         iosTarget.binaries.framework {
             isStatic = true
             baseName = "VideoFrameWork"
-            freeCompilerArgs += "-Xbinary=bundleId=dev.reprator.video"
         }
     }
 
@@ -64,6 +64,10 @@ kotlin {
             implementation(libs.android.media3.exoplayer.smoothstreaming)
             implementation(libs.android.media3.ui)
             implementation(libs.android.media3.ui.compose)
+        }
+
+        appleMain.dependencies {
+            implementation("io.github.pdvrieze.xmlutil:serialization:0.91.2")
         }
     }
 }
