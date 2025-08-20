@@ -1,5 +1,7 @@
 @file:OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
 
+import java.util.Locale
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.multiplatform)
@@ -54,7 +56,23 @@ kotlin {
         val desktopMain by getting
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
-            implementation(libs.desktop.media.vlc)
+
+            val osName = System.getProperty("os.name", "").lowercase(Locale.getDefault())
+            val osArch = System.getProperty("os.arch", "").lowercase(Locale.getDefault())
+            val fxSuffix = when {
+                osName.contains("linux") && osArch == "x86_64" -> "linux"
+                osName.contains("linux") && osArch == "aarch64" -> "linux-aarch64"
+                osName.contains("windows") && osArch == "amd64" -> "win"
+                osName.contains("mac") && osArch == "x86_64" -> "mac"
+                osName.contains("mac") && (osArch == "aarch64" || osArch == "arm64") -> "mac-aarch64"
+                else -> throw IllegalStateException("Unknown OS/Arch: $osName / $osArch")
+            }
+
+            implementation("org.openjfx:javafx-base:24.0.2:${fxSuffix}")
+            implementation("org.openjfx:javafx-graphics:24.0.2:${fxSuffix}")
+            implementation("org.openjfx:javafx-controls:24.0.2:${fxSuffix}")
+            implementation("org.openjfx:javafx-swing:24.0.2:${fxSuffix}")
+            implementation("org.openjfx:javafx-media:24.0.2:${fxSuffix}")
         }
 
         androidMain.dependencies {
