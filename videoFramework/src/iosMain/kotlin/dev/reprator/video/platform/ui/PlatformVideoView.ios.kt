@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitView
 import dev.reprator.video.platform.impl.PlaybackStateControllerImplIos
 import dev.reprator.video.platform.impl.PlayerController
+import platform.UIKit.NSLayoutConstraint
 import platform.UIKit.UIView
 
 @Composable
@@ -18,10 +19,21 @@ actual fun PlatformVideoView(
 
     UIKitView(
         factory = {
-            // Create a UIView to hold the AVPlayerLayer
             val playerContainer = UIView()
-            playerContainer.addSubview(avPlayerViewController.view)
-            // Return the playerContainer as the root UIView
+            val playerView = avPlayerViewController.view
+
+            playerView.translatesAutoresizingMaskIntoConstraints = false
+            playerContainer.addSubview(playerView)
+
+            NSLayoutConstraint.activateConstraints(
+                listOf(
+                    playerView.topAnchor.constraintEqualToAnchor(playerContainer.topAnchor),
+                    playerView.bottomAnchor.constraintEqualToAnchor(playerContainer.bottomAnchor),
+                    playerView.leadingAnchor.constraintEqualToAnchor(playerContainer.leadingAnchor),
+                    playerView.trailingAnchor.constraintEqualToAnchor(playerContainer.trailingAnchor),
+                )
+            )
+
             playerContainer
         },
         modifier = modifier)

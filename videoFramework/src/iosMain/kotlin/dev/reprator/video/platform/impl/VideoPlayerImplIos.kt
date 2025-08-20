@@ -1,6 +1,8 @@
 package dev.reprator.video.platform.impl
 
 import dev.reprator.video.modals.VideoSource
+import dev.reprator.video.platform.dashHandler.DashHandler
+import dev.reprator.video.platform.dashHandler.DashHandlerImpl
 import platform.AVFoundation.AVPlayerItem
 import platform.AVFoundation.pause
 import platform.AVFoundation.play
@@ -8,9 +10,13 @@ import platform.AVFoundation.replaceCurrentItemWithPlayerItem
 import platform.AVKit.AVPlayerViewController
 import platform.Foundation.NSURL
 
-class VideoPlayerImplIos(private val playerController: AVPlayerViewController): VideoPlayer {
+class VideoPlayerImplIos(private val playerController: AVPlayerViewController) : VideoPlayer {
 
     private var isDisposed = false
+
+    private val dashHandler: DashHandler by lazy {
+        DashHandlerImpl()
+    }
 
     override fun play() {
         playerController.player!!.play()
@@ -33,9 +39,17 @@ class VideoPlayerImplIos(private val playerController: AVPlayerViewController): 
     }
 
     override fun changeMedia(videoSource: VideoSource) {
-        val mediaItem = AVPlayerItem(NSURL.URLWithString(videoSource.src)!!)
-        playerController.player!!.replaceCurrentItemWithPlayerItem(mediaItem)
-        playerController.player!!.play()
+        if (videoSource.src.endsWith(".mpd")) {
+            dashHandler.playDashFile(videoSource.src) {
+                playerController.showsPlaybackControls = true
+                playerController.player!!.replaceCurrentItemWithPlayerItem(this)
+                playerController.player!!.play()
+            }
+        } else {
+            val mediaItem = AVPlayerItem(NSURL.URLWithString(videoSource.src)!!)
+            playerController.player!!.replaceCurrentItemWithPlayerItem(mediaItem)
+            playerController.player!!.play()
+        }
     }
 
 }
