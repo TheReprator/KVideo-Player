@@ -4,6 +4,7 @@ This can play HLS, DASH and SmoothStreaming files across all platforms.
 
 For **iOS**, there are limitations:
 - The URL should end with `.mpd`
+- MPD files can not be live
 - Its format should match as described in **MPD_DASH_FORMAT.md**
 
 ---
