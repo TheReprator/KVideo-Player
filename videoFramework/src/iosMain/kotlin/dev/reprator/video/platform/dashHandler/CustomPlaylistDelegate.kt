@@ -98,6 +98,31 @@ class CustomPlaylistDelegate : NSObject(), AVAssetResourceLoaderDelegateProtocol
                     is VideoRepresentation -> representation.segmentTemplate
                 }
 
+                val representationInfo = if (adaptationSet.mimeType.contains("video")) {
+                    val videoRep = representation as VideoRepresentation
+                    val videoInfo = "#EXT-X-MLB-VIDEO-INFO:" +
+                            "codecs=\"${videoRep.codecs}\"," +
+                            "width=\"${videoRep.width}\"," +
+                            "height=\"${videoRep.height}\"," +
+                            "sar=\"1:1\"," +
+                            "frame-duration=${segmentTemplate.timescale}\n"
+
+                    videoInfo
+                } else if (adaptationSet.mimeType.contains("audio")) {
+                    val audioRep = representation as AudioRepresentation
+                    val audioInfo = "#EXT-X-MLB-AUDIO-INFO:" +
+                            "codecs=\"${audioRep.codecs}\"," +
+                            "audioSamplingRate=\"${audioRep.audioSamplingRate}\"\n"
+
+                    val channelInfo = "#EXT-X-MLB-AUDIO-CHANNEL-INFO:" +
+                            "schemeIdUri=\"${audioRep.audioChannelConfiguration.schemeIdUri}\"," +
+                            "value=\"${audioRep.audioChannelConfiguration.value}\"\n"
+
+                    audioInfo + channelInfo
+                } else {
+                    continue
+                }
+
                 // Media sequence
                 val firstSequence = segmentTemplate.startNumber.takeIf { it > 0 } ?: 1
                 val startSequence = "#EXT-X-MEDIA-SEQUENCE:$firstSequence\n"
@@ -117,72 +142,27 @@ class CustomPlaylistDelegate : NSObject(), AVAssetResourceLoaderDelegateProtocol
                 var segmentUnit = ""
                 var maxDuration = 1
 
-                if (adaptationSet.mimeType.contains("video")) {
-                    // Generate video segments
-                    for (i in firstSequence..numSegments) {
-                        var dur = segmentDuration
-                        if (i == numSegments) {
-                            dur = totalDuration - segmentDuration * (numSegments - 1)
-                        }
-                        val duration = dur.roundToInt()
-                        maxDuration = maxOf(maxDuration, duration)
-
-                        val inf = "#EXTINF:${dur.toFixed(3)}\n"
-                        val mediaUrl = "$baseUrl/" + segmentTemplate.media.replace(Regex("\\$.*?\\$"), i.toString()) + "\n"
-                        segmentUnit += inf + mediaUrl
+                for (i in firstSequence..numSegments) {
+                    var dur = segmentDuration
+                    if (i == numSegments) {
+                        dur = totalDuration - segmentDuration * (numSegments - 1)
                     }
+                    val duration = dur.roundToInt()
+                    maxDuration = maxOf(maxDuration, duration)
 
-                    val videoRep = representation as VideoRepresentation
-                    val videoInfo = "#EXT-X-MLB-VIDEO-INFO:" +
-                            "codecs=\"${videoRep.codecs}\"," +
-                            "width=\"${videoRep.width}\"," +
-                            "height=\"${videoRep.height}\"," +
-                            "sar=\"1:1\"," +
-                            "frame-duration=${segmentTemplate.timescale}\n"
-
-                    val info = "#EXT-X-MLB-INFO:max-bw=${videoRep.bandwidth},duration=$totalDuration\n"
-                    val maxSegmentDuration = "#EXT-X-TARGETDURATION:$maxDuration\n"
-
-                    val output = header + maxSegmentDuration + startSequence +
-                            playlistType + mapInit + segmentUnit + videoInfo + info + tail
-                    val savedUrl = saveAsCustomPlaylist(url, j, output)
-                    mediaPlaylists.add(savedUrl)
-                    j += 1
-
-                } else if (adaptationSet.mimeType.contains("audio")) {
-                    // Generate audio segments
-                    for (i in firstSequence..numSegments) {
-                        var dur = segmentDuration
-                        if (i == numSegments) {
-                            dur = totalDuration - segmentDuration * (numSegments - 1)
-                        }
-                        val duration = dur.roundToInt()
-                        maxDuration = maxOf(maxDuration, duration)
-
-                        val inf = "#EXTINF:${dur.toFixed(3)}\n"
-                        val mediaUrl = "$baseUrl/"  + segmentTemplate.media.replace(Regex("\\$.*?\\$"), i.toString()) + "\n"
-                        segmentUnit += inf + mediaUrl
-                    }
-
-                    val audioRep = representation as AudioRepresentation
-                    val audioInfo = "#EXT-X-MLB-AUDIO-INFO:" +
-                            "codecs=\"${audioRep.codecs}\"," +
-                            "audioSamplingRate=\"${audioRep.audioSamplingRate}\"\n"
-
-                    val channelInfo = "#EXT-X-MLB-AUDIO-CHANNEL-INFO:" +
-                            "schemeIdUri=\"${audioRep.audioChannelConfiguration.schemeIdUri}\"," +
-                            "value=\"${audioRep.audioChannelConfiguration.value}\"\n"
-
-                    val info = "#EXT-X-MLB-INFO:max-bw=${audioRep.bandwidth},duration=$totalDuration\n"
-                    val maxSegmentDuration = "#EXT-X-TARGETDURATION:$maxDuration\n"
-
-                    val output = header + maxSegmentDuration + startSequence +
-                            playlistType + mapInit + segmentUnit + audioInfo + channelInfo + info + tail
-
-                    val savedUrl = saveAsCustomPlaylist(url, j, output)   // <-- save & return URL
-                    mediaPlaylists.add(savedUrl)
-                    j += 1
+                    val inf = "#EXTINF:${dur.toFixed(3)}\n"
+                    val mediaUrl = "$baseUrl/" + segmentTemplate.media.replace(Regex("\\$.*?\\$"), i.toString()) + "\n"
+                    segmentUnit += inf + mediaUrl
                 }
+
+                val info = "#EXT-X-MLB-INFO:max-bw=${representation.bandwidth},duration=$totalDuration\n"
+                val maxSegmentDuration = "#EXT-X-TARGETDURATION:$maxDuration\n"
+
+                val output = header + maxSegmentDuration + startSequence +
+                        playlistType + mapInit + segmentUnit + representationInfo + info + tail
+                val savedUrl = saveAsCustomPlaylist(url, j, output)
+                mediaPlaylists.add(savedUrl)
+                j += 1
             }
         }
         return mediaPlaylists
@@ -200,14 +180,12 @@ class CustomPlaylistDelegate : NSObject(), AVAssetResourceLoaderDelegateProtocol
                 is AdaptationSetVideo -> {
 
                     for (rep in adaptationSet.representation) {
-                        // Trick play filter (skip frameRate == "1")
                         if (rep.frameRate == "1") {
                             continue
                         }
 
-                        // Build video EXT-X-STREAM-INF
                         val videoMasterInfo = buildString {
-                            append("""#EXT-X-STREAM-INF:AUDIO="audio",""") // audio group reference
+                            append("""#EXT-X-STREAM-INF:AUDIO="audio",""")
                             append("""CODECS="${rep.codecs}",""")
                             append("RESOLUTION=${rep.width}x${rep.height},")
                             append("FRAME-RATE=${rep.frameRate},")
