@@ -1,36 +1,26 @@
 package dev.reprator.video.platform.impl
 
 import dev.reprator.video.modals.VideoInitOptionModal
-import uk.co.caprica.vlcj.factory.discovery.NativeDiscovery
-import uk.co.caprica.vlcj.player.component.CallbackMediaPlayerComponent
+import javafx.scene.media.MediaView
 
 class PlaybackStateControllerImplJvm() : PlayerController {
 
     override lateinit var player: VideoPlayer
 
-    val component: CallbackMediaPlayerComponent by lazy {
-        CallbackMediaPlayerComponent()
+    val mediaView by lazy {
+        MediaView().apply {
+            isPreserveRatio = true
+            isSmooth = true
+        }
     }
 
     override suspend fun setupPlayer(): Boolean {
-        val isLibFound = NativeDiscovery().discover()
-        if (!isLibFound)
-            return false
-        player = VideoPlayerJvmImpl(component.mediaPlayer())
+        player = VideoPlayerJvmImpl(mediaView)
         return true
     }
 
     override fun initPlayer(initOptions: VideoInitOptionModal) {
-        component.mediaPlayer().submit {
-            component.mediaPlayer().apply {
-                media().play(initOptions.sources.first().src)
-                /*audio().isMute = initOptions.muted
-                if (initOptions.autoplay)
-                    media().play(initOptions.sources.first().src, "-vvv")
-                else
-                    media().prepare(initOptions.sources.first().src, "-vvv")*/
-            }
-        }
+        player.changeMedia(initOptions.sources.first())
     }
 
 }
