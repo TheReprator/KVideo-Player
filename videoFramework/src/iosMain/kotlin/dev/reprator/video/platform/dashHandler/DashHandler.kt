@@ -23,8 +23,7 @@ import platform.darwin.dispatch_queue_create
 
 
 interface DashHandler {
-    fun playDashFile(url: String, play: AVPlayerItem.() -> Unit) {
-    }
+    fun playDashFile(url: String, play: AVPlayerItem.() -> Unit)
 }
 
 class DashHandlerImpl : DashHandler {

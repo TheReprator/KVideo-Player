@@ -1,0 +1,107 @@
+https://cdn.bitmovin.com/content/assets/sintel/audio/stereo/en/128kbit/segment_1.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/audio/stereo/en/128kbit/segment_448.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/audio/stereo/none/128kbit/segment_1.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/audio/stereo/none/128kbit/segment_448.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/audio/surround/en/320kbit/segment_1.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/audio/surround/en/320kbit/segment_448.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/video/250kbit/segment_1.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/video/250kbit/segment_444.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/video/500kbit/segment_1.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/video/500kbit/segment_444.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/video/800kbit/segment_1.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/video/800kbit/segment_444.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/video/1100kbit/segment_1.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/video/1100kbit/segment_444.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/video/1500kbit/segment_1.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/video/1500kbit/segment_444.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/video/2400kbit/segment_1.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/video/2400kbit/segment_444.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/video/3000kbit/segment_1.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/video/3000kbit/segment_444.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/video/4000kbit/segment_1.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/video/4000kbit/segment_444.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/video/6000kbit/segment_1.m4s
+
+https://cdn.bitmovin.com/content/assets/sintel/video/6000kbit/segment_2.m4s
+''
+''
+https://cdn.bitmovin.com/content/assets/sintel/video/6000kbit/segment_444.m4s
+
+
+
+
+Desktop:
+https://cdn.bitmovin.com/content/assets/sintel/video/250kbit/segment_445.m4s
+https://cdn.bitmovin.com/content/assets/sintel/video/250kbit/segment_1.m4s
+
+
+
+Origin
+audio playlist
+#EXT-X-MEDIA:TYPE=AUDIO,DEFAULT=YES,GROUP-ID="audio",NAME="en_stereo",URI="sintel_0.m3u8"
+audio playlist
+#EXT-X-MEDIA:TYPE=AUDIO,DEFAULT=YES,GROUP-ID="audio",NAME="no-voices_stereo",URI="sintel_1.m3u8"
+audio playlist
+#EXT-X-MEDIA:TYPE=AUDIO,DEFAULT=YES,GROUP-ID="audio",NAME="en_surround",URI="sintel_2.m3u8"
+video playlist
+#EXT-X-STREAM-INF:AUDIO="audio",CODECS="avc1.4d400d",RESOLUTION=426x180,FRAME-RATE=24,BANDWIDTH=258157
+sintel_3.m3u8
+video playlist
+#EXT-X-STREAM-INF:AUDIO="audio",CODECS="avc1.4d4015",RESOLUTION=638x272,FRAME-RATE=24,BANDWIDTH=520929
+sintel_4.m3u8
+video playlist
+#EXT-X-STREAM-INF:AUDIO="audio",CODECS="avc1.4d4015",RESOLUTION=638x272,FRAME-RATE=24,BANDWIDTH=831270
+sintel_5.m3u8
+video playlist
+#EXT-X-STREAM-INF:AUDIO="audio",CODECS="avc1.4d401f",RESOLUTION=958x408,FRAME-RATE=24,BANDWIDTH=1144430
+sintel_6.m3u8
+video playlist
+#EXT-X-STREAM-INF:AUDIO="audio",CODECS="avc1.4d401f",RESOLUTION=1277x544,FRAME-RATE=24,BANDWIDTH=1558322
+sintel_7.m3u8
+video playlist
+#EXT-X-STREAM-INF:AUDIO="audio",CODECS="avc1.4d401f",RESOLUTION=1277x544,FRAME-RATE=24,BANDWIDTH=2487897
+sintel_8.m3u8
+video playlist
+#EXT-X-STREAM-INF:AUDIO="audio",CODECS="avc1.4d4028",RESOLUTION=1920x818,FRAME-RATE=24,BANDWIDTH=3113198
+sintel_9.m3u8
+video playlist
+#EXT-X-STREAM-INF:AUDIO="audio",CODECS="avc1.4d4028",RESOLUTION=1920x818,FRAME-RATE=24,BANDWIDTH=4149264
+sintel_10.m3u8
+video playlist
+#EXT-X-STREAM-INF:AUDIO="audio",CODECS="avc1.4d4028",RESOLUTION=1920x818,FRAME-RATE=24,BANDWIDTH=6214307
+sintel_11.m3u8
+
+

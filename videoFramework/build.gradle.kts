@@ -56,6 +56,8 @@ kotlin {
         val desktopMain by getting
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation("org.mp4parser:isoparser:1.9.56")
+            implementation("io.github.pdvrieze.xmlutil:serialization:0.91.2")
 
             val osName = System.getProperty("os.name", "").lowercase(Locale.getDefault())
             val osArch = System.getProperty("os.arch", "").lowercase(Locale.getDefault())
