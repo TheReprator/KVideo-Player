@@ -68,7 +68,7 @@ kotlin {
 
         webMain.dependencies {
             implementation(npm("video.js", "8.23.4"))
-            implementation(libs.kotlin.wrapper.browser)
+            implementation(libs.web.kotlin.wrapper.browser)
         }
 
         val desktopMain by getting
@@ -89,9 +89,9 @@ kotlin {
 
         getByName("androidDeviceTest") {
             dependencies {
-                implementation(libs.androidx.runner)
-                implementation(libs.androidx.core)
-                implementation(libs.androidx.junit)
+                implementation(libs.test.androidx.runner)
+                implementation(libs.test.androidx.core)
+                implementation(libs.test.androidx.junit)
             }
         }
 
@@ -100,7 +100,7 @@ kotlin {
         }
 
         commonTest.dependencies {
-            implementation(libs.kotlin.test)
+            implementation(libs.test.common.kotlin)
         }
     }
 }
