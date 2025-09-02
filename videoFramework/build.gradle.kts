@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -23,7 +23,26 @@ kotlin {
     }
 
     jvm("desktop")
-    androidTarget()
+
+    androidLibrary {
+        namespace = "dev.reprator.video"
+        compileSdk =
+            libs.versions.android.compileSdk
+                .get()
+                .toInt()
+        minSdk= libs.versions.android.minSdk
+            .get()
+            .toInt()
+
+        withHostTestBuilder {
+        }
+
+        withDeviceTestBuilder {
+            sourceSetTreeName = "test"
+        }.configure {
+            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        }
+    }
 
     listOf(
         iosX64(),
@@ -41,9 +60,10 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
+            implementation(libs.kotlinx.coroutines)
         }
 
         webMain.dependencies {
@@ -55,6 +75,7 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.desktop.media.vlc)
+            implementation(libs.kotlinx.coroutines.swing)
         }
 
         androidMain.dependencies {
@@ -66,8 +87,20 @@ kotlin {
             implementation(libs.android.media3.ui.compose)
         }
 
+        getByName("androidDeviceTest") {
+            dependencies {
+                implementation(libs.androidx.runner)
+                implementation(libs.androidx.core)
+                implementation(libs.androidx.junit)
+            }
+        }
+
         appleMain.dependencies {
-            implementation("io.github.pdvrieze.xmlutil:serialization:0.91.2")
+            implementation(libs.ios.xml)
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
         }
     }
 }
@@ -80,10 +113,7 @@ composeCompiler {
     )
 }
 
-android {
-    namespace = "dev.reprator.video"
-    compileSdk =
-        libs.versions.android.compileSdk
-            .get()
-            .toInt()
+kotlin.sourceSets.all {
+    languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
+    languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
 }

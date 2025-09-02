@@ -18,3 +18,4 @@ dependencyResolutionManagement {
 
 include(":videoFramework")
 include(":sample")
+include(":sample:android-wear")
