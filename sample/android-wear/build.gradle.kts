@@ -37,18 +37,18 @@ android {
 dependencies {
     implementation(projects.videoFramework)
 
+    implementation(libs.androidx.activity.compose)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.runtime)
-
-    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.foundation)
 
     implementation(libs.androidx.wear.compose.foundation)
     implementation(libs.androidx.wear.compose.material)
     implementation(libs.androidx.wear.compose.ui.tooling)
 
+    implementation(libs.androidx.wear.tooling.preview)
+
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.wear.tooling.preview)
 }
