@@ -68,7 +68,8 @@ kotlin {
     sourceSets {
 
         commonMain.dependencies {
-            implementation(projects.videoFramework)
+            implementation(projects.framework.kmpPlayer)
+            implementation(projects.framework.playerUi)
             implementation(compose.runtime)
             implementation(compose.material3)
             implementation(compose.components.resources)
@@ -119,7 +120,7 @@ composeCompiler {
     reportsDestination = layout.buildDirectory.dir("andoridApp_compose_compiler")
     metricsDestination = layout.buildDirectory.dir("androidApp_compose_metric")
     stabilityConfigurationFiles.addAll(
-        project.layout.projectDirectory.file("scripts/compose-stability.conf"),
+        project.layout.projectDirectory.file("../scripts/compose-stability.conf"),
     )
 }
 
@@ -150,7 +151,7 @@ compose.desktop {
 val extractedResourcesDir = layout.buildDirectory.dir("extractedVideoFrameworkResources")
 
 val copyVideoFrameworkResources by tasks.registering(Copy::class) {
-    val frameworkJarProvider = project(":videoFramework").tasks.named("desktopJar", Jar::class.java).flatMap { it.archiveFile }
+    val frameworkJarProvider = project(":framework:KMP-player").tasks.named("desktopJar", Jar::class.java).flatMap { it.archiveFile }
     from(zipTree(frameworkJarProvider)) {
         val osName = System.getProperty("os.name", "").lowercase(Locale.getDefault())
         val osArch = System.getProperty("os.arch", "").lowercase(Locale.getDefault())

@@ -44,6 +44,9 @@ For **iOS**, there are limitations:
 **Android Demo:**  
 ![Android Demo](others/demo/android.gif)
 
+**Android Wear Demo:**  
+![Android Demo](others/demo/wear.gif)
+
 ---
 
 ## ✅ Completed Platform Targets

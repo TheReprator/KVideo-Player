@@ -16,10 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import dev.reprator.video.modals.VideoInitOptionModal
-import dev.reprator.video.modals.VideoSource
-import dev.reprator.video.platform.impl.PlayerController
-import dev.reprator.video.platform.impl.VideoPlayer
+import dev.reprator.kmp.video.modals.VideoInitOptionModal
+import dev.reprator.kmp.video.modals.VideoSource
+import dev.reprator.kmp.video.platform.impl.PlayerController
+import dev.reprator.kmp.video.platform.impl.VideoPlayer
 import dev.reprator.video.ui.KVideoPlayer
 
 

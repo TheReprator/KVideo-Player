@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.MaterialTheme
-import dev.reprator.video.platform.impl.PlaybackStateControllerImplAndroid
+import dev.reprator.kmp.video.platform.impl.PlaybackStateControllerImplAndroid
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
