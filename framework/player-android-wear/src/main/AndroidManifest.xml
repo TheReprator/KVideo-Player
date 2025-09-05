@@ -6,14 +6,6 @@
     <uses-feature android:name="android.hardware.type.watch" />
 
     <application>
-        <uses-library
-            android:name="com.google.android.wearable"
-            android:required="true" />
-
-        <uses-library
-            android:name="wear-sdk"
-            android:required="false" />
-
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.

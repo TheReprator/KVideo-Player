@@ -47,6 +47,9 @@ For **iOS**, there are limitations:
 **Android Wear Demo:**  
 ![Android Demo](others/demo/wear.gif)
 
+**Android TV Demo:**  
+![Android Demo](others/demo/androidTV.gif)
+
 ---
 
 ## ✅ Completed Platform Targets
@@ -56,6 +59,7 @@ For **iOS**, there are limitations:
 - Android/Phone
 - iOS
 - Android/Wear(standalone)
+- Android/TV
 
 ---
 
@@ -76,7 +80,7 @@ For **iOS**, there are limitations:
 ---
 
 ## ⏭️ Next Upcoming Target
-- ** TV
+- Automative/IOS(Watch, TV, Vision)
 ---
 
 ## 📦 Native Binary Packaging (Desktop)
