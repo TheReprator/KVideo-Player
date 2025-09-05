@@ -3,7 +3,7 @@ android-compileSdk = "36"
 android-minSdk = "21"
 android-targetSdk = "36"
 agp = "8.13.0"
-kotlin = "2.2.20-RC"
+kotlin = "2.2.20-Beta2"
 media3Exoplayer = "1.8.0"
 androidx-wear-compose = "1.5.0"
 coroutines = "1.10.2"
@@ -49,7 +49,6 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 compose-hotReload = { id = "org.jetbrains.compose.hot-reload", version = "1.0.0-beta06" }
 android-application = { id = "com.android.application", version.ref = "agp" }
-android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 

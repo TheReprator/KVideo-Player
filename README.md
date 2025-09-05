@@ -55,11 +55,7 @@ For **iOS**, there are limitations:
 - Kotlin/Desktop (**bundled VLC binaries — no external installation needed**)
 - Android/Phone
 - iOS
-
----
-
-## 🚧 Pending Platform Targets
-- TV
+- Android/Wear(standalone)
 
 ---
 
@@ -80,8 +76,7 @@ For **iOS**, there are limitations:
 ---
 
 ## ⏭️ Next Upcoming Target
-- **Desktop (With own parsing, without depending on VLC, may be VLC can be removed so that i can move back to Apache licence)**
-
+- ** TV
 ---
 
 ## 📦 Native Binary Packaging (Desktop)

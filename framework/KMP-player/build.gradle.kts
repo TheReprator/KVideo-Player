@@ -21,7 +21,6 @@ kotlin {
         },
         js()
     ).forEach { target ->
-        target.outputModuleName = "kmpVideoFramework"
         target.generateTypeScriptDefinitions()
         target.browser()
         target.binaries.library()
@@ -41,7 +40,7 @@ kotlin {
         }
 
         webMain.dependencies {
-            api(npm("video.js", "8.23.4"))
+            implementation(npm("video.js", "8.23.4"))
             api(libs.web.kotlin.wrapper.browser)
         }
 
