@@ -80,7 +80,7 @@ For **iOS**, there are limitations:
 ---
 
 ## ⏭️ Next Upcoming Target
-- ** TV
+- Automative/IOS(Watch, TV, Vision)
 ---
 
 ## 📦 Native Binary Packaging (Desktop)
