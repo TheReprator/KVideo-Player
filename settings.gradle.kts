@@ -16,5 +16,8 @@ dependencyResolutionManagement {
     }
 }
 
-include(":videoFramework")
+include(":framework:KMP-player")
+include(":framework:player-ui")
+include(":framework:player-android-wear")
 include(":sample")
+include(":sample:android-wear")
