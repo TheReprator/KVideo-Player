@@ -19,5 +19,7 @@ dependencyResolutionManagement {
 include(":framework:KMP-player")
 include(":framework:player-ui")
 include(":framework:player-android-wear")
+include(":framework:player-android-tv")
 include(":sample")
 include(":sample:android-wear")
+include(":sample:android-tv")

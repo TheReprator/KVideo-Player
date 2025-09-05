@@ -1,0 +1,4 @@
+<resources>
+    <string name="video_error_setup">An error occurred.</string>
+    <string name="message_loading">Loading…</string>
+</resources>
