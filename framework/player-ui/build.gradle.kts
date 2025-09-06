@@ -13,7 +13,7 @@ plugins {
 
 kotlin {
     listOf(
-        wasmJs{
+        wasmJs {
             compilerOptions {
                 freeCompilerArgs.add("-Xwasm-attach-js-exception")
             }
@@ -32,7 +32,7 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64(),
+        iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             isStatic = true
@@ -64,7 +64,6 @@ kotlin {
         }
     }
 }
-
 composeCompiler {
     reportsDestination = layout.buildDirectory.dir("shared_compose_compiler")
     metricsDestination = layout.buildDirectory.dir("shared_compose_metric")

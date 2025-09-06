@@ -33,8 +33,20 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    listOf(
+        tvosArm64(),
+        tvosSimulatorArm64(),
+        tvosX64(),
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            isStatic = true
+            baseName = "VideoFrameWorkTv"
+        }
+    }
+
+
     sourceSets {
-        commonMain.dependencies {
+        dependencies {
             implementation(libs.androidx.compose.runtime)
             implementation(libs.kotlinx.coroutines)
         }

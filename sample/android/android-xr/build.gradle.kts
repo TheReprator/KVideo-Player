@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.invoke
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
@@ -34,7 +36,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_24
         targetCompatibility = JavaVersion.VERSION_24
     }
-    useLibrary("android.car")
+    useLibrary("wear-sdk")
     buildFeatures {
         compose = true
     }
@@ -42,14 +44,22 @@ android {
 
 dependencies {
     implementation(projects.framework.kmpPlayer)
-    implementation(projects.framework.playerAndroidAuto)
+    implementation(projects.framework.android.playerAndroidXr)
+
+    implementation(libs.androidx.activity.compose)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
     implementation(libs.bom.material3)
+    implementation(libs.bom.runtime)
 
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.foundation)
 
-    implementation(libs.androidx.activity.compose)
+    implementation(libs.bom.material3)
+    implementation(libs.bom.runtime)
+
+    implementation(libs.androidx.xr.compose)
+    implementation(libs.androidx.xr.runtime)
+    implementation(libs.androidx.xr.scenecore)
 }

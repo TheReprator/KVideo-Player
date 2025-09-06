@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.invoke
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
@@ -14,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = packageName
-        minSdk = 21
+        minSdk = 26
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
@@ -34,6 +36,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_24
         targetCompatibility = JavaVersion.VERSION_24
     }
+    useLibrary("wear-sdk")
     buildFeatures {
         compose = true
     }
@@ -41,11 +44,10 @@ android {
 
 dependencies {
     implementation(projects.framework.kmpPlayer)
-    implementation(projects.framework.playerAndroidTv)
+    implementation(projects.framework.android.playerAndroidWear)
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.androidx.tv.compose.material)
-    implementation(libs.androidx.tv.compose.foundation)
+    implementation(libs.androidx.wear.compose.material)
+    implementation(libs.androidx.wear.compose.foundation)
     implementation(libs.androidx.activity.compose)
 }
