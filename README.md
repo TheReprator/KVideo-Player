@@ -50,6 +50,9 @@ For **iOS**, there are limitations:
 **Android TV Demo:**  
 ![Android Demo](others/demo/androidTV.gif)
 
+**Android Automative Demo:**  
+![Android Demo](others/demo/automative.gif)
+
 ---
 
 ## ✅ Completed Platform Targets
@@ -80,7 +83,7 @@ For **iOS**, there are limitations:
 ---
 
 ## ⏭️ Next Upcoming Target
-- Automative/IOS(Watch, TV, Vision)
+- IOS(Watch, TV, Vision)
 ---
 
 ## 📦 Native Binary Packaging (Desktop)
