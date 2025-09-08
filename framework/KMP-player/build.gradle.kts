@@ -2,6 +2,7 @@
 
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 
 plugins {
@@ -29,18 +30,18 @@ kotlin {
     jvm("desktop")
     androidTarget()
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
+    val xcf = XCFramework()
     listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
         tvosArm64(),
         tvosSimulatorArm64(),
         tvosX64(),
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            isStatic = true
-            baseName = "VideoFrameWorkTv"
+    ).forEach { target ->
+        target.binaries.framework {
+            xcf.add(this)
+            baseName = "VideoFrameWorkKMP"
         }
     }
 
