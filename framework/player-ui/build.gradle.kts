@@ -41,7 +41,6 @@ kotlin {
     }
 
     sourceSets {
-
         commonMain.dependencies {
             implementation(projects.framework.kmpPlayer)
             implementation(compose.runtime)

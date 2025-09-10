@@ -2,106 +2,85 @@ import SwiftUI
 import VideoFrameWorkKMP
 import AVKit
 
-public struct KVideoPlayerView: View {
-  @MainActor private let stateController = PlaybackStateControllerImplIos()
-  let videoInitOptions: VideoInitOptionModal
-  @State private var isAppInitialized: Bool? = nil
+public struct ASVideoPlayerView: View {
+    @ObservedObject public var viewModel: ASVideoPlayerViewModel
 
-  public init(videoInitOptions: VideoInitOptionModal) {
-    self.videoInitOptions = videoInitOptions
-  }
-
-  public var body: some View {
-    ZStack {
-      if isAppInitialized == nil {
-        ProgressView()
-      } else if isAppInitialized == true {
-//       stateController.doInitPlayer(initOptions: videoInitOptions)
-//        PrepareVideoSetupView(
-//          stateController: stateController,
-//          videoInitOptions: videoInitOptions
-//        )
-      } else {
-        // Player setup failed
-        Text("An unknown error occurred during video setup.")
-      }
+    public init(viewModel: ASVideoPlayerViewModel) {
+        self.viewModel = viewModel
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
-//    .onAppear {
-//      Task { @MainActor in
-//        let controller = stateController
-//        let kmpSuccess = try await controller.setupPlayer()
-//        isAppInitialized = kmpSuccess.boolValue
-//      }
-//    }
-
-  }
-}
-
-
-public struct PrepareVideoSetupView: View {
     
-  public let viewModel: PrepareVideoSetupViewModel
-    
-  public init(viewModel: PrepareVideoSetupViewModel) {
-    self.viewModel = viewModel
-  }
-
-  public  var body: some View {
-
-    VideoPlayer(player: viewModel.stateController.playerController.player)
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .onDisappear {
-        let concretePlayer = viewModel.stateController.player
-        if !concretePlayer.isDisposed() {
-          concretePlayer.dispose()
+    public var body: some View {
+        VStack {
+            switch viewModel.loadingState {
+            case .loading:
+                ProgressView()
+            case .hasData(let t):
+                VideoPlayer(player: viewModel.stateController.playerController.player)
+            case .hasNoData:
+                Text("Video not available")
+            case .error(let err):
+                Text(err)
+            }
         }
-      }
-      .task {
-        viewModel.setup()
-      }
-  }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .task {
+            viewModel.loadInitialPlayerData()
+        }
+    }
 }
 
-public class PrepareVideoSetupViewModel: ObservableObject {
-  @MainActor @Published var stateController: PlaybackStateControllerImplIos = PlaybackStateControllerImplIos()
-  var videoInitOptions: VideoInitOptionModal
-  public init() {
-    let videoSource = VideoSource(
-      src: "https://bitmovin-a.akamaihd.net/content/sintel/sintel.mpd",
-      poster: ""
-    )
-    self.videoInitOptions = VideoInitOptionModal(controls: false, autoplay: true, poster: nil, preload: "auto", muted: false, id: nil, sources: [videoSource])
-  }
-
-  @MainActor public func updateSource(source: String) {
-    let videoSource = VideoSource(
-      src: source,
-      poster: ""
-    )
-    stateController.player.changeMedia(videoSource: videoSource)
-  }
-
-  @MainActor
-  func setup() {
-    Task {
-      do {
-        let controller = stateController
-        let ss = try await controller.setupPlayer()
-        stateController.doInitPlayer(initOptions: videoInitOptions)
-      } catch {
-        print("Error initializing player: \(error)")
-      }
+public class ASVideoPlayerViewModel: ObservableObject {
+    enum LoadingState<T> {
+        case loading
+        case hasData(T)
+        case hasNoData
+        case error(String)
     }
-  }
-
-  @MainActor
-  public func play() {
-    stateController.player.play()
-  }
-
-  @MainActor
-  public func pause() {
-    stateController.player.pause()
-  }
+    @Published var loadingState: LoadingState<Bool> = .loading
+    @MainActor private(set) var stateController: PlaybackStateControllerImplIos = .init()
+    private(set) var videoInitOptions: VideoInitOptionModal
+    
+    public init(initialUrl: String) {
+        self.loadingState = .loading
+        let videoSource = VideoSource(
+            src: initialUrl,
+            poster: ""
+        )
+        self.videoInitOptions = VideoInitOptionModal(controls: false, autoplay: true, poster: nil, preload: "auto", muted: false, id: nil, sources: [videoSource])
+    }
+    
+    @MainActor
+    func loadInitialPlayerData() {
+        Task {
+            do {
+                let controller = stateController
+                let ss = try await controller.setupPlayer()
+                await MainActor.run {
+                    guard let isAvailable = ss as? Bool else {
+                        loadingState = .error("Video Player failed")
+                        return
+                    }
+                    if isAvailable {
+                        stateController.doInitPlayer(initOptions: videoInitOptions)
+                        self.loadingState = .hasData(true)
+                    } else {
+                        loadingState = .error("Video Player not ready")
+                    }
+                }
+                
+            } catch {
+                print("Error initializing player: \(error)")
+                loadingState = .error("Video Player thrown exception")
+            }
+        }
+    }
+    
+    @MainActor public func changeSource(_ url: String) {
+        self.changeMediaSource(to: url)
+    }
+    
+    @MainActor private func changeMediaSource(to url: String) {
+        let videoSource = VideoSource(src: url, poster: "")
+        stateController.player.changeMedia(videoSource: videoSource)
+    }
 }

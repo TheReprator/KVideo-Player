@@ -9,23 +9,18 @@ import SwiftUI
 import AppleTvPlayerUi
 
 struct ContentView: View {
-    let viewModel = PrepareVideoSetupViewModel()
+    let viewModel: ASVideoPlayerViewModel
+    init(viewModel: ASVideoPlayerViewModel = .init(initialUrl: "https://bitmovin-a.akamaihd.net/content/sintel/sintel.mpd")) {
+        self.viewModel = viewModel
+    }
+    
     var body: some View {
         VStack {
-            PrepareVideoSetupView(viewModel: viewModel)
-            HStack {
-                Button("play") {
-                    viewModel.play()
-                }
-                Button("pause") {
-                    viewModel.pause()
-                }
-                Button("change media") {
-                    viewModel.updateSource(source: "http://sample.vodobox.com/planete_interdite/planete_interdite_alternate.m3u8")
-                }
+            Button("Change Source") {
+                viewModel.changeSource("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
             }
+            ASVideoPlayerView(viewModel: viewModel)
         }
-        .padding()
     }
 }
 

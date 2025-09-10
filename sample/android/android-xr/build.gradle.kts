@@ -44,7 +44,7 @@ android {
 
 dependencies {
     implementation(projects.framework.kmpPlayer)
-    implementation(projects.framework.android.playerAndroidXr)
+    implementation(projects.framework.playerUi)
 
     implementation(libs.androidx.activity.compose)
 

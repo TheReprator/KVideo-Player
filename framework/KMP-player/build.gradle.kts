@@ -30,14 +30,15 @@ kotlin {
     jvm("desktop")
     androidTarget()
 
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     val xcf = XCFramework()
     listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64(),
         tvosArm64(),
         tvosSimulatorArm64(),
-        tvosX64(),
+        tvosX64()
     ).forEach { target ->
         target.binaries.framework {
             xcf.add(this)

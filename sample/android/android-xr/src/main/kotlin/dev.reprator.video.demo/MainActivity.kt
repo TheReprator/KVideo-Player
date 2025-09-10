@@ -5,18 +5,26 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.OptIn
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.media3.common.util.UnstableApi
+import androidx.xr.compose.platform.LocalSession
+import androidx.xr.compose.platform.LocalSpatialCapabilities
 import androidx.xr.compose.platform.LocalSpatialConfiguration
 import androidx.xr.compose.spatial.ContentEdge
 import androidx.xr.compose.spatial.Orbiter
@@ -42,14 +50,51 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationXRTheme {
                 val spatialConfiguration = LocalSpatialConfiguration.current
-                Subspace {
-                    MySpatialContent(
+                if (LocalSpatialCapabilities.current.isSpatialUiEnabled) {
+                    Subspace {
+                        MySpatialContent(
+                            playerController,
+                            onRequestHomeSpaceMode = spatialConfiguration::requestHomeSpaceMode
+                        )
+                    }
+                } else {
+                    My2DContent(
                         playerController,
-                        onRequestHomeSpaceMode = spatialConfiguration::requestHomeSpaceMode
+                        onRequestFullSpaceMode = spatialConfiguration::requestFullSpaceMode
                     )
                 }
             }
         }
+    }
+}
+
+@SuppressLint("RestrictedApi")
+@Composable
+fun My2DContent(playerState: PlayerController, onRequestFullSpaceMode: () -> Unit) {
+    Surface {
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            VideoScreen(playerState)
+            // Preview does not current support XR sessions.
+            if (!LocalInspectionMode.current && LocalSession.current != null) {
+                FullSpaceModeIconButton(
+                    onClick = onRequestFullSpaceMode,
+                    modifier = Modifier.padding(32.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun FullSpaceModeIconButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    IconButton(onClick = onClick, modifier = modifier) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_full_space_mode_switch),
+            contentDescription = stringResource(R.string.switch_to_full_space_mode)
+        )
     }
 }
 
