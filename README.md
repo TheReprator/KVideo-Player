@@ -28,6 +28,8 @@ For **iOS**, there are limitations:
 - [MPEGDASHAVPlayerDemo](https://github.com/h-anders-unext/MPEGDASHAVPlayerDemo)  
   Thanks to this, I got some idea to parse DASH files for IOS.
 
+- A big thanks to @tinku466 and @Vikesh for helping me with the SPM setup and the sample tvOS app — couldn’t have done it this smoothly without your support!
+
 ---
 
 ## 🎬 Demo
@@ -53,16 +55,22 @@ For **iOS**, there are limitations:
 **Android Automative Demo:**  
 ![Android Demo](others/demo/automative.gif)
 
+**Android XR Demo:**  
+![Android Demo](others/demo/android_xr.gif)
+
+**Apple tv Demo:**  
+![AppleTV Demo](others/demo/apple_tv.gif)
+
 ---
 
 ## ✅ Completed Platform Targets
 - Kotlin/WASM
 - Kotlin/JS
 - Kotlin/Desktop (**bundled VLC binaries — no external installation needed**)
-- Android/Phone
+- Android Phone/Tablet/XR
 - iOS
-- Android/Wear(standalone)
-- Android/TV
+- Android Wear(standalone)
+- Apple TV
 
 ---
 
@@ -83,7 +91,7 @@ For **iOS**, there are limitations:
 ---
 
 ## ⏭️ Next Upcoming Target
-- IOS(Watch, TV, Vision)
+- Will try for apple watch via companion app
 ---
 
 ## 📦 Native Binary Packaging (Desktop)

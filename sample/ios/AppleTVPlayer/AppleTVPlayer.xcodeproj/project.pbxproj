@@ -14,9 +14,22 @@
 		6AF2EDB52E6F318A00028A71 /* AppleTVPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppleTVPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6A8F01562E714353008660CD /* Exceptions for "AppleTVPlayer" folder in "AppleTVPlayer" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 6AF2EDB42E6F318900028A71 /* AppleTVPlayer */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6AF2EDB72E6F318A00028A71 /* AppleTVPlayer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6A8F01562E714353008660CD /* Exceptions for "AppleTVPlayer" folder in "AppleTVPlayer" target */,
+			);
 			path = AppleTVPlayer;
 			sourceTree = "<group>";
 		};
