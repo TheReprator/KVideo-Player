@@ -30,9 +30,16 @@ buildJsWeb: cleanBuild
 	@echo "✅ Done!"
 
 # Run Desktop hot reload build
-buildDesktop:
+buildDesktop: cleanBuild
 	@echo "⏳Desktop Hot reload build"
 	$(GRADLEW) sample:run
+	@echo "✅ Done!"
+
+# Generate KMP Player framework build
+buildTvKMP: cleanBuild
+	@echo "⏳KMP XCframework generation in progress"
+	$(GRADLEW) :framework:KMP-player:tasks --all; $(GRADLEW) :framework:KMP-player:assembleKMP-playerDebugXCFramework
+	 mkdir -p framework/AppleTvPlayerUi/Framework; cp -r Framework/KMP-player/build/XCFrameworks/debug/KMP_player.xcframework framework/AppleTvPlayerUi/Framework
 	@echo "✅ Done!"
 
 # Run IOS build

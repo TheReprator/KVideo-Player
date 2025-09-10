@@ -1,6 +1,5 @@
 @file:OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
 
-import org.gradle.kotlin.dsl.withType
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 import java.util.Locale
@@ -18,7 +17,7 @@ kotlin {
     val projectDirPath = project.projectDir.path
 
     listOf(
-        wasmJs{
+        wasmJs {
             compilerOptions {
                 freeCompilerArgs.add("-Xwasm-use-new-exception-proposal")
             }
@@ -55,7 +54,7 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64(),
+        iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             binaryOption("smallBinary", "true")
@@ -151,7 +150,9 @@ compose.desktop {
 val extractedResourcesDir = layout.buildDirectory.dir("extractedVideoFrameworkResources")
 
 val copyVideoFrameworkResources by tasks.registering(Copy::class) {
-    val frameworkJarProvider = project(":framework:KMP-player").tasks.named("desktopJar", Jar::class.java).flatMap { it.archiveFile }
+    val frameworkJarProvider =
+        project(":framework:KMP-player").tasks.named("desktopJar", Jar::class.java)
+            .flatMap { it.archiveFile }
     from(zipTree(frameworkJarProvider)) {
         val osName = System.getProperty("os.name", "").lowercase(Locale.getDefault())
         val osArch = System.getProperty("os.arch", "").lowercase(Locale.getDefault())
