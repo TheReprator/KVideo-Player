@@ -15,7 +15,7 @@ if [ $? -eq 0 ]; then
     open -a Simulator
 
     echo "🍎 Opening iOS project in Xcode..."
-    open sample/ios/iosApp/iosApp.xcodeproj
+    open sample/apple/iosApp/iosApp.xcodeproj
 
     echo ""
     echo "🎯 NEXT STEPS IN XCODE:"
