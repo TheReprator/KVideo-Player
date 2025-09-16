@@ -3,9 +3,9 @@ android-compileSdk = "36"
 android-minSdk = "21"
 android-targetSdk = "36"
 agp = "8.13.0"
-kotlin = "2.2.20-RC2"
+kotlin = "2.2.20"
 media3Exoplayer = "1.8.0"
-androidx-wear-compose = "1.5.0"
+androidx-wear-compose = "1.5.1"
 coroutines = "1.10.2"
 
 [libraries]
@@ -20,16 +20,16 @@ android-media3-exoplayer-rtsp= { group = "androidx.media3", name = "media3-exopl
 android-media3-ui= { group = "androidx.media3", name = "media3-ui", version.ref = "media3Exoplayer" }
 android-media3-ui-compose= { group = "androidx.media3", name = "media3-ui-compose", version.ref = "media3Exoplayer" }
 
-compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2025.08.01" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2025.09.00" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 bom-material3 = { group = "androidx.compose.material3", name = "material3" }
 bom-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.10.1" }
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.9.3" }
-androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version = "1.9.0" }
-androidx-compose-runtime = { module = "androidx.compose.runtime:runtime", version = "1.9.0" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.11.0" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.9.4" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version = "1.9.1" }
+androidx-compose-runtime = { module = "androidx.compose.runtime:runtime", version = "1.9.1" }
 
 androidx-tv-compose-foundation = { group = "androidx.tv", name = "tv-foundation", version = "1.0.0-alpha12" }
 androidx-tv-compose-material = { group = "androidx.tv", name = "tv-material", version = "1.0.1" }
@@ -51,14 +51,14 @@ ios-xml = { module = "io.github.pdvrieze.xmlutil:serialization", version = "0.91
 
 desktop-media-vlc = { module = "uk.co.caprica:vlcj", version = "4.11.0" }
 
-web-kotlin-wrapper-browser= { group = "org.jetbrains.kotlin-wrappers", name = "kotlin-browser", version = "2025.9.2" }
+web-kotlin-wrapper-browser= { group = "org.jetbrains.kotlin-wrappers", name = "kotlin-browser", version = "2025.9.8" }
 
 [plugins]
-compose-multiplatform = { id = "org.jetbrains.compose", version = "1.9.0-rc01" }
+compose-multiplatform = { id = "org.jetbrains.compose", version = "1.9.0-rc02" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-compose-hotReload = { id = "org.jetbrains.compose.hot-reload", version = "1.0.0-beta06" }
+compose-hotReload = { id = "org.jetbrains.compose.hot-reload", version = "1.0.0-beta07" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
