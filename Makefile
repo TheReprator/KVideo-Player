@@ -39,7 +39,9 @@ buildDesktop: cleanBuild
 buildTvKMP: cleanBuild
 	@echo "⏳KMP XCframework generation in progress"
 	$(GRADLEW) :framework:KMP-player:tasks --all; $(GRADLEW) :framework:KMP-player:assembleKMP-playerDebugXCFramework
-	 mkdir -p framework/AppleTvPlayerUi/Framework; cp -r Framework/KMP-player/build/XCFrameworks/debug/KMP_player.xcframework framework/AppleTvPlayerUi/Framework
+	rm -rf framework/AppleTvPlayerUi/Framework; mkdir -p framework/AppleTvPlayerUi/Framework;
+	cp -r Framework/KMP-player/build/XCFrameworks/debug/KMP_player.xcframework/tvos-arm64 framework/AppleTvPlayerUi/Framework;
+	cp -r Framework/KMP-player/build/XCFrameworks/debug/KMP_player.xcframework/tvos-arm64_x86_64-simulator framework/AppleTvPlayerUi/Framework
 	@echo "✅ Done!"
 
 # Run IOS build
