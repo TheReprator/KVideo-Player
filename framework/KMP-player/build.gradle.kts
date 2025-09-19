@@ -34,6 +34,22 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    applyDefaultHierarchyTemplate{
+        common {
+            group("applePhoneTV") {
+                withIos()
+                withIosX64()
+                withIosArm64()
+                withIosSimulatorArm64()
+                withTvos()
+                withTvosX64()
+                withTvosArm64()
+                withTvosSimulatorArm64()
+            }
+        }
+    }
+
     val xcf = XCFramework()
     listOf(
         tvosArm64(),
@@ -68,6 +84,10 @@ kotlin {
             implementation(libs.android.media3.exoplayer.dash)
             implementation(libs.android.media3.exoplayer.hls)
             implementation(libs.android.media3.exoplayer.smoothstreaming)
+        }
+
+        val applePhoneTVMain by getting {
+            dependsOn(appleMain.get())
         }
 
         appleMain.dependencies {
