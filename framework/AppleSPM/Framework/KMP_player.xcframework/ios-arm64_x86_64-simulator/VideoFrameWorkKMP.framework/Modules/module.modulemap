@@ -1,0 +1,5 @@
+framework module "VideoFrameWorkKMP" {
+    umbrella header "VideoFrameWorkKMP.h"
+    export *
+    module * { export * }
+}
