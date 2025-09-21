@@ -1,9 +1,12 @@
+//
+// Created by Deep Sandhya on 20/09/25.
+//
 
 import Foundation
 import WatchConnectivity
-import VideoFrameWorkKMP
+import AVKit
 
-public class MPDSessionHandler: NSObject, WCSessionDelegate {
+public class WatchConnectivityManager: NSObject, WCSessionDelegate, ObservableObject {
     public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
         <#code#>
     }
@@ -16,7 +19,7 @@ public class MPDSessionHandler: NSObject, WCSessionDelegate {
         <#code#>
     }
     
-    private let resolver = MpdToHlsResolver()
+    @Published public var hlsURL: URL?
 
     public override init() {
         super.init()
@@ -26,15 +29,14 @@ public class MPDSessionHandler: NSObject, WCSessionDelegate {
         }
     }
 
-    public func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        guard let mpdUrl = message["mpdUrl"] as? String else { return }
+    public func requestMPDPlayback(mpdUrl: String) {
+        WCSession.default.sendMessage(["mpdUrl": mpdUrl], replyHandler: nil, errorHandler: nil)
+    }
 
-        Task {
-            do {
-                let hlsUrl = try await resolver.resolve(mpdUrl: mpdUrl)
-                session.sendMessage(["hlsUrl": hlsUrl], replyHandler: nil, errorHandler: nil)
-            } catch {
-                print("Failed: \(error)")
+    public func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        if let urlString = message["hlsUrl"] as? String, let url = URL(string: urlString) {
+            DispatchQueue.main.async {
+                self.hlsURL = url
             }
         }
     }
