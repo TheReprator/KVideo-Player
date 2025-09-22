@@ -11,7 +11,8 @@ class MpdToHlsResolver {
     }
     
     func resolve(mpdUrl: String) async throws -> String {
-        dashHandler.playDashFile(url: <#T##String#>, play: <#T##(AVPlayerItem) -> Void#>)
-        return DashBridge.shared.convertMpdToHls(mpdUrl)
+//        dashHandler.playDashFile(url: <#T##String#>, play: <#T##(AVPlayerItem) -> Void#>)
+//        return DashBridge.shared.convertMpdToHls(mpdUrl)
+        return ""
     }
 }
