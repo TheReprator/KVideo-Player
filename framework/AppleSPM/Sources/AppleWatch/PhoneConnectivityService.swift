@@ -13,12 +13,15 @@ final class PhoneConnectivityService: NSObject, WCSessionDelegate {
     }
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
+        <#code#>
     }
     
     func sessionDidBecomeInactive(_ session: WCSession) {
+        <#code#>
     }
     
     func sessionDidDeactivate(_ session: WCSession) {
+        <#code#>
     }
     
 }
