@@ -1,6 +1,8 @@
 *.iml
 .gradle
 **/build/
+**/.build/
+**/.swiftpm/
 xcuserdata
 !src/**/build/
 local.properties
