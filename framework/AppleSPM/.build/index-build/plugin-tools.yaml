@@ -1,0 +1,94 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "AppleTV-arm64-apple-macosx26.0-debug.module": ["<AppleTV-arm64-apple-macosx26.0-debug.module>"]
+  "AppleWatch-arm64-apple-macosx26.0-debug.module": ["<AppleWatch-arm64-apple-macosx26.0-debug.module>"]
+  "AppleiPhoneCompanion-arm64-apple-macosx26.0-debug.module": ["<AppleiPhoneCompanion-arm64-apple-macosx26.0-debug.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<AppleTV-arm64-apple-macosx26.0-debug.module>","<AppleWatch-arm64-apple-macosx26.0-debug.module>","<AppleiPhoneCompanion-arm64-apple-macosx26.0-debug.module>"]
+  "test": ["<AppleTV-arm64-apple-macosx26.0-debug.module>","<AppleWatch-arm64-apple-macosx26.0-debug.module>","<AppleiPhoneCompanion-arm64-apple-macosx26.0-debug.module>"]
+default: "main"
+nodes:
+  "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Framework/KMP_player.xcframework/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleTV/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleWatch/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleiPhoneCompanion/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleTV.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleTV/AppleTvPlayerUi.swift"]
+    outputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleTV.build/sources"]
+    description: "Write auxiliary file /Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleTV.build/sources"
+
+  "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleWatch.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleWatch/PhoneConnectivityService.swift"]
+    outputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleWatch.build/sources"]
+    description: "Write auxiliary file /Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleWatch.build/sources"
+
+  "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleiPhoneCompanion/WatchConnectivityService.swift"]
+    outputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/sources"]
+    description: "Write auxiliary file /Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/sources"
+
+  "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+
+  "<AppleTV-arm64-apple-macosx26.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules/AppleTV.swiftmodule"]
+    outputs: ["<AppleTV-arm64-apple-macosx26.0-debug.module>"]
+
+  "<AppleWatch-arm64-apple-macosx26.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules/AppleWatch.swiftmodule"]
+    outputs: ["<AppleWatch-arm64-apple-macosx26.0-debug.module>"]
+
+  "<AppleiPhoneCompanion-arm64-apple-macosx26.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules/AppleiPhoneCompanion.swiftmodule"]
+    outputs: ["<AppleiPhoneCompanion-arm64-apple-macosx26.0-debug.module>"]
+
+  "C.AppleTV-arm64-apple-macosx26.0-debug.module":
+    tool: shell
+    inputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleTV/AppleTvPlayerUi.swift","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleTV.build/sources"]
+    outputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules/AppleTV.swiftmodule"]
+    description: "Compiling Swift Module 'AppleTV' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","AppleTV","-emit-dependencies","-emit-module","-emit-module-path","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules/AppleTV.swiftmodule","-output-file-map","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleTV.build/output-file-map.json","-parse-as-library","-incremental","@/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleTV.build/sources","-I","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx10.13","-incremental","-enable-batch-mode","-serialize-diagnostics","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleTV.build/include/AppleTV-Swift.h","-swift-version","6","-Xfrontend","-experimental-lazy-typecheck","-Xfrontend","-experimental-skip-all-function-bodies","-Xfrontend","-experimental-allow-module-with-compiler-errors","-Xfrontend","-empty-abi-descriptor","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","applespm"]
+
+  "C.AppleWatch-arm64-apple-macosx26.0-debug.module":
+    tool: shell
+    inputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleWatch/PhoneConnectivityService.swift","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleWatch.build/sources"]
+    outputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules/AppleWatch.swiftmodule"]
+    description: "Compiling Swift Module 'AppleWatch' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","AppleWatch","-emit-dependencies","-emit-module","-emit-module-path","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules/AppleWatch.swiftmodule","-output-file-map","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleWatch.build/output-file-map.json","-parse-as-library","-incremental","@/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleWatch.build/sources","-I","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx10.13","-incremental","-enable-batch-mode","-serialize-diagnostics","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleWatch.build/include/AppleWatch-Swift.h","-swift-version","6","-Xfrontend","-experimental-lazy-typecheck","-Xfrontend","-experimental-skip-all-function-bodies","-Xfrontend","-experimental-allow-module-with-compiler-errors","-Xfrontend","-empty-abi-descriptor","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","applespm"]
+
+  "C.AppleiPhoneCompanion-arm64-apple-macosx26.0-debug.module":
+    tool: shell
+    inputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleiPhoneCompanion/WatchConnectivityService.swift","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/sources"]
+    outputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules/AppleiPhoneCompanion.swiftmodule"]
+    description: "Compiling Swift Module 'AppleiPhoneCompanion' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","AppleiPhoneCompanion","-emit-dependencies","-emit-module","-emit-module-path","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules/AppleiPhoneCompanion.swiftmodule","-output-file-map","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/output-file-map.json","-parse-as-library","-incremental","@/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/sources","-I","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx10.13","-incremental","-enable-batch-mode","-serialize-diagnostics","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/include/AppleiPhoneCompanion-Swift.h","-swift-version","6","-Xfrontend","-experimental-lazy-typecheck","-Xfrontend","-experimental-skip-all-function-bodies","-Xfrontend","-experimental-allow-module-with-compiler-errors","-Xfrontend","-empty-abi-descriptor","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","applespm"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Framework/KMP_player.xcframework/","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleTV/","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleWatch/","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleiPhoneCompanion/","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Package.swift","/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

@@ -15,7 +15,7 @@ class VideoPlayerImplIos(private val playerController: AVPlayerViewController) :
     private var isDisposed = false
 
     private val dashHandler: DashHandler by lazy {
-        DashHandler.getDashHandler()
+        DashHandler.getDashHandler(AVAssetResourceHandlerImpl())
     }
 
     override fun play() {

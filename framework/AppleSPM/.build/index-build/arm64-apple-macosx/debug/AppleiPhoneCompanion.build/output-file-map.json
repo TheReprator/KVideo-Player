@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/master.swiftdeps"
+  },
+  "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/Sources/AppleiPhoneCompanion/WatchConnectivityService.swift": {
+    "dependencies": "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/WatchConnectivityService.d",
+    "object": "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/WatchConnectivityService.swift.o",
+    "swiftmodule": "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/WatchConnectivityService~partial.swiftmodule",
+    "swift-dependencies": "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/WatchConnectivityService.swiftdeps",
+    "diagnostics": "/Users/deepsandhya/Desktop/code/android/kmp/KVideo-Player/framework/AppleSPM/.build/index-build/arm64-apple-macosx/debug/AppleiPhoneCompanion.build/WatchConnectivityService.dia"
+  }
+}
