@@ -42,6 +42,7 @@ kotlin {
                 withIosX64()
                 withIosArm64()
                 withIosSimulatorArm64()
+
                 withTvos()
                 withTvosX64()
                 withTvosArm64()
@@ -70,7 +71,6 @@ kotlin {
             baseName = "VideoFrameWorkKMP"
         }
     }
-
 
     sourceSets {
         dependencies {

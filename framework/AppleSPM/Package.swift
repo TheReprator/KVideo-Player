@@ -17,7 +17,9 @@ let package = Package(
         // watchOS-only: plays HLS via AVPlayer, sends requests via WCSession
         .target(
             name: "AppleWatch",
-            dependencies: [],
+            dependencies: [
+                .target(name: "VideoFrameWorkKMP")
+            ],
             path: "Sources/AppleWatch",
             swiftSettings: [
                 .define("WATCHOS_ONLY", .when(platforms: [.watchOS]))
@@ -32,7 +34,7 @@ let package = Package(
             ],
             path: "Sources/AppleiPhoneCompanion",
             swiftSettings: [
-                .define("IOS_ONLY", .when(platforms: [.iOS]))
+                .define("IOS_ONLY", .when(platforms: [.iOS, .watchOS]))
             ]
         ),
 

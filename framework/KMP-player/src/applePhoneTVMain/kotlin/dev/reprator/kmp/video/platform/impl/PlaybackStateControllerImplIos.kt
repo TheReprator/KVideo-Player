@@ -1,8 +1,9 @@
 package dev.reprator.kmp.video.platform.impl
 
 import dev.reprator.kmp.video.modals.VideoInitOptionModal
-import dev.reprator.kmp.video.platform.dashHandler.DashHandler
-import dev.reprator.kmp.video.platform.dashHandler.DashHandlerImpl
+import dev.reprator.kmp.video.dashHandler.DashHandler
+import dev.reprator.kmp.video.dashHandler.DashHandlerImpl
+import dev.reprator.kmp.video.platform.assetHandler.AVAssetResourceHandlerImpl
 import platform.AVFoundation.AVPlayer
 import platform.AVFoundation.AVPlayerItem
 import platform.AVFoundation.play
@@ -26,7 +27,7 @@ class PlaybackStateControllerImplIos() : PlayerController {
     }
 
     private val dashHandler: DashHandler by lazy {
-        DashHandlerImpl()
+        DashHandler.getDashHandler()
     }
 
     override fun initPlayer(initOptions: VideoInitOptionModal) {

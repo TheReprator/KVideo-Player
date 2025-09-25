@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class VFWKMPAdaptationSetAudio, VFWKMPAdaptationSetVideo, VFWKMPAudioChannelConfiguration, VFWKMPAudioRepresentation, VFWKMPKotlinArray<T>, VFWKMPKotlinException, VFWKMPKotlinIllegalStateException, VFWKMPKotlinNothing, VFWKMPKotlinRuntimeException, VFWKMPKotlinThrowable, VFWKMPKotlinx_serialization_coreSerialKind, VFWKMPKotlinx_serialization_coreSerializersModule, VFWKMPMapper, VFWKMPMpdInfo, VFWKMPRawResponseAdaptationSet, VFWKMPRawResponseAdaptationSetCompanion, VFWKMPRawResponseAudioChannelConfiguration, VFWKMPRawResponseAudioChannelConfigurationCompanion, VFWKMPRawResponseMpdInfo, VFWKMPRawResponseMpdInfoCompanion, VFWKMPRawResponsePeriod, VFWKMPRawResponsePeriodCompanion, VFWKMPRawResponseRepresentation, VFWKMPRawResponseRepresentationCompanion, VFWKMPRawResponseSegmentTemplate, VFWKMPRawResponseSegmentTemplateCompanion, VFWKMPSegmentTemplate, VFWKMPVideoInitOptionModal, VFWKMPVideoRepresentation, VFWKMPVideoSource;
+@class AVPlayerItem, AVURLAsset, VFWKMPAVAssetResourceHandlerCompanion, VFWKMPAdaptationSetAudio, VFWKMPAdaptationSetVideo, VFWKMPAudioChannelConfiguration, VFWKMPAudioRepresentation, VFWKMPDashHandlerCompanion, VFWKMPKotlinArray<T>, VFWKMPKotlinException, VFWKMPKotlinIllegalStateException, VFWKMPKotlinNothing, VFWKMPKotlinRuntimeException, VFWKMPKotlinThrowable, VFWKMPKotlinx_serialization_coreSerialKind, VFWKMPKotlinx_serialization_coreSerializersModule, VFWKMPMapper, VFWKMPMpdInfo, VFWKMPRawResponseAdaptationSet, VFWKMPRawResponseAdaptationSetCompanion, VFWKMPRawResponseAudioChannelConfiguration, VFWKMPRawResponseAudioChannelConfigurationCompanion, VFWKMPRawResponseMpdInfo, VFWKMPRawResponseMpdInfoCompanion, VFWKMPRawResponsePeriod, VFWKMPRawResponsePeriodCompanion, VFWKMPRawResponseRepresentation, VFWKMPRawResponseRepresentationCompanion, VFWKMPRawResponseSegmentTemplate, VFWKMPRawResponseSegmentTemplateCompanion, VFWKMPSegmentTemplate, VFWKMPVideoInitOptionModal, VFWKMPVideoRepresentation, VFWKMPVideoSource;
 
-@protocol VFWKMPAdaptationSet, VFWKMPKotlinAnnotation, VFWKMPKotlinIterator, VFWKMPKotlinKAnnotatedElement, VFWKMPKotlinKClass, VFWKMPKotlinKClassifier, VFWKMPKotlinKDeclarationContainer, VFWKMPKotlinx_serialization_coreCompositeDecoder, VFWKMPKotlinx_serialization_coreCompositeEncoder, VFWKMPKotlinx_serialization_coreDecoder, VFWKMPKotlinx_serialization_coreDeserializationStrategy, VFWKMPKotlinx_serialization_coreEncoder, VFWKMPKotlinx_serialization_coreKSerializer, VFWKMPKotlinx_serialization_coreSerialDescriptor, VFWKMPKotlinx_serialization_coreSerializationStrategy, VFWKMPKotlinx_serialization_coreSerializersModuleCollector, VFWKMPRepresentation, VFWKMPVideoPlayer;
+@protocol VFWKMPAVAssetResourceHandler, VFWKMPAdaptationSet, VFWKMPDashHandler, VFWKMPKotlinAnnotation, VFWKMPKotlinIterator, VFWKMPKotlinKAnnotatedElement, VFWKMPKotlinKClass, VFWKMPKotlinKClassifier, VFWKMPKotlinKDeclarationContainer, VFWKMPKotlinx_serialization_coreCompositeDecoder, VFWKMPKotlinx_serialization_coreCompositeEncoder, VFWKMPKotlinx_serialization_coreDecoder, VFWKMPKotlinx_serialization_coreDeserializationStrategy, VFWKMPKotlinx_serialization_coreEncoder, VFWKMPKotlinx_serialization_coreKSerializer, VFWKMPKotlinx_serialization_coreSerialDescriptor, VFWKMPKotlinx_serialization_coreSerializationStrategy, VFWKMPKotlinx_serialization_coreSerializersModuleCollector, VFWKMPRepresentation, VFWKMPVideoPlayer;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -144,33 +144,44 @@ __attribute__((swift_name("KotlinBoolean")))
 + (instancetype)numberWithBool:(BOOL)value;
 @end
 
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("VideoInitOptionModal")))
-@interface VFWKMPVideoInitOptionModal : VFWKMPBase
-- (instancetype)initWithControls:(BOOL)controls autoplay:(BOOL)autoplay poster:(NSString * _Nullable)poster preload:(NSString *)preload muted:(BOOL)muted id:(NSString * _Nullable)id sources:(NSArray<VFWKMPVideoSource *> *)sources __attribute__((swift_name("init(controls:autoplay:poster:preload:muted:id:sources:)"))) __attribute__((objc_designated_initializer));
-- (VFWKMPVideoInitOptionModal *)doCopyControls:(BOOL)controls autoplay:(BOOL)autoplay poster:(NSString * _Nullable)poster preload:(NSString *)preload muted:(BOOL)muted id:(NSString * _Nullable)id sources:(NSArray<VFWKMPVideoSource *> *)sources __attribute__((swift_name("doCopy(controls:autoplay:poster:preload:muted:id:sources:)")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) BOOL autoplay __attribute__((swift_name("autoplay")));
-@property (readonly) BOOL controls __attribute__((swift_name("controls")));
-@property (readonly) NSString * _Nullable id __attribute__((swift_name("id")));
-@property (readonly) BOOL muted __attribute__((swift_name("muted")));
-@property (readonly) NSString * _Nullable poster __attribute__((swift_name("poster")));
-@property (readonly) NSString *preload __attribute__((swift_name("preload")));
-@property (readonly) NSArray<VFWKMPVideoSource *> *sources __attribute__((swift_name("sources")));
+__attribute__((swift_name("AVAssetResourceHandler")))
+@protocol VFWKMPAVAssetResourceHandler
+@required
+- (void)saveOfflineAsset:(AVURLAsset *)asset __attribute__((swift_name("saveOffline(asset:)")));
 @end
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("VideoSource")))
-@interface VFWKMPVideoSource : VFWKMPBase
-- (instancetype)initWithSrc:(NSString *)src poster:(NSString *)poster __attribute__((swift_name("init(src:poster:)"))) __attribute__((objc_designated_initializer));
-- (VFWKMPVideoSource *)doCopySrc:(NSString *)src poster:(NSString *)poster __attribute__((swift_name("doCopy(src:poster:)")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) NSString *poster __attribute__((swift_name("poster")));
-@property (readonly) NSString *src __attribute__((swift_name("src")));
+__attribute__((swift_name("AVAssetResourceHandlerCompanion")))
+@interface VFWKMPAVAssetResourceHandlerCompanion : VFWKMPBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) VFWKMPAVAssetResourceHandlerCompanion *shared __attribute__((swift_name("shared")));
+- (NSString *)toCustomUrlUrl:(NSString *)url __attribute__((swift_name("toCustomUrl(url:)")));
+@end
+
+__attribute__((swift_name("DashHandler")))
+@protocol VFWKMPDashHandler
+@required
+- (void)playDashFileUrl:(NSString *)url play:(void (^)(AVPlayerItem *))play __attribute__((swift_name("playDashFile(url:play:)")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("DashHandlerCompanion")))
+@interface VFWKMPDashHandlerCompanion : VFWKMPBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) VFWKMPDashHandlerCompanion *shared __attribute__((swift_name("shared")));
+- (id<VFWKMPDashHandler>)getDashHandlerAssetResourceHandler:(id<VFWKMPAVAssetResourceHandler> _Nullable)assetResourceHandler __attribute__((swift_name("getDashHandler(assetResourceHandler:)")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("DashHandlerImpl")))
+@interface VFWKMPDashHandlerImpl : VFWKMPBase <VFWKMPDashHandler>
+- (instancetype)initWithAssetResourceHandler:(id<VFWKMPAVAssetResourceHandler> _Nullable)assetResourceHandler __attribute__((swift_name("init(assetResourceHandler:)"))) __attribute__((objc_designated_initializer));
+- (void)playDashFileUrl:(NSString *)url play:(void (^)(AVPlayerItem *))play __attribute__((swift_name("playDashFile(url:play:)")));
+@property (readonly) NSArray<NSString *> *requestedKeys __attribute__((swift_name("requestedKeys")));
 @end
 
 __attribute__((swift_name("AdaptationSet")))
@@ -505,6 +516,35 @@ __attribute__((swift_name("VideoRepresentation")))
 @property (readonly) int64_t width __attribute__((swift_name("width")));
 @end
 
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("VideoInitOptionModal")))
+@interface VFWKMPVideoInitOptionModal : VFWKMPBase
+- (instancetype)initWithControls:(BOOL)controls autoplay:(BOOL)autoplay poster:(NSString * _Nullable)poster preload:(NSString *)preload muted:(BOOL)muted id:(NSString * _Nullable)id sources:(NSArray<VFWKMPVideoSource *> *)sources __attribute__((swift_name("init(controls:autoplay:poster:preload:muted:id:sources:)"))) __attribute__((objc_designated_initializer));
+- (VFWKMPVideoInitOptionModal *)doCopyControls:(BOOL)controls autoplay:(BOOL)autoplay poster:(NSString * _Nullable)poster preload:(NSString *)preload muted:(BOOL)muted id:(NSString * _Nullable)id sources:(NSArray<VFWKMPVideoSource *> *)sources __attribute__((swift_name("doCopy(controls:autoplay:poster:preload:muted:id:sources:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) BOOL autoplay __attribute__((swift_name("autoplay")));
+@property (readonly) BOOL controls __attribute__((swift_name("controls")));
+@property (readonly) NSString * _Nullable id __attribute__((swift_name("id")));
+@property (readonly) BOOL muted __attribute__((swift_name("muted")));
+@property (readonly) NSString * _Nullable poster __attribute__((swift_name("poster")));
+@property (readonly) NSString *preload __attribute__((swift_name("preload")));
+@property (readonly) NSArray<VFWKMPVideoSource *> *sources __attribute__((swift_name("sources")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("VideoSource")))
+@interface VFWKMPVideoSource : VFWKMPBase
+- (instancetype)initWithSrc:(NSString *)src poster:(NSString *)poster __attribute__((swift_name("init(src:poster:)"))) __attribute__((objc_designated_initializer));
+- (VFWKMPVideoSource *)doCopySrc:(NSString *)src poster:(NSString *)poster __attribute__((swift_name("doCopy(src:poster:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *poster __attribute__((swift_name("poster")));
+@property (readonly) NSString *src __attribute__((swift_name("src")));
+@end
+
 __attribute__((swift_name("PlayerController")))
 @protocol VFWKMPPlayerController
 @required
@@ -526,6 +566,13 @@ __attribute__((swift_name("VideoPlayer")))
 - (BOOL)isDisposed __attribute__((swift_name("isDisposed()")));
 - (void)pause __attribute__((swift_name("pause()")));
 - (void)play __attribute__((swift_name("play()")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("AVAssetResourceHandlerKt")))
+@interface VFWKMPAVAssetResourceHandlerKt : VFWKMPBase
+@property (class, readonly) NSString *customPlaylistScheme __attribute__((swift_name("customPlaylistScheme")));
+@property (class, readonly) NSString *hlsExt __attribute__((swift_name("hlsExt")));
 @end
 
 __attribute__((objc_subclassing_restricted))

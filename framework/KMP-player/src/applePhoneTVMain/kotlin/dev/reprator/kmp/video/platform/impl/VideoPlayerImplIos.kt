@@ -1,8 +1,8 @@
 package dev.reprator.kmp.video.platform.impl
 
 import dev.reprator.kmp.video.modals.VideoSource
-import dev.reprator.kmp.video.platform.dashHandler.DashHandler
-import dev.reprator.kmp.video.platform.dashHandler.DashHandlerImpl
+import dev.reprator.kmp.video.dashHandler.DashHandler
+import dev.reprator.kmp.video.platform.assetHandler.AVAssetResourceHandlerImpl
 import platform.AVFoundation.AVPlayerItem
 import platform.AVFoundation.pause
 import platform.AVFoundation.play
@@ -15,7 +15,7 @@ class VideoPlayerImplIos(private val playerController: AVPlayerViewController) :
     private var isDisposed = false
 
     private val dashHandler: DashHandler by lazy {
-        DashHandlerImpl()
+        DashHandler.getDashHandler()
     }
 
     override fun play() {

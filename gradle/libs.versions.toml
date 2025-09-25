@@ -54,11 +54,11 @@ desktop-media-vlc = { module = "uk.co.caprica:vlcj", version = "4.11.0" }
 web-kotlin-wrapper-browser= { group = "org.jetbrains.kotlin-wrappers", name = "kotlin-browser", version = "2025.9.8" }
 
 [plugins]
-compose-multiplatform = { id = "org.jetbrains.compose", version = "1.9.0-rc02" }
+compose-multiplatform = { id = "org.jetbrains.compose", version = "1.9.0" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-compose-hotReload = { id = "org.jetbrains.compose.hot-reload", version = "1.0.0-beta07" }
+compose-hotReload = { id = "org.jetbrains.compose.hot-reload", version = "1.0.0-beta08" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
