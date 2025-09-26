@@ -1,16 +1,18 @@
 package dev.reprator.kmp.video.platform.impl
 
+import dev.reprator.kmp.video.dashHandler.testVideo.VideoConnectivityHandler
+import dev.reprator.kmp.video.dashHandler.testVideo.VideoConnectivityMessage
 import dev.reprator.kmp.video.modals.VideoInitOptionModal
-import dev.reprator.kmp.video.dashHandler.DashHandler
-import dev.reprator.kmp.video.platform.assetHandler.AVAssetResourceHandlerImpl
 import platform.AVFoundation.AVPlayer
 import platform.AVFoundation.AVPlayerItem
+import platform.AVFoundation.AVURLAsset
 import platform.AVFoundation.play
 import platform.AVFoundation.replaceCurrentItemWithPlayerItem
 import platform.AVKit.AVPlayerViewController
 import platform.Foundation.NSURL
 
-class PlaybackStateControllerImplIos() : PlayerController {
+class PlaybackStateControllerImplIos(private val connectivityHandler: VideoConnectivityHandler) :
+    PlayerController {
 
     override lateinit var player: VideoPlayer
 
@@ -21,12 +23,8 @@ class PlaybackStateControllerImplIos() : PlayerController {
     }
 
     override suspend fun setupPlayer(): Boolean {
-        player = VideoPlayerImplIos(playerController)
+        player = VideoPlayerImplIos(connectivityHandler, playerController)
         return true
-    }
-
-    private val dashHandler: DashHandler by lazy {
-        DashHandler.getDashHandler(AVAssetResourceHandlerImpl())
     }
 
     override fun initPlayer(initOptions: VideoInitOptionModal) {
@@ -35,10 +33,35 @@ class PlaybackStateControllerImplIos() : PlayerController {
         val url = videoSource.src
 
         if (url.endsWith(".mpd")) {
-            dashHandler.playDashFile(url) {
-                playerController.showsPlaybackControls = true
-                playerController.player!!.replaceCurrentItemWithPlayerItem(this)
-                playerController.player!!.play()
+            val request = VideoConnectivityMessage.RequestPlayback(videoSource.src)
+
+            connectivityHandler.sendMessage(request) { response ->
+                println("VideoMPD Vikram:: 1 $response")
+
+                when (response) {
+                    is VideoConnectivityMessage.PlaybackResponse -> {
+                        val fileURL = NSURL(fileURLWithPath = response.hlsUrl, false)
+
+                        val urlAsset = AVURLAsset(uRL = fileURL, options = null)
+
+                        playerController.showsPlaybackControls = true
+                        playerController.player!!.replaceCurrentItemWithPlayerItem(
+                            AVPlayerItem(
+                                urlAsset
+                            )
+                        )
+                        playerController.player!!.play()
+
+                    }
+
+                    is VideoConnectivityMessage.ErrorResponse -> {
+                        println("Error playing video: ${response.error}")
+                    }
+
+                    else -> {
+
+                    }
+                }
             }
         } else {
             val mediaItem = AVPlayerItem(NSURL.URLWithString(url)!!)

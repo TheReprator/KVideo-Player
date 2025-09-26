@@ -1,29 +1,25 @@
-/*
 package dev.reprator.kmp.video.platform.impl
 
 import dev.reprator.kmp.video.modals.VideoSource
-import dev.reprator.kmp.video.dashHandler.DashHandler
+import dev.reprator.kmp.video.dashHandler.testVideo.VideoConnectivityHandler
+import dev.reprator.kmp.video.dashHandler.testVideo.VideoConnectivityMessage
+import platform.AVFoundation.AVPlayer
 import platform.AVFoundation.AVPlayerItem
 import platform.AVFoundation.pause
 import platform.AVFoundation.play
 import platform.AVFoundation.replaceCurrentItemWithPlayerItem
 import platform.Foundation.NSURL
-import platform.WatchKit.WKInterfaceInlineMovie
 
-class VideoPlayerImplWatch(private val playerController: WKInterfaceInlineMovie) : VideoPlayer {
+class VideoPlayerImplWatch(private val player: AVPlayer, private val connectivityHandler: VideoConnectivityHandler) : VideoPlayer {
 
     private var isDisposed = false
 
-    private val dashHandler: DashHandler by lazy {
-        DashHandler.getDashHandler()
-    }
-
     override fun play() {
-        playerController.play()
+        player.play()
     }
 
     override fun pause() {
-        playerController.pause()
+        player.pause()
     }
 
     override fun isDisposed(): Boolean {
@@ -31,26 +27,39 @@ class VideoPlayerImplWatch(private val playerController: WKInterfaceInlineMovie)
     }
 
     override fun dispose() {
-        playerController.pause()
-        playerController.
-        playerController.player!!.replaceCurrentItemWithPlayerItem(null)
-        playerController.player = null
+        player.pause()
+        player.replaceCurrentItemWithPlayerItem(null)
 
         isDisposed = true
     }
 
     override fun changeMedia(videoSource: VideoSource) {
         if (videoSource.src.endsWith(".mpd")) {
-            dashHandler.playDashFile(videoSource.src) {
-                playerController.showsPlaybackControls = true
-                playerController.player!!.replaceCurrentItemWithPlayerItem(this)
-                playerController.player!!.play()
+
+            val request = VideoConnectivityMessage.RequestPlayback(videoSource.src)
+
+            connectivityHandler.sendMessage(request) { response ->
+                when (response) {
+                    is VideoConnectivityMessage.PlaybackResponse -> {
+                        NSURL.URLWithString(response.hlsUrl)?.let { url ->
+                            val playerItem = AVPlayerItem(url)
+                            player.replaceCurrentItemWithPlayerItem(playerItem)
+                            player.play()
+                        }
+                    }
+                    is VideoConnectivityMessage.ErrorResponse -> {
+                        println("Error playing video: ${response.error}")
+                    }
+                    else -> {
+
+                    }
+                }
             }
         } else {
             val mediaItem = AVPlayerItem(NSURL.URLWithString(videoSource.src)!!)
-            playerController.player!!.replaceCurrentItemWithPlayerItem(mediaItem)
-            playerController.player!!.play()
+            player.replaceCurrentItemWithPlayerItem(mediaItem)
+            player.play()
         }
     }
 
-}*/
+}

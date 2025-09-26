@@ -9,35 +9,10 @@ let package = Package(
         .iOS(.v16), .watchOS(.v9), .tvOS(.v16)
     ],
     products: [
-        .library(name: "AppleWatchPlayer", targets: ["AppleWatch"]),
-        .library(name: "AppleiPhoneCompanion", targets: ["AppleiPhoneCompanion"]),
         .library(name: "AppleTVPlayer", targets: ["AppleTV"])
     ],
     targets: [
-        // watchOS-only: plays HLS via AVPlayer, sends requests via WCSession
-        .target(
-            name: "AppleWatch",
-            dependencies: [
-                .target(name: "VideoFrameWorkKMP")
-            ],
-            path: "Sources/AppleWatch",
-            swiftSettings: [
-                .define("WATCHOS_ONLY", .when(platforms: [.watchOS]))
-            ]
-        ),
-
-        // iOS-only: companion app that uses your KMP logic
-        .target(
-            name: "AppleiPhoneCompanion",
-            dependencies: [
-                .target(name: "VideoFrameWorkKMP")
-            ],
-            path: "Sources/AppleiPhoneCompanion",
-            swiftSettings: [
-                .define("IOS_ONLY", .when(platforms: [.iOS, .watchOS]))
-            ]
-        ),
-
+      
         // tvOS-only
         .target(
             name: "AppleTV",

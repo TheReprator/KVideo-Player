@@ -1,8 +1,5 @@
 package dev.reprator.kmp.video.platform.assetHandler
 
-import dev.reprator.kmp.video.dashHandler.AVAssetResourceHandler
-import dev.reprator.kmp.video.dashHandler.customPlaylistScheme
-import dev.reprator.kmp.video.dashHandler.hlsExt
 import dev.reprator.kmp.video.dashHandler.models.AdaptationSetAudio
 import dev.reprator.kmp.video.dashHandler.models.AdaptationSetVideo
 import dev.reprator.kmp.video.dashHandler.models.AudioRepresentation
@@ -20,8 +17,6 @@ import nl.adaptivity.xmlutil.serialization.XML
 import platform.AVFoundation.AVAssetResourceLoader
 import platform.AVFoundation.AVAssetResourceLoaderDelegateProtocol
 import platform.AVFoundation.AVAssetResourceLoadingRequest
-import platform.AVFoundation.AVURLAsset
-import platform.AVFoundation.resourceLoader
 import platform.Foundation.NSData
 import platform.Foundation.NSError
 import platform.Foundation.NSString
@@ -35,7 +30,6 @@ import platform.Foundation.dataTaskWithRequest
 import platform.darwin.NSObject
 import platform.darwin.dispatch_async
 import platform.darwin.dispatch_get_main_queue
-import platform.darwin.dispatch_queue_create
 import kotlin.math.ceil
 import kotlin.math.pow
 import kotlin.math.round
@@ -45,29 +39,48 @@ private const val httpsScheme = "https"
 private const val dashExt = "mpd"
 private const val badRequestErrorCode = 400
 
+private const val customPlaylistScheme = "cplp"
+private const val hlsExt = "m3u8"
+
 private class ParseError(message: String) : Throwable(message)
 
 private fun toOriginalUrl(url: String): String {
     return httpsScheme + url.drop(4).dropLast(4) + dashExt
 }
 
-class AVAssetResourceHandlerImpl : AVAssetResourceHandler {
-
-    private val delegateAsset by lazy {
-        AVAssetResourceLoaderDelegateProtocolImpl()
-    }
-
-    override fun saveOffline(asset: AVURLAsset) {
-        asset.resourceLoader.setDelegate(
-            delegateAsset, queue = dispatch_queue_create(
-                "AVARLDelegateDemo loader",
-                null
-            )
-        )
-    }
+fun toCustomUrl(url: String): String {
+    return customPlaylistScheme + url.drop(5).dropLast(3) + hlsExt
 }
 
-class AVAssetResourceLoaderDelegateProtocolImpl : NSObject(), AVAssetResourceLoaderDelegateProtocol {
+interface AVAssetResourceLoaderProtocol {
+    val delegation: AVAssetResourceLoaderDelegateProtocol
+
+    companion object {
+        fun getAVAssetResourceLoaderProtocolInstance():AVAssetResourceLoaderProtocol = AVAssetResourceLoaderDelegateProtocolImpl()
+    }
+
+}
+
+class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
+
+    override val delegation: AVAssetResourceLoaderDelegateProtocol = object : NSObject(), AVAssetResourceLoaderDelegateProtocol {
+
+        override fun resourceLoader(
+            resourceLoader: AVAssetResourceLoader,
+            shouldWaitForLoadingOfRequestedResource: AVAssetResourceLoadingRequest
+        ): Boolean {
+            val customUrl = shouldWaitForLoadingOfRequestedResource.request.URL
+            val scheme = customUrl?.scheme ?: return false
+            if (isCustomPlaylistSchemeValid(scheme)) {
+                dispatch_async(dispatch_get_main_queue()) {
+                    handleCustomPlaylistRequest(shouldWaitForLoadingOfRequestedResource)
+                }
+                return true
+            }
+
+            return false
+        }
+    }
 
     private val customPlaylists = mutableMapOf<String, String>()
 
@@ -75,23 +88,6 @@ class AVAssetResourceLoaderDelegateProtocolImpl : NSObject(), AVAssetResourceLoa
         val nsError = NSError.errorWithDomain(NSURLErrorDomain, errorCode.toLong(), null)
         loadingRequest.finishLoadingWithError(nsError)
     }
-
-    override fun resourceLoader(
-        resourceLoader: AVAssetResourceLoader,
-        shouldWaitForLoadingOfRequestedResource: AVAssetResourceLoadingRequest
-    ): Boolean {
-        val customUrl = shouldWaitForLoadingOfRequestedResource.request.URL
-        val scheme = customUrl?.scheme ?: return false
-        if (isCustomPlaylistSchemeValid(scheme)) {
-            dispatch_async(dispatch_get_main_queue()) {
-                handleCustomPlaylistRequest(shouldWaitForLoadingOfRequestedResource)
-            }
-            return true
-        }
-
-        return false
-    }
-
 
     private fun isCustomPlaylistSchemeValid(scheme: String): Boolean {
         return scheme == customPlaylistScheme
@@ -287,14 +283,6 @@ class AVAssetResourceLoaderDelegateProtocolImpl : NSObject(), AVAssetResourceLoa
         val playlistUrl = url.take(dot) + "_$index.$hlsExt"
         customPlaylists[playlistUrl] = playlist
         return playlistUrl
-    }
-
-    fun getMasterPlaylist(): String? {
-        return customPlaylists.values.firstOrNull { it.contains("#EXT-X-STREAM-INF") }
-    }
-
-    fun getMediaPlaylists(): List<String> {
-        return customPlaylists.values.filter { !it.contains("#EXT-X-STREAM-INF") }.toList()
     }
 
     @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)

@@ -37,11 +37,24 @@ public class ASVideoPlayerViewModel: ObservableObject {
         case error(String)
     }
     @Published var loadingState: LoadingState<Bool> = .loading
-    @MainActor private(set) var stateController: PlaybackStateControllerImplIos = .init()
+    
+    
+    @MainActor private(set) var stateController: PlaybackStateControllerImplIos
     private(set) var videoInitOptions: VideoInitOptionModal
     
     public init(initialUrl: String) {
         self.loadingState = .loading
+        
+        // Create DashHandler instance
+        let dashHandler = DashHandlerImpl(delegateAsset: AVAssetResourceLoaderProtocol.getAVAssetResourceLoaderProtocolInstance())
+                
+                // Create TvOsVideoConnectivityHandler with DashHandler
+                let connectivityHandler = TvOsVideoConnectivityHandler(dashHandler: dashHandler)
+                
+                // Initialize PlaybackStateControllerImplIos with connectivity handler
+                self.stateController = PlaybackStateControllerImplIos(connectivityHandler: connectivityHandler)
+                
+        
         let videoSource = VideoSource(
             src: initialUrl,
             poster: ""

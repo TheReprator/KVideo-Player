@@ -99,8 +99,17 @@ kotlin {
             dependsOn(appleMain.get())
         }
 
+        val iosMain by getting {
+            dependsOn(applePhoneTVMain)
+        }
+
+        val tvosMain by getting {
+            dependsOn(applePhoneTVMain)
+        }
+
         appleMain.dependencies {
             implementation(libs.ios.xml)
+            implementation(libs.common.serialization.json)
         }
     }
 }

@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class AVPlayerItem, AVPlayerViewController, AVURLAsset, VFWKMPAVAssetResourceHandlerCompanion, VFWKMPAdaptationSetAudio, VFWKMPAdaptationSetVideo, VFWKMPAudioChannelConfiguration, VFWKMPAudioRepresentation, VFWKMPDashHandlerCompanion, VFWKMPKotlinArray<T>, VFWKMPKotlinException, VFWKMPKotlinIllegalStateException, VFWKMPKotlinNothing, VFWKMPKotlinRuntimeException, VFWKMPKotlinThrowable, VFWKMPKotlinx_serialization_coreSerialKind, VFWKMPKotlinx_serialization_coreSerializersModule, VFWKMPMapper, VFWKMPMpdInfo, VFWKMPRawResponseAdaptationSet, VFWKMPRawResponseAdaptationSetCompanion, VFWKMPRawResponseAudioChannelConfiguration, VFWKMPRawResponseAudioChannelConfigurationCompanion, VFWKMPRawResponseMpdInfo, VFWKMPRawResponseMpdInfoCompanion, VFWKMPRawResponsePeriod, VFWKMPRawResponsePeriodCompanion, VFWKMPRawResponseRepresentation, VFWKMPRawResponseRepresentationCompanion, VFWKMPRawResponseSegmentTemplate, VFWKMPRawResponseSegmentTemplateCompanion, VFWKMPSegmentTemplate, VFWKMPVideoInitOptionModal, VFWKMPVideoRepresentation, VFWKMPVideoSource;
+@class AVPlayerViewController, AVURLAsset, VFWKMPAdaptationSetAudio, VFWKMPAdaptationSetVideo, VFWKMPAudioChannelConfiguration, VFWKMPAudioRepresentation, VFWKMPKotlinArray<T>, VFWKMPKotlinException, VFWKMPKotlinIllegalStateException, VFWKMPKotlinNothing, VFWKMPKotlinRuntimeException, VFWKMPKotlinThrowable, VFWKMPKotlinx_serialization_coreSerialKind, VFWKMPKotlinx_serialization_coreSerializersModule, VFWKMPMapper, VFWKMPMpdInfo, VFWKMPRawResponseAdaptationSet, VFWKMPRawResponseAdaptationSetCompanion, VFWKMPRawResponseAudioChannelConfiguration, VFWKMPRawResponseAudioChannelConfigurationCompanion, VFWKMPRawResponseMpdInfo, VFWKMPRawResponseMpdInfoCompanion, VFWKMPRawResponsePeriod, VFWKMPRawResponsePeriodCompanion, VFWKMPRawResponseRepresentation, VFWKMPRawResponseRepresentationCompanion, VFWKMPRawResponseSegmentTemplate, VFWKMPRawResponseSegmentTemplateCompanion, VFWKMPSegmentTemplate, VFWKMPVideoConnectivityMessageErrorResponse, VFWKMPVideoConnectivityMessageErrorResponseCompanion, VFWKMPVideoConnectivityMessagePlaybackResponse, VFWKMPVideoConnectivityMessagePlaybackResponseCompanion, VFWKMPVideoConnectivityMessageRequestPlayback, VFWKMPVideoConnectivityMessageRequestPlaybackCompanion, VFWKMPVideoInitOptionModal, VFWKMPVideoRepresentation, VFWKMPVideoSource;
 
-@protocol VFWKMPAVAssetResourceHandler, VFWKMPAdaptationSet, VFWKMPDashHandler, VFWKMPKotlinAnnotation, VFWKMPKotlinIterator, VFWKMPKotlinKAnnotatedElement, VFWKMPKotlinKClass, VFWKMPKotlinKClassifier, VFWKMPKotlinKDeclarationContainer, VFWKMPKotlinx_serialization_coreCompositeDecoder, VFWKMPKotlinx_serialization_coreCompositeEncoder, VFWKMPKotlinx_serialization_coreDecoder, VFWKMPKotlinx_serialization_coreDeserializationStrategy, VFWKMPKotlinx_serialization_coreEncoder, VFWKMPKotlinx_serialization_coreKSerializer, VFWKMPKotlinx_serialization_coreSerialDescriptor, VFWKMPKotlinx_serialization_coreSerializationStrategy, VFWKMPKotlinx_serialization_coreSerializersModuleCollector, VFWKMPPlayerController, VFWKMPRepresentation, VFWKMPVideoPlayer;
+@protocol AVAssetResourceLoaderDelegate, VFWKMPAdaptationSet, VFWKMPDashHandler, VFWKMPKotlinAnnotation, VFWKMPKotlinIterator, VFWKMPKotlinKAnnotatedElement, VFWKMPKotlinKClass, VFWKMPKotlinKClassifier, VFWKMPKotlinKDeclarationContainer, VFWKMPKotlinx_serialization_coreCompositeDecoder, VFWKMPKotlinx_serialization_coreCompositeEncoder, VFWKMPKotlinx_serialization_coreDecoder, VFWKMPKotlinx_serialization_coreDeserializationStrategy, VFWKMPKotlinx_serialization_coreEncoder, VFWKMPKotlinx_serialization_coreKSerializer, VFWKMPKotlinx_serialization_coreSerialDescriptor, VFWKMPKotlinx_serialization_coreSerializationStrategy, VFWKMPKotlinx_serialization_coreSerializersModuleCollector, VFWKMPPlayerController, VFWKMPRepresentation, VFWKMPVideoConnectivityHandler, VFWKMPVideoConnectivityMessage, VFWKMPVideoPlayer;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -142,46 +142,6 @@ __attribute__((swift_name("KotlinBoolean")))
 @interface VFWKMPBoolean : VFWKMPNumber
 - (instancetype)initWithBool:(BOOL)value;
 + (instancetype)numberWithBool:(BOOL)value;
-@end
-
-__attribute__((swift_name("AVAssetResourceHandler")))
-@protocol VFWKMPAVAssetResourceHandler
-@required
-- (void)saveOfflineAsset:(AVURLAsset *)asset __attribute__((swift_name("saveOffline(asset:)")));
-@end
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("AVAssetResourceHandlerCompanion")))
-@interface VFWKMPAVAssetResourceHandlerCompanion : VFWKMPBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) VFWKMPAVAssetResourceHandlerCompanion *shared __attribute__((swift_name("shared")));
-- (NSString *)toCustomUrlUrl:(NSString *)url __attribute__((swift_name("toCustomUrl(url:)")));
-@end
-
-__attribute__((swift_name("DashHandler")))
-@protocol VFWKMPDashHandler
-@required
-- (void)playDashFileUrl:(NSString *)url play:(void (^)(AVPlayerItem *))play __attribute__((swift_name("playDashFile(url:play:)")));
-@end
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("DashHandlerCompanion")))
-@interface VFWKMPDashHandlerCompanion : VFWKMPBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) VFWKMPDashHandlerCompanion *shared __attribute__((swift_name("shared")));
-- (id<VFWKMPDashHandler>)getDashHandlerAssetResourceHandler:(id<VFWKMPAVAssetResourceHandler> _Nullable)assetResourceHandler __attribute__((swift_name("getDashHandler(assetResourceHandler:)")));
-@end
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("DashHandlerImpl")))
-@interface VFWKMPDashHandlerImpl : VFWKMPBase <VFWKMPDashHandler>
-- (instancetype)initWithAssetResourceHandler:(id<VFWKMPAVAssetResourceHandler> _Nullable)assetResourceHandler __attribute__((swift_name("init(assetResourceHandler:)"))) __attribute__((objc_designated_initializer));
-- (void)playDashFileUrl:(NSString *)url play:(void (^)(AVPlayerItem *))play __attribute__((swift_name("playDashFile(url:play:)")));
-@property (readonly) NSArray<NSString *> *requestedKeys __attribute__((swift_name("requestedKeys")));
 @end
 
 __attribute__((swift_name("AdaptationSet")))
@@ -516,6 +476,108 @@ __attribute__((swift_name("VideoRepresentation")))
 @property (readonly) int64_t width __attribute__((swift_name("width")));
 @end
 
+__attribute__((swift_name("VideoConnectivityHandler")))
+@protocol VFWKMPVideoConnectivityHandler
+@required
+- (void)sendMessageMessage:(id<VFWKMPVideoConnectivityMessage>)message onResponse:(void (^)(id<VFWKMPVideoConnectivityMessage>))onResponse __attribute__((swift_name("sendMessage(message:onResponse:)")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("IosVideoConnectivityHandler")))
+@interface VFWKMPIosVideoConnectivityHandler : VFWKMPBase <VFWKMPVideoConnectivityHandler>
+- (instancetype)initWithDashHandler:(id<VFWKMPDashHandler>)dashHandler __attribute__((swift_name("init(dashHandler:)"))) __attribute__((objc_designated_initializer));
+- (void)sendMessageMessage:(id<VFWKMPVideoConnectivityMessage>)message onResponse:(void (^)(id<VFWKMPVideoConnectivityMessage>))onResponse __attribute__((swift_name("sendMessage(message:onResponse:)")));
+@end
+
+__attribute__((swift_name("VideoConnectivityMessage")))
+@protocol VFWKMPVideoConnectivityMessage
+@required
+@end
+
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.Serializable
+*/
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("VideoConnectivityMessageErrorResponse")))
+@interface VFWKMPVideoConnectivityMessageErrorResponse : VFWKMPBase <VFWKMPVideoConnectivityMessage>
+- (instancetype)initWithError:(NSString *)error requestId:(NSString *)requestId __attribute__((swift_name("init(error:requestId:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) VFWKMPVideoConnectivityMessageErrorResponseCompanion *companion __attribute__((swift_name("companion")));
+- (VFWKMPVideoConnectivityMessageErrorResponse *)doCopyError:(NSString *)error requestId:(NSString *)requestId __attribute__((swift_name("doCopy(error:requestId:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *error __attribute__((swift_name("error")));
+@property (readonly) NSString *requestId __attribute__((swift_name("requestId")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("VideoConnectivityMessageErrorResponse.Companion")))
+@interface VFWKMPVideoConnectivityMessageErrorResponseCompanion : VFWKMPBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) VFWKMPVideoConnectivityMessageErrorResponseCompanion *shared __attribute__((swift_name("shared")));
+- (id<VFWKMPKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
+@end
+
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.Serializable
+*/
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("VideoConnectivityMessagePlaybackResponse")))
+@interface VFWKMPVideoConnectivityMessagePlaybackResponse : VFWKMPBase <VFWKMPVideoConnectivityMessage>
+- (instancetype)initWithHlsUrl:(NSString *)hlsUrl requestId:(NSString *)requestId __attribute__((swift_name("init(hlsUrl:requestId:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) VFWKMPVideoConnectivityMessagePlaybackResponseCompanion *companion __attribute__((swift_name("companion")));
+- (VFWKMPVideoConnectivityMessagePlaybackResponse *)doCopyHlsUrl:(NSString *)hlsUrl requestId:(NSString *)requestId __attribute__((swift_name("doCopy(hlsUrl:requestId:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *hlsUrl __attribute__((swift_name("hlsUrl")));
+@property (readonly) NSString *requestId __attribute__((swift_name("requestId")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("VideoConnectivityMessagePlaybackResponse.Companion")))
+@interface VFWKMPVideoConnectivityMessagePlaybackResponseCompanion : VFWKMPBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) VFWKMPVideoConnectivityMessagePlaybackResponseCompanion *shared __attribute__((swift_name("shared")));
+- (id<VFWKMPKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
+@end
+
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.Serializable
+*/
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("VideoConnectivityMessageRequestPlayback")))
+@interface VFWKMPVideoConnectivityMessageRequestPlayback : VFWKMPBase <VFWKMPVideoConnectivityMessage>
+- (instancetype)initWithMpdUrl:(NSString *)mpdUrl requestId:(NSString *)requestId __attribute__((swift_name("init(mpdUrl:requestId:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) VFWKMPVideoConnectivityMessageRequestPlaybackCompanion *companion __attribute__((swift_name("companion")));
+- (VFWKMPVideoConnectivityMessageRequestPlayback *)doCopyMpdUrl:(NSString *)mpdUrl requestId:(NSString *)requestId __attribute__((swift_name("doCopy(mpdUrl:requestId:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *mpdUrl __attribute__((swift_name("mpdUrl")));
+@property (readonly) NSString *requestId __attribute__((swift_name("requestId")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("VideoConnectivityMessageRequestPlayback.Companion")))
+@interface VFWKMPVideoConnectivityMessageRequestPlaybackCompanion : VFWKMPBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) VFWKMPVideoConnectivityMessageRequestPlaybackCompanion *shared __attribute__((swift_name("shared")));
+- (id<VFWKMPKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
+@end
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("VideoInitOptionModal")))
 @interface VFWKMPVideoInitOptionModal : VFWKMPBase
@@ -545,17 +607,23 @@ __attribute__((swift_name("VideoSource")))
 @property (readonly) NSString *src __attribute__((swift_name("src")));
 @end
 
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("AVAssetResourceHandlerImpl")))
-@interface VFWKMPAVAssetResourceHandlerImpl : VFWKMPBase <VFWKMPAVAssetResourceHandler>
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (void)saveOfflineAsset:(AVURLAsset *)asset __attribute__((swift_name("saveOffline(asset:)")));
-@end
-
 __attribute__((unavailable("Kotlin subclass of Objective-C class can't be imported")))
 __attribute__((swift_name("AVAssetResourceLoaderDelegateProtocolImpl")))
 @interface VFWKMPAVAssetResourceLoaderDelegateProtocolImpl : NSObject
+@end
+
+__attribute__((swift_name("DashHandler")))
+@protocol VFWKMPDashHandler
+@required
+- (void)playDashFileUrl:(NSString *)url play:(void (^)(AVURLAsset *))play __attribute__((swift_name("playDashFile(url:play:)")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("DashHandlerImpl")))
+@interface VFWKMPDashHandlerImpl : VFWKMPBase <VFWKMPDashHandler>
+- (instancetype)initWithDelegateAsset:(id<AVAssetResourceLoaderDelegate>)delegateAsset __attribute__((swift_name("init(delegateAsset:)"))) __attribute__((objc_designated_initializer));
+- (void)playDashFileUrl:(NSString *)url play:(void (^)(AVURLAsset *))play __attribute__((swift_name("playDashFile(url:play:)")));
+@property (readonly) NSArray<NSString *> *requestedKeys __attribute__((swift_name("requestedKeys")));
 @end
 
 __attribute__((swift_name("PlayerController")))
@@ -574,8 +642,7 @@ __attribute__((swift_name("PlayerController")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("PlaybackStateControllerImplIos")))
 @interface VFWKMPPlaybackStateControllerImplIos : VFWKMPBase <VFWKMPPlayerController>
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (instancetype)initWithConnectivityHandler:(id<VFWKMPVideoConnectivityHandler>)connectivityHandler __attribute__((swift_name("init(connectivityHandler:)"))) __attribute__((objc_designated_initializer));
 - (void)doInitPlayerInitOptions:(VFWKMPVideoInitOptionModal *)initOptions __attribute__((swift_name("doInitPlayer(initOptions:)")));
 
 /**
@@ -600,7 +667,7 @@ __attribute__((swift_name("VideoPlayer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("VideoPlayerImplIos")))
 @interface VFWKMPVideoPlayerImplIos : VFWKMPBase <VFWKMPVideoPlayer>
-- (instancetype)initWithPlayerController:(AVPlayerViewController *)playerController __attribute__((swift_name("init(playerController:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithConnectivityHandler:(id<VFWKMPVideoConnectivityHandler>)connectivityHandler playerController:(AVPlayerViewController *)playerController __attribute__((swift_name("init(connectivityHandler:playerController:)"))) __attribute__((objc_designated_initializer));
 - (void)changeMediaVideoSource:(VFWKMPVideoSource *)videoSource __attribute__((swift_name("changeMedia(videoSource:)")));
 - (void)dispose __attribute__((swift_name("dispose()")));
 - (BOOL)isDisposed __attribute__((swift_name("isDisposed()")));
@@ -609,10 +676,9 @@ __attribute__((swift_name("VideoPlayerImplIos")))
 @end
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("AVAssetResourceHandlerKt")))
-@interface VFWKMPAVAssetResourceHandlerKt : VFWKMPBase
-@property (class, readonly) NSString *customPlaylistScheme __attribute__((swift_name("customPlaylistScheme")));
-@property (class, readonly) NSString *hlsExt __attribute__((swift_name("hlsExt")));
+__attribute__((swift_name("AVAssetResourceHandlerImplKt")))
+@interface VFWKMPAVAssetResourceHandlerImplKt : VFWKMPBase
++ (NSString *)toCustomUrlUrl:(NSString *)url __attribute__((swift_name("toCustomUrl(url:)")));
 @end
 
 __attribute__((objc_subclassing_restricted))
