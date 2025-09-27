@@ -10,6 +10,7 @@ import platform.AVFoundation.play
 import platform.AVFoundation.replaceCurrentItemWithPlayerItem
 import platform.AVKit.AVPlayerViewController
 import platform.Foundation.NSURL
+import platform.Foundation.NSUUID
 
 class PlaybackStateControllerImplIos(private val connectivityHandler: VideoConnectivityHandler) :
     PlayerController {
@@ -40,18 +41,20 @@ class PlaybackStateControllerImplIos(private val connectivityHandler: VideoConne
 
                 when (response) {
                     is VideoConnectivityMessage.PlaybackResponse -> {
-                        val fileURL = NSURL(fileURLWithPath = response.hlsUrl, false)
+                        val fileURL = NSURL.URLWithString(response.hlsUrl)!!
+                        println("VideoMPD Vikram:: 1.1 $fileURL")
 
-                        val urlAsset = AVURLAsset(uRL = fileURL, options = null)
+                        val sessionUUID = NSUUID(uUIDString = response.sessionId)
+                        val options: Map<Any?, *> = mapOf(
+                            "AVURLAssetHTTPSessionIdentifierKey" to sessionUUID
+                        )
+                        val urlAsset = AVURLAsset(uRL = fileURL, options = options)
+                        println("VideoMPD Vikram:: 1.2 $options")
+                        println("VideoMPD Vikram:: 1.3 $urlAsset")
 
                         playerController.showsPlaybackControls = true
-                        playerController.player!!.replaceCurrentItemWithPlayerItem(
-                            AVPlayerItem(
-                                urlAsset
-                            )
-                        )
+                        playerController.player!!.replaceCurrentItemWithPlayerItem(AVPlayerItem(urlAsset))
                         playerController.player!!.play()
-
                     }
 
                     is VideoConnectivityMessage.ErrorResponse -> {

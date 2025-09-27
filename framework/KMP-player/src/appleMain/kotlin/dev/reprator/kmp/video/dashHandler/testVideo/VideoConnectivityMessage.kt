@@ -3,6 +3,7 @@ package dev.reprator.kmp.video.dashHandler.testVideo
 import kotlinx.serialization.Serializable
 import platform.Foundation.NSUUID.Companion.UUID
 
+@Serializable
 sealed interface VideoConnectivityMessage {
     @Serializable
     data class RequestPlayback(
@@ -13,6 +14,7 @@ sealed interface VideoConnectivityMessage {
     @Serializable
     data class PlaybackResponse(
         val hlsUrl: String,
+        val sessionId: String,
         val requestId: String
     ) : VideoConnectivityMessage
 

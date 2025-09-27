@@ -13,13 +13,12 @@ class TvOsVideoConnectivityHandler(private val dashHandler: DashHandler = DashHa
         val request = message as VideoConnectivityMessage.RequestPlayback
         println("TVOS Vikram:: 1.1 sendMessage $request")
 
-        dashHandler.playDashFile(request.mpdUrl) {
-
-            val hlsUrl = this.URL.absoluteString
+        dashHandler.playDashFile(request.mpdUrl) { avUrlAsset, sessionId ->
+            val hlsUrl = avUrlAsset.URL.absoluteString
             println("TVOS Vikram:: 1.2 processes response $hlsUrl")
 
             val response =
-                VideoConnectivityMessage.PlaybackResponse(hlsUrl ?: "", request.requestId)
+                VideoConnectivityMessage.PlaybackResponse(hlsUrl ?: "", sessionId, request.requestId)
             onResponse(response)
         }
     }

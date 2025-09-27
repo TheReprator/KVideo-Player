@@ -12,6 +12,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
+import kotlinx.cinterop.value
 import kotlinx.serialization.decodeFromString
 import nl.adaptivity.xmlutil.serialization.XML
 import platform.AVFoundation.AVAssetResourceLoader
@@ -30,10 +31,14 @@ import platform.Foundation.dataTaskWithRequest
 import platform.darwin.NSObject
 import platform.darwin.dispatch_async
 import platform.darwin.dispatch_get_main_queue
+import kotlin.compareTo
 import kotlin.math.ceil
 import kotlin.math.pow
 import kotlin.math.round
 import kotlin.math.roundToInt
+import kotlin.ranges.rangeTo
+import kotlin.text.iterator
+import kotlin.text.toFloat
 
 private const val httpsScheme = "https"
 private const val dashExt = "mpd"
@@ -69,6 +74,7 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
             resourceLoader: AVAssetResourceLoader,
             shouldWaitForLoadingOfRequestedResource: AVAssetResourceLoadingRequest
         ): Boolean {
+            println("VikramAssetLoader ::1 :: resourceLoader")
             val customUrl = shouldWaitForLoadingOfRequestedResource.request.URL
             val scheme = customUrl?.scheme ?: return false
             if (isCustomPlaylistSchemeValid(scheme)) {
@@ -81,6 +87,7 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
             return false
         }
     }
+
 
     private val customPlaylists = mutableMapOf<String, String>()
 
@@ -105,7 +112,7 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
 
     fun Float.toFixed(decimals: Int): String {
         val factor = 10.0.pow(decimals)
-        val rounded = round(this * factor) / factor
+        val rounded = kotlin.math.round(this * factor) / factor
         return rounded.toString()
     }
 
@@ -156,10 +163,7 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
                         maxDuration = maxOf(maxDuration, duration)
 
                         val inf = "#EXTINF:${dur.toFixed(3)}\n"
-                        val mediaUrl = "$baseUrl/" + segmentTemplate.media.replace(
-                            Regex("\\$.*?\\$"),
-                            i.toString()
-                        ) + "\n"
+                        val mediaUrl = "$baseUrl/" + segmentTemplate.media.replace(Regex("\\$.*?\\$"), i.toString()) + "\n"
                         segmentUnit += inf + mediaUrl
                     }
 
@@ -171,8 +175,7 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
                             "sar=\"1:1\"," +
                             "frame-duration=${segmentTemplate.timescale}\n"
 
-                    val info =
-                        "#EXT-X-MLB-INFO:max-bw=${videoRep.bandwidth},duration=$totalDuration\n"
+                    val info = "#EXT-X-MLB-INFO:max-bw=${videoRep.bandwidth},duration=$totalDuration\n"
                     val maxSegmentDuration = "#EXT-X-TARGETDURATION:$maxDuration\n"
 
                     val output = header + maxSegmentDuration + startSequence +
@@ -192,10 +195,7 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
                         maxDuration = maxOf(maxDuration, duration)
 
                         val inf = "#EXTINF:${dur.toFixed(3)}\n"
-                        val mediaUrl = "$baseUrl/" + segmentTemplate.media.replace(
-                            Regex("\\$.*?\\$"),
-                            i.toString()
-                        ) + "\n"
+                        val mediaUrl = "$baseUrl/"  + segmentTemplate.media.replace(Regex("\\$.*?\\$"), i.toString()) + "\n"
                         segmentUnit += inf + mediaUrl
                     }
 
@@ -208,8 +208,7 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
                             "schemeIdUri=\"${audioRep.audioChannelConfiguration.schemeIdUri}\"," +
                             "value=\"${audioRep.audioChannelConfiguration.value}\"\n"
 
-                    val info =
-                        "#EXT-X-MLB-INFO:max-bw=${audioRep.bandwidth},duration=$totalDuration\n"
+                    val info = "#EXT-X-MLB-INFO:max-bw=${audioRep.bandwidth},duration=$totalDuration\n"
                     val maxSegmentDuration = "#EXT-X-TARGETDURATION:$maxDuration\n"
 
                     val output = header + maxSegmentDuration + startSequence +
@@ -223,6 +222,7 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
         }
         return mediaPlaylists
     }
+
 
     private fun createMasterPlaylist(mpdInfo: MpdInfo, mediaPlaylists: List<String>): String {
         val header = "#EXTM3U\n#EXT-X-VERSION:6\n"
@@ -280,16 +280,13 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
     private fun saveAsCustomPlaylist(url: String, index: Int, playlist: String): String {
         val dot = url.lastIndexOf(".")
         if (dot < 0) throw ParseError("invalidUrl")
-        val playlistUrl = url.take(dot) + "_$index.$hlsExt"
+        val playlistUrl = url.substring(0, dot) + "_$index.${hlsExt}"
         customPlaylists[playlistUrl] = playlist
         return playlistUrl
     }
 
     @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
-    private fun respondWithPlaylist(
-        loadingRequest: AVAssetResourceLoadingRequest,
-        playlistBytes: ByteArray
-    ) {
+    private fun respondWithPlaylist(loadingRequest: AVAssetResourceLoadingRequest, playlistBytes: ByteArray) {
         val cir = loadingRequest.contentInformationRequest
         cir?.let {
             it.contentType = "application/vnd.apple.mpegurl"
@@ -305,7 +302,7 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
         loadingRequest.finishLoading()
     }
 
-    @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class, UnsafeNumber::class)
+    @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
     private fun handleCustomPlaylistRequest(loadingRequest: AVAssetResourceLoadingRequest) {
         val customUrl = loadingRequest.request.URL?.absoluteString ?: run {
             reportError(loadingRequest, badRequestErrorCode)
@@ -313,6 +310,7 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
         }
 
         customPlaylists[customUrl]?.let { playlist ->
+            println("VikramAssetLoader ::2 :: exist, $customUrl")
             val masterData: ByteArray = playlist.encodeToByteArray()
             respondWithPlaylist(loadingRequest, masterData)
             return
@@ -325,6 +323,8 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
         }
 
         val request = NSURLRequest.requestWithURL(nsUrl)
+        println("VikramAssetLoader ::3 :: $originalUrlString, $nsUrl, $request")
+
         val session = NSURLSession.sharedSession
         val task = session.dataTaskWithRequest(request) { data, _, error ->
             if (error != null || data == null) {
@@ -350,10 +350,12 @@ class AVAssetResourceLoaderDelegateProtocolImpl: AVAssetResourceLoaderProtocol {
                         length = masterData.size.toULong()
                     )
                 }
+                println("VikramAssetLoader ::4 :: $nsDataMaster")
                 loadingRequest.dataRequest?.respondWithData(nsDataMaster)
                 loadingRequest.finishLoading()
             } catch (t: Throwable) {
                 t.printStackTrace()
+                println("VikramAssetLoader ::5 ::request fail")
                 reportError(loadingRequest, badRequestErrorCode)
             }
         }

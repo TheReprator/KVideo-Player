@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class AVPlayerViewController, AVURLAsset, VFWKMPAdaptationSetAudio, VFWKMPAdaptationSetVideo, VFWKMPAudioChannelConfiguration, VFWKMPAudioRepresentation, VFWKMPKotlinArray<T>, VFWKMPKotlinException, VFWKMPKotlinIllegalStateException, VFWKMPKotlinNothing, VFWKMPKotlinRuntimeException, VFWKMPKotlinThrowable, VFWKMPKotlinx_serialization_coreSerialKind, VFWKMPKotlinx_serialization_coreSerializersModule, VFWKMPMapper, VFWKMPMpdInfo, VFWKMPRawResponseAdaptationSet, VFWKMPRawResponseAdaptationSetCompanion, VFWKMPRawResponseAudioChannelConfiguration, VFWKMPRawResponseAudioChannelConfigurationCompanion, VFWKMPRawResponseMpdInfo, VFWKMPRawResponseMpdInfoCompanion, VFWKMPRawResponsePeriod, VFWKMPRawResponsePeriodCompanion, VFWKMPRawResponseRepresentation, VFWKMPRawResponseRepresentationCompanion, VFWKMPRawResponseSegmentTemplate, VFWKMPRawResponseSegmentTemplateCompanion, VFWKMPSegmentTemplate, VFWKMPVideoConnectivityMessageErrorResponse, VFWKMPVideoConnectivityMessageErrorResponseCompanion, VFWKMPVideoConnectivityMessagePlaybackResponse, VFWKMPVideoConnectivityMessagePlaybackResponseCompanion, VFWKMPVideoConnectivityMessageRequestPlayback, VFWKMPVideoConnectivityMessageRequestPlaybackCompanion, VFWKMPVideoInitOptionModal, VFWKMPVideoRepresentation, VFWKMPVideoSource;
+@class AVPlayerViewController, AVURLAsset, VFWKMPAVAssetResourceLoaderProtocolCompanion, VFWKMPAdaptationSetAudio, VFWKMPAdaptationSetVideo, VFWKMPAudioChannelConfiguration, VFWKMPAudioRepresentation, VFWKMPKotlinArray<T>, VFWKMPKotlinEnum<E>, VFWKMPKotlinEnumCompanion, VFWKMPKotlinException, VFWKMPKotlinIllegalStateException, VFWKMPKotlinNothing, VFWKMPKotlinRuntimeException, VFWKMPKotlinThrowable, VFWKMPKotlinx_serialization_coreSerialKind, VFWKMPKotlinx_serialization_coreSerializersModule, VFWKMPKotlinx_serialization_jsonClassDiscriminatorMode, VFWKMPKotlinx_serialization_jsonJson, VFWKMPKotlinx_serialization_jsonJsonConfiguration, VFWKMPKotlinx_serialization_jsonJsonDefault, VFWKMPKotlinx_serialization_jsonJsonElement, VFWKMPKotlinx_serialization_jsonJsonElementCompanion, VFWKMPMapper, VFWKMPMpdInfo, VFWKMPRawResponseAdaptationSet, VFWKMPRawResponseAdaptationSetCompanion, VFWKMPRawResponseAudioChannelConfiguration, VFWKMPRawResponseAudioChannelConfigurationCompanion, VFWKMPRawResponseMpdInfo, VFWKMPRawResponseMpdInfoCompanion, VFWKMPRawResponsePeriod, VFWKMPRawResponsePeriodCompanion, VFWKMPRawResponseRepresentation, VFWKMPRawResponseRepresentationCompanion, VFWKMPRawResponseSegmentTemplate, VFWKMPRawResponseSegmentTemplateCompanion, VFWKMPSegmentTemplate, VFWKMPVideoConnectivityHandlerCompanion, VFWKMPVideoConnectivityMessageCompanion, VFWKMPVideoConnectivityMessageErrorResponse, VFWKMPVideoConnectivityMessageErrorResponseCompanion, VFWKMPVideoConnectivityMessagePlaybackResponse, VFWKMPVideoConnectivityMessagePlaybackResponseCompanion, VFWKMPVideoConnectivityMessageRequestPlayback, VFWKMPVideoConnectivityMessageRequestPlaybackCompanion, VFWKMPVideoInitOptionModal, VFWKMPVideoRepresentation, VFWKMPVideoSource;
 
-@protocol AVAssetResourceLoaderDelegate, VFWKMPAdaptationSet, VFWKMPDashHandler, VFWKMPKotlinAnnotation, VFWKMPKotlinIterator, VFWKMPKotlinKAnnotatedElement, VFWKMPKotlinKClass, VFWKMPKotlinKClassifier, VFWKMPKotlinKDeclarationContainer, VFWKMPKotlinx_serialization_coreCompositeDecoder, VFWKMPKotlinx_serialization_coreCompositeEncoder, VFWKMPKotlinx_serialization_coreDecoder, VFWKMPKotlinx_serialization_coreDeserializationStrategy, VFWKMPKotlinx_serialization_coreEncoder, VFWKMPKotlinx_serialization_coreKSerializer, VFWKMPKotlinx_serialization_coreSerialDescriptor, VFWKMPKotlinx_serialization_coreSerializationStrategy, VFWKMPKotlinx_serialization_coreSerializersModuleCollector, VFWKMPPlayerController, VFWKMPRepresentation, VFWKMPVideoConnectivityHandler, VFWKMPVideoConnectivityMessage, VFWKMPVideoPlayer;
+@protocol AVAssetResourceLoaderDelegate, VFWKMPAVAssetResourceLoaderProtocol, VFWKMPAdaptationSet, VFWKMPDashHandler, VFWKMPKotlinAnnotation, VFWKMPKotlinComparable, VFWKMPKotlinIterator, VFWKMPKotlinKAnnotatedElement, VFWKMPKotlinKClass, VFWKMPKotlinKClassifier, VFWKMPKotlinKDeclarationContainer, VFWKMPKotlinx_serialization_coreCompositeDecoder, VFWKMPKotlinx_serialization_coreCompositeEncoder, VFWKMPKotlinx_serialization_coreDecoder, VFWKMPKotlinx_serialization_coreDeserializationStrategy, VFWKMPKotlinx_serialization_coreEncoder, VFWKMPKotlinx_serialization_coreKSerializer, VFWKMPKotlinx_serialization_coreSerialDescriptor, VFWKMPKotlinx_serialization_coreSerialFormat, VFWKMPKotlinx_serialization_coreSerializationStrategy, VFWKMPKotlinx_serialization_coreSerializersModuleCollector, VFWKMPKotlinx_serialization_coreStringFormat, VFWKMPKotlinx_serialization_jsonJsonNamingStrategy, VFWKMPPlayerController, VFWKMPRepresentation, VFWKMPVideoConnectivityHandler, VFWKMPVideoConnectivityMessage, VFWKMPVideoPlayer;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -489,9 +489,35 @@ __attribute__((swift_name("TvOsVideoConnectivityHandler")))
 - (void)sendMessageMessage:(id<VFWKMPVideoConnectivityMessage>)message onResponse:(void (^)(id<VFWKMPVideoConnectivityMessage>))onResponse __attribute__((swift_name("sendMessage(message:onResponse:)")));
 @end
 
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("VideoConnectivityHandlerCompanion")))
+@interface VFWKMPVideoConnectivityHandlerCompanion : VFWKMPBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) VFWKMPVideoConnectivityHandlerCompanion *shared __attribute__((swift_name("shared")));
+@property (readonly) VFWKMPKotlinx_serialization_jsonJson *json __attribute__((swift_name("json")));
+@end
+
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.Serializable
+*/
 __attribute__((swift_name("VideoConnectivityMessage")))
 @protocol VFWKMPVideoConnectivityMessage
 @required
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("VideoConnectivityMessageCompanion")))
+@interface VFWKMPVideoConnectivityMessageCompanion : VFWKMPBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) VFWKMPVideoConnectivityMessageCompanion *shared __attribute__((swift_name("shared")));
+- (id<VFWKMPKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
+- (id<VFWKMPKotlinx_serialization_coreKSerializer>)serializerTypeParamsSerializers:(VFWKMPKotlinArray<id<VFWKMPKotlinx_serialization_coreKSerializer>> *)typeParamsSerializers __attribute__((swift_name("serializer(typeParamsSerializers:)")));
 @end
 
 
@@ -530,14 +556,15 @@ __attribute__((swift_name("VideoConnectivityMessageErrorResponse.Companion")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("VideoConnectivityMessagePlaybackResponse")))
 @interface VFWKMPVideoConnectivityMessagePlaybackResponse : VFWKMPBase <VFWKMPVideoConnectivityMessage>
-- (instancetype)initWithHlsUrl:(NSString *)hlsUrl requestId:(NSString *)requestId __attribute__((swift_name("init(hlsUrl:requestId:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithHlsUrl:(NSString *)hlsUrl sessionId:(NSString *)sessionId requestId:(NSString *)requestId __attribute__((swift_name("init(hlsUrl:sessionId:requestId:)"))) __attribute__((objc_designated_initializer));
 @property (class, readonly, getter=companion) VFWKMPVideoConnectivityMessagePlaybackResponseCompanion *companion __attribute__((swift_name("companion")));
-- (VFWKMPVideoConnectivityMessagePlaybackResponse *)doCopyHlsUrl:(NSString *)hlsUrl requestId:(NSString *)requestId __attribute__((swift_name("doCopy(hlsUrl:requestId:)")));
+- (VFWKMPVideoConnectivityMessagePlaybackResponse *)doCopyHlsUrl:(NSString *)hlsUrl sessionId:(NSString *)sessionId requestId:(NSString *)requestId __attribute__((swift_name("doCopy(hlsUrl:sessionId:requestId:)")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
 @property (readonly) NSString *hlsUrl __attribute__((swift_name("hlsUrl")));
 @property (readonly) NSString *requestId __attribute__((swift_name("requestId")));
+@property (readonly) NSString *sessionId __attribute__((swift_name("sessionId")));
 @end
 
 __attribute__((objc_subclassing_restricted))
@@ -607,23 +634,42 @@ __attribute__((swift_name("VideoSource")))
 @property (readonly) NSString *src __attribute__((swift_name("src")));
 @end
 
-__attribute__((unavailable("Kotlin subclass of Objective-C class can't be imported")))
+__attribute__((swift_name("AVAssetResourceLoaderProtocol")))
+@protocol VFWKMPAVAssetResourceLoaderProtocol
+@required
+@property (readonly) id<AVAssetResourceLoaderDelegate> delegation __attribute__((swift_name("delegation")));
+@end
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("AVAssetResourceLoaderDelegateProtocolImpl")))
-@interface VFWKMPAVAssetResourceLoaderDelegateProtocolImpl : NSObject
+@interface VFWKMPAVAssetResourceLoaderDelegateProtocolImpl : VFWKMPBase <VFWKMPAVAssetResourceLoaderProtocol>
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (NSString *)toFixed:(float)receiver decimals:(int32_t)decimals __attribute__((swift_name("toFixed(_:decimals:)")));
+@property (readonly) id<AVAssetResourceLoaderDelegate> delegation __attribute__((swift_name("delegation")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("AVAssetResourceLoaderProtocolCompanion")))
+@interface VFWKMPAVAssetResourceLoaderProtocolCompanion : VFWKMPBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) VFWKMPAVAssetResourceLoaderProtocolCompanion *shared __attribute__((swift_name("shared")));
+- (id<VFWKMPAVAssetResourceLoaderProtocol>)getAVAssetResourceLoaderProtocolInstance __attribute__((swift_name("getAVAssetResourceLoaderProtocolInstance()")));
 @end
 
 __attribute__((swift_name("DashHandler")))
 @protocol VFWKMPDashHandler
 @required
-- (void)playDashFileUrl:(NSString *)url play:(void (^)(AVURLAsset *))play __attribute__((swift_name("playDashFile(url:play:)")));
+- (void)playDashFileUrl:(NSString *)url play:(void (^)(AVURLAsset *, NSString *))play __attribute__((swift_name("playDashFile(url:play:)")));
 @end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("DashHandlerImpl")))
 @interface VFWKMPDashHandlerImpl : VFWKMPBase <VFWKMPDashHandler>
-- (instancetype)initWithDelegateAsset:(id<AVAssetResourceLoaderDelegate>)delegateAsset __attribute__((swift_name("init(delegateAsset:)"))) __attribute__((objc_designated_initializer));
-- (void)playDashFileUrl:(NSString *)url play:(void (^)(AVURLAsset *))play __attribute__((swift_name("playDashFile(url:play:)")));
-@property (readonly) NSArray<NSString *> *requestedKeys __attribute__((swift_name("requestedKeys")));
+- (instancetype)initWithDelegateAsset:(id<VFWKMPAVAssetResourceLoaderProtocol>)delegateAsset __attribute__((swift_name("init(delegateAsset:)"))) __attribute__((objc_designated_initializer));
+- (void)playDashFileUrl:(NSString *)url play:(void (^)(AVURLAsset *, NSString *))play __attribute__((swift_name("playDashFile(url:play:)")));
 @end
 
 __attribute__((swift_name("PlayerController")))
@@ -705,6 +751,45 @@ __attribute__((swift_name("Kotlinx_serialization_coreDeserializationStrategy")))
 __attribute__((swift_name("Kotlinx_serialization_coreKSerializer")))
 @protocol VFWKMPKotlinx_serialization_coreKSerializer <VFWKMPKotlinx_serialization_coreSerializationStrategy, VFWKMPKotlinx_serialization_coreDeserializationStrategy>
 @required
+@end
+
+__attribute__((swift_name("Kotlinx_serialization_coreSerialFormat")))
+@protocol VFWKMPKotlinx_serialization_coreSerialFormat
+@required
+@property (readonly) VFWKMPKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
+@end
+
+__attribute__((swift_name("Kotlinx_serialization_coreStringFormat")))
+@protocol VFWKMPKotlinx_serialization_coreStringFormat <VFWKMPKotlinx_serialization_coreSerialFormat>
+@required
+- (id _Nullable)decodeFromStringDeserializer:(id<VFWKMPKotlinx_serialization_coreDeserializationStrategy>)deserializer string:(NSString *)string __attribute__((swift_name("decodeFromString(deserializer:string:)")));
+- (NSString *)encodeToStringSerializer:(id<VFWKMPKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeToString(serializer:value:)")));
+@end
+
+__attribute__((swift_name("Kotlinx_serialization_jsonJson")))
+@interface VFWKMPKotlinx_serialization_jsonJson : VFWKMPBase <VFWKMPKotlinx_serialization_coreStringFormat>
+@property (class, readonly, getter=companion) VFWKMPKotlinx_serialization_jsonJsonDefault *companion __attribute__((swift_name("companion")));
+- (id _Nullable)decodeFromJsonElementDeserializer:(id<VFWKMPKotlinx_serialization_coreDeserializationStrategy>)deserializer element:(VFWKMPKotlinx_serialization_jsonJsonElement *)element __attribute__((swift_name("decodeFromJsonElement(deserializer:element:)")));
+- (id _Nullable)decodeFromStringString:(NSString *)string __attribute__((swift_name("decodeFromString(string:)")));
+- (id _Nullable)decodeFromStringDeserializer:(id<VFWKMPKotlinx_serialization_coreDeserializationStrategy>)deserializer string:(NSString *)string __attribute__((swift_name("decodeFromString(deserializer:string:)")));
+- (VFWKMPKotlinx_serialization_jsonJsonElement *)encodeToJsonElementSerializer:(id<VFWKMPKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeToJsonElement(serializer:value:)")));
+- (NSString *)encodeToStringValue:(id _Nullable)value __attribute__((swift_name("encodeToString(value:)")));
+- (NSString *)encodeToStringSerializer:(id<VFWKMPKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeToString(serializer:value:)")));
+- (VFWKMPKotlinx_serialization_jsonJsonElement *)parseToJsonElementString:(NSString *)string __attribute__((swift_name("parseToJsonElement(string:)")));
+@property (readonly) VFWKMPKotlinx_serialization_jsonJsonConfiguration *configuration __attribute__((swift_name("configuration")));
+@property (readonly) VFWKMPKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinArray")))
+@interface VFWKMPKotlinArray<T> : VFWKMPBase
++ (instancetype)arrayWithSize:(int32_t)size init:(T _Nullable (^)(VFWKMPInt *))init __attribute__((swift_name("init(size:init:)")));
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
+- (T _Nullable)getIndex:(int32_t)index __attribute__((swift_name("get(index:)")));
+- (id<VFWKMPKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
+- (void)setIndex:(int32_t)index value:(T _Nullable)value __attribute__((swift_name("set(index:value:)")));
+@property (readonly) int32_t size __attribute__((swift_name("size")));
 @end
 
 __attribute__((swift_name("KotlinThrowable")))
@@ -859,16 +944,111 @@ __attribute__((swift_name("Kotlinx_serialization_coreDecoder")))
 @property (readonly) VFWKMPKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
 @end
 
+__attribute__((swift_name("Kotlinx_serialization_coreSerializersModule")))
+@interface VFWKMPKotlinx_serialization_coreSerializersModule : VFWKMPBase
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.ExperimentalSerializationApi
+*/
+- (void)dumpToCollector:(id<VFWKMPKotlinx_serialization_coreSerializersModuleCollector>)collector __attribute__((swift_name("dumpTo(collector:)")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.ExperimentalSerializationApi
+*/
+- (id<VFWKMPKotlinx_serialization_coreKSerializer> _Nullable)getContextualKClass:(id<VFWKMPKotlinKClass>)kClass typeArgumentsSerializers:(NSArray<id<VFWKMPKotlinx_serialization_coreKSerializer>> *)typeArgumentsSerializers __attribute__((swift_name("getContextual(kClass:typeArgumentsSerializers:)")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.ExperimentalSerializationApi
+*/
+- (id<VFWKMPKotlinx_serialization_coreSerializationStrategy> _Nullable)getPolymorphicBaseClass:(id<VFWKMPKotlinKClass>)baseClass value:(id)value __attribute__((swift_name("getPolymorphic(baseClass:value:)")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.ExperimentalSerializationApi
+*/
+- (id<VFWKMPKotlinx_serialization_coreDeserializationStrategy> _Nullable)getPolymorphicBaseClass:(id<VFWKMPKotlinKClass>)baseClass serializedClassName:(NSString * _Nullable)serializedClassName __attribute__((swift_name("getPolymorphic(baseClass:serializedClassName:)")));
+@end
+
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("KotlinArray")))
-@interface VFWKMPKotlinArray<T> : VFWKMPBase
-+ (instancetype)arrayWithSize:(int32_t)size init:(T _Nullable (^)(VFWKMPInt *))init __attribute__((swift_name("init(size:init:)")));
+__attribute__((swift_name("Kotlinx_serialization_jsonJson.Default")))
+@interface VFWKMPKotlinx_serialization_jsonJsonDefault : VFWKMPKotlinx_serialization_jsonJson
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (T _Nullable)getIndex:(int32_t)index __attribute__((swift_name("get(index:)")));
-- (id<VFWKMPKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
-- (void)setIndex:(int32_t)index value:(T _Nullable)value __attribute__((swift_name("set(index:value:)")));
-@property (readonly) int32_t size __attribute__((swift_name("size")));
++ (instancetype)default_ __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) VFWKMPKotlinx_serialization_jsonJsonDefault *shared __attribute__((swift_name("shared")));
+@end
+
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.Serializable(with=NormalClass(value=kotlinx/serialization/json/JsonElementSerializer))
+*/
+__attribute__((swift_name("Kotlinx_serialization_jsonJsonElement")))
+@interface VFWKMPKotlinx_serialization_jsonJsonElement : VFWKMPBase
+@property (class, readonly, getter=companion) VFWKMPKotlinx_serialization_jsonJsonElementCompanion *companion __attribute__((swift_name("companion")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Kotlinx_serialization_jsonJsonConfiguration")))
+@interface VFWKMPKotlinx_serialization_jsonJsonConfiguration : VFWKMPBase
+- (NSString *)description __attribute__((swift_name("description()")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.ExperimentalSerializationApi
+*/
+@property (readonly) BOOL allowComments __attribute__((swift_name("allowComments")));
+@property (readonly) BOOL allowSpecialFloatingPointValues __attribute__((swift_name("allowSpecialFloatingPointValues")));
+@property (readonly) BOOL allowStructuredMapKeys __attribute__((swift_name("allowStructuredMapKeys")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.ExperimentalSerializationApi
+*/
+@property (readonly) BOOL allowTrailingComma __attribute__((swift_name("allowTrailingComma")));
+@property (readonly) NSString *classDiscriminator __attribute__((swift_name("classDiscriminator")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.ExperimentalSerializationApi
+*/
+@property VFWKMPKotlinx_serialization_jsonClassDiscriminatorMode *classDiscriminatorMode __attribute__((swift_name("classDiscriminatorMode")));
+@property (readonly) BOOL coerceInputValues __attribute__((swift_name("coerceInputValues")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.ExperimentalSerializationApi
+*/
+@property (readonly) BOOL decodeEnumsCaseInsensitive __attribute__((swift_name("decodeEnumsCaseInsensitive")));
+@property (readonly) BOOL encodeDefaults __attribute__((swift_name("encodeDefaults")));
+@property (readonly) BOOL explicitNulls __attribute__((swift_name("explicitNulls")));
+@property (readonly) BOOL ignoreUnknownKeys __attribute__((swift_name("ignoreUnknownKeys")));
+@property (readonly) BOOL isLenient __attribute__((swift_name("isLenient")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.ExperimentalSerializationApi
+*/
+@property (readonly) id<VFWKMPKotlinx_serialization_jsonJsonNamingStrategy> _Nullable namingStrategy __attribute__((swift_name("namingStrategy")));
+@property (readonly) BOOL prettyPrint __attribute__((swift_name("prettyPrint")));
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.ExperimentalSerializationApi
+*/
+@property (readonly) NSString *prettyPrintIndent __attribute__((swift_name("prettyPrintIndent")));
+@property (readonly) BOOL useAlternativeNames __attribute__((swift_name("useAlternativeNames")));
+@property (readonly) BOOL useArrayPolymorphism __attribute__((swift_name("useArrayPolymorphism")));
+@end
+
+__attribute__((swift_name("KotlinIterator")))
+@protocol VFWKMPKotlinIterator
+@required
+- (BOOL)hasNext __attribute__((swift_name("hasNext()")));
+- (id _Nullable)next __attribute__((swift_name("next()")));
 @end
 
 __attribute__((swift_name("Kotlinx_serialization_coreCompositeEncoder")))
@@ -899,34 +1079,6 @@ __attribute__((swift_name("Kotlinx_serialization_coreCompositeEncoder")))
 */
 - (BOOL)shouldEncodeElementDefaultDescriptor:(id<VFWKMPKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("shouldEncodeElementDefault(descriptor:index:)")));
 @property (readonly) VFWKMPKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
-@end
-
-__attribute__((swift_name("Kotlinx_serialization_coreSerializersModule")))
-@interface VFWKMPKotlinx_serialization_coreSerializersModule : VFWKMPBase
-
-/**
- * @note annotations
- *   kotlinx.serialization.ExperimentalSerializationApi
-*/
-- (void)dumpToCollector:(id<VFWKMPKotlinx_serialization_coreSerializersModuleCollector>)collector __attribute__((swift_name("dumpTo(collector:)")));
-
-/**
- * @note annotations
- *   kotlinx.serialization.ExperimentalSerializationApi
-*/
-- (id<VFWKMPKotlinx_serialization_coreKSerializer> _Nullable)getContextualKClass:(id<VFWKMPKotlinKClass>)kClass typeArgumentsSerializers:(NSArray<id<VFWKMPKotlinx_serialization_coreKSerializer>> *)typeArgumentsSerializers __attribute__((swift_name("getContextual(kClass:typeArgumentsSerializers:)")));
-
-/**
- * @note annotations
- *   kotlinx.serialization.ExperimentalSerializationApi
-*/
-- (id<VFWKMPKotlinx_serialization_coreSerializationStrategy> _Nullable)getPolymorphicBaseClass:(id<VFWKMPKotlinKClass>)baseClass value:(id)value __attribute__((swift_name("getPolymorphic(baseClass:value:)")));
-
-/**
- * @note annotations
- *   kotlinx.serialization.ExperimentalSerializationApi
-*/
-- (id<VFWKMPKotlinx_serialization_coreDeserializationStrategy> _Nullable)getPolymorphicBaseClass:(id<VFWKMPKotlinKClass>)baseClass serializedClassName:(NSString * _Nullable)serializedClassName __attribute__((swift_name("getPolymorphic(baseClass:serializedClassName:)")));
 @end
 
 __attribute__((swift_name("KotlinAnnotation")))
@@ -977,13 +1129,6 @@ __attribute__((swift_name("KotlinNothing")))
 @interface VFWKMPKotlinNothing : VFWKMPBase
 @end
 
-__attribute__((swift_name("KotlinIterator")))
-@protocol VFWKMPKotlinIterator
-@required
-- (BOOL)hasNext __attribute__((swift_name("hasNext()")));
-- (id _Nullable)next __attribute__((swift_name("next()")));
-@end
-
 
 /**
  * @note annotations
@@ -1031,6 +1176,67 @@ __attribute__((swift_name("KotlinKClass")))
 - (BOOL)isInstanceValue:(id _Nullable)value __attribute__((swift_name("isInstance(value:)")));
 @property (readonly) NSString * _Nullable qualifiedName __attribute__((swift_name("qualifiedName")));
 @property (readonly) NSString * _Nullable simpleName __attribute__((swift_name("simpleName")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Kotlinx_serialization_jsonJsonElement.Companion")))
+@interface VFWKMPKotlinx_serialization_jsonJsonElementCompanion : VFWKMPBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) VFWKMPKotlinx_serialization_jsonJsonElementCompanion *shared __attribute__((swift_name("shared")));
+- (id<VFWKMPKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
+@end
+
+__attribute__((swift_name("KotlinComparable")))
+@protocol VFWKMPKotlinComparable
+@required
+- (int32_t)compareToOther:(id _Nullable)other __attribute__((swift_name("compareTo(other:)")));
+@end
+
+__attribute__((swift_name("KotlinEnum")))
+@interface VFWKMPKotlinEnum<E> : VFWKMPBase <VFWKMPKotlinComparable>
+- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) VFWKMPKotlinEnumCompanion *companion __attribute__((swift_name("companion")));
+- (int32_t)compareToOther:(E)other __attribute__((swift_name("compareTo(other:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *name __attribute__((swift_name("name")));
+@property (readonly) int32_t ordinal __attribute__((swift_name("ordinal")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Kotlinx_serialization_jsonClassDiscriminatorMode")))
+@interface VFWKMPKotlinx_serialization_jsonClassDiscriminatorMode : VFWKMPKotlinEnum<VFWKMPKotlinx_serialization_jsonClassDiscriminatorMode *>
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
+- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+@property (class, readonly) VFWKMPKotlinx_serialization_jsonClassDiscriminatorMode *none __attribute__((swift_name("none")));
+@property (class, readonly) VFWKMPKotlinx_serialization_jsonClassDiscriminatorMode *allJsonObjects __attribute__((swift_name("allJsonObjects")));
+@property (class, readonly) VFWKMPKotlinx_serialization_jsonClassDiscriminatorMode *polymorphic __attribute__((swift_name("polymorphic")));
++ (VFWKMPKotlinArray<VFWKMPKotlinx_serialization_jsonClassDiscriminatorMode *> *)values __attribute__((swift_name("values()")));
+@property (class, readonly) NSArray<VFWKMPKotlinx_serialization_jsonClassDiscriminatorMode *> *entries __attribute__((swift_name("entries")));
+@end
+
+
+/**
+ * @note annotations
+ *   kotlinx.serialization.ExperimentalSerializationApi
+*/
+__attribute__((swift_name("Kotlinx_serialization_jsonJsonNamingStrategy")))
+@protocol VFWKMPKotlinx_serialization_jsonJsonNamingStrategy
+@required
+- (NSString *)serialNameForJsonDescriptor:(id<VFWKMPKotlinx_serialization_coreSerialDescriptor>)descriptor elementIndex:(int32_t)elementIndex serialName:(NSString *)serialName __attribute__((swift_name("serialNameForJson(descriptor:elementIndex:serialName:)")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinEnumCompanion")))
+@interface VFWKMPKotlinEnumCompanion : VFWKMPBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) VFWKMPKotlinEnumCompanion *shared __attribute__((swift_name("shared")));
 @end
 
 #pragma pop_macro("_Nullable_result")

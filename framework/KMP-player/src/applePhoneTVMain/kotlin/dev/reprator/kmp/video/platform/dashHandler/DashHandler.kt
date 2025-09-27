@@ -1,18 +1,16 @@
 package dev.reprator.kmp.video.platform.dashHandler
 
-import dev.reprator.kmp.video.platform.assetHandler.AVAssetResourceLoaderDelegateProtocolImpl
 import dev.reprator.kmp.video.platform.assetHandler.AVAssetResourceLoaderProtocol
 import dev.reprator.kmp.video.platform.assetHandler.toCustomUrl
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCObjectVar
-import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.value
-import platform.AVFoundation.AVAssetResourceLoaderDelegateProtocol
 import platform.AVFoundation.AVKeyValueStatusFailed
+import platform.AVFoundation.AVPlayerItem
 import platform.AVFoundation.AVURLAsset
 import platform.AVFoundation.playable
 import platform.AVFoundation.resourceLoader
@@ -26,36 +24,42 @@ import platform.darwin.dispatch_get_main_queue
 import platform.darwin.dispatch_queue_create
 
 interface DashHandler {
-    fun playDashFile(url: String, play: AVURLAsset.() -> Unit)
+    fun playDashFile(url: String, play: (AVURLAsset, String) -> Unit)
 }
 
 class DashHandlerImpl(private val delegateAsset: AVAssetResourceLoaderProtocol = AVAssetResourceLoaderProtocol.getAVAssetResourceLoaderProtocolInstance()) : DashHandler {
 
-    val requestedKeys = listOf("playable", "duration")
+    private val requestedKeys = listOf("playable", "duration")
 
-    override fun playDashFile(url: String, play: AVURLAsset.() -> Unit) {
-        val newValue = NSURL.URLWithString(toCustomUrl(url))!!
+    override fun playDashFile(url: String, play: (AVURLAsset, String) -> Unit) {
+        val newValue = NSURL.Companion.URLWithString(toCustomUrl(url))!!
 
         val asset = AVURLAsset(uRL = newValue, options = null)
         asset.resourceLoader.setDelegate(
-            delegateAsset.delegation, queue = dispatch_queue_create(
+            delegateAsset.delegation.apply {
+
+            }, queue = dispatch_queue_create(
                 "AVARLDelegateDemo loader",
                 null
             )
         )
 
+        // Get session identifier before loading values
+        val sessionId = asset.httpSessionIdentifier.UUIDString
+
         asset.loadValuesAsynchronouslyForKeys(requestedKeys) {
             dispatch_async(dispatch_get_main_queue()) {
-                this.prepareToPlay(asset, requestedKeys, play)
+                this.prepareToPlay(asset, sessionId, requestedKeys, play)
             }
         }
     }
 
-    @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class, UnsafeNumber::class)
+    @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
     private fun prepareToPlay(
         asset: AVURLAsset,
+        sessionId: String,
         requestedKeys: List<String>,
-        play: AVURLAsset.() -> Unit
+        play: (AVURLAsset, String) -> Unit
     ) {
         requestedKeys.forEach { key ->
             memScoped {
@@ -71,8 +75,8 @@ class DashHandlerImpl(private val delegateAsset: AVAssetResourceLoaderProtocol =
         }
 
         if (!asset.playable) {
-            val error = NSError.errorWithDomain(
-                domain = NSBundle.mainBundle.bundleIdentifier ?: "",
+            val error = NSError.Companion.errorWithDomain(
+                domain = NSBundle.Companion.mainBundle.bundleIdentifier ?: "",
                 code = 0,
                 userInfo = mapOf(
                     NSLocalizedDescriptionKey to "Item cannot be played",
@@ -84,6 +88,10 @@ class DashHandlerImpl(private val delegateAsset: AVAssetResourceLoaderProtocol =
             return
         }
 
-        play(asset)
+        //val mediaItem = AVPlayerItem(asset)
+        println("VikramSingh 0 : $asset")
+        println("VikramSingh 0.1 : ${asset.httpSessionIdentifier}, ${asset.httpSessionIdentifier.UUIDString}")
+        println("VikramSingh 0.2 : ${asset.URL.dataRepresentation()}")
+        play(asset, sessionId)
     }
 }
