@@ -4,6 +4,7 @@ import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -42,12 +43,24 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    targets
-        .withType<KotlinNativeTarget>()
-        .matching { it.konanTarget.family.isAppleFamily }
-        .configureEach {
-            binaries { framework { baseName = "VideoFrameWorkKMP" } }
+    val xcFrameworkName = "VideoFrameWorkKMP"
+    val xcf = XCFramework(xcFrameworkName)
+    listOf(
+        tvosArm64(),
+        tvosSimulatorArm64(),
+        tvosX64(),
+
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { target ->
+        target.binaries.framework {
+            baseName = xcFrameworkName
+            binaryOption("bundleId", "dev.reprator.${xcFrameworkName}")
+            xcf.add(this)
+            isStatic = true
         }
+    }
 
     sourceSets {
         dependencies {

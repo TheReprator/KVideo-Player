@@ -45,13 +45,6 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    targets
-        .withType<KotlinNativeTarget>()
-        .matching { it.konanTarget.family.isAppleFamily }
-        .configureEach {
-            binaries { framework { baseName = "VideoFrameWork" } }
-        }
-
     sourceSets {
         commonMain.dependencies {
             implementation(projects.framework.kmpPlayer)

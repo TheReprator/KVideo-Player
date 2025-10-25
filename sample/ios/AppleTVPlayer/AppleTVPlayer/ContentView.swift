@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import AppleTvPlayerUi
+import VideoPlayer
 
 struct ContentView: View {
     let viewModel: ASVideoPlayerViewModel
