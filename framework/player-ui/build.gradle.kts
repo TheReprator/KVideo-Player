@@ -41,6 +41,10 @@ kotlin {
 
     jvm("desktop")
 
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     targets
         .withType<KotlinNativeTarget>()
         .matching { it.konanTarget.family.isAppleFamily }
