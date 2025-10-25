@@ -29,10 +29,16 @@ buildJsWeb: cleanBuild
 	$(GRADLEW) sample:jsBrowserDevelopmentRun --continuous
 	@echo "✅ Done!"
 
-# Run Desktop hot reload build
+# Run Desktop build
 buildDesktop: cleanBuild
-	@echo "⏳Desktop Hot reload build"
+	@echo "⏳Desktop build"
 	$(GRADLEW) sample:run
+	@echo "✅ Done!"
+
+# Run Desktop hot reload build
+buildDesktopHot: cleanBuild
+	@echo "⏳Desktop Hot build"
+	$(GRADLEW) sample:hotRunDesktop --auto
 	@echo "✅ Done!"
 
 # Generate KMP Player framework build
