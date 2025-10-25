@@ -110,12 +110,20 @@ private fun initializingElement(element: Element) : Unit = js("""
     }
 """)
 
-private fun changeCoordinates(element: Element,width: Float,height: Float,x: Float,y: Float) : Unit = js("""
+private fun changeCoordinates(container: Element, element: Element,width: Float,height: Float,x: Float,y: Float) : Unit = js("""
     {
-        element.style.width = width + 'px';
-        element.style.height = height + 'px';
-        element.style.left = x + 'px';
-        element.style.top = y + 'px';
+         // Style the container
+        container.style.position = 'absolute';
+        container.style.width = width + 'px';
+        container.style.height = height + 'px';
+        container.style.left = x + 'px';
+        container.style.top = y + 'px';
+        container.style.margin = '0px';
+        container.style.zIndex = '1'; 
+
+        // Style the actual video element to fill its container
+        element.style.width = '100%';
+        element.style.height = '100%';
     }
 """)
 
@@ -136,7 +144,9 @@ fun <T : Element> HtmlView(
         modifier = modifier.onGloballyPositioned { coordinates ->
             val location = coordinates.positionInWindow().round()
             val size = coordinates.size
-            changeCoordinates(componentInfo.component,size.width / density, size.height / density, location.x / density,location.y / density)
+            changeCoordinates( container = componentInfo.container, componentInfo.component,
+                size.width / density, size.height / density,
+                location.x / density,location.y / density)
         }
     ) {
         focusSwitcher.Content()

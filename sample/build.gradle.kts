@@ -1,20 +1,23 @@
-@file:OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
+@file:OptIn(ExperimentalWasmDsl::class, ExperimentalDistributionDsl::class)
 
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalDistributionDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 import java.util.Locale
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.compose.hotReload)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose.hot.reload)
     alias(libs.plugins.android.application)
 }
 
 kotlin {
-    val rootDirPath = project.rootDir.path
-    val projectDirPath = project.projectDir.path
+    jvmToolchain(21)
 
     listOf(
         wasmJs {
@@ -25,6 +28,13 @@ kotlin {
         js()
     ).forEach { target ->
         target.browser {
+
+            val rootDirPath = project.rootDir.path
+            val projectDirPath = project.projectDir.path
+
+            distribution {
+                outputDirectory = File("$rootDirPath/dist/${project.name}")
+            }
 
             commonWebpackConfig {
                 cssSupport {
@@ -48,27 +58,33 @@ kotlin {
         target.binaries.executable()
     }
 
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     jvm("desktop")
     androidTarget()
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            binaryOption("smallBinary", "true")
-            binaryOption("bundleId", "dev.reprator.video.demo")
-            isStatic = true
-            baseName = "VideoFrameWorkSample"
+    targets
+        .withType<KotlinNativeTarget>()
+        .matching { it.konanTarget.family.isAppleFamily }
+        .configureEach {
+            binaries {
+                framework {
+                    baseName = "VideoFrameWorkSample"
+
+                    //binaryOption("smallBinary", "true")
+                    //binaryOption("bundleId", "dev.reprator.video.demo")
+                }
+            }
         }
-    }
 
     sourceSets {
 
         commonMain.dependencies {
             implementation(projects.framework.kmpPlayer)
             implementation(projects.framework.playerUi)
+            implementation(compose.ui)
             implementation(compose.runtime)
             implementation(compose.material3)
             implementation(compose.components.resources)
@@ -112,6 +128,11 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
@@ -171,7 +192,7 @@ val copyVideoFrameworkResources by tasks.registering(Copy::class) {
 }
 
 tasks.withType<JavaExec> {
-    if (name == "run" || name == "desktopRun" || name == "runDesktop") {
+    if (name == "run" || name == "hotRunDesktop") {
         dependsOn(copyVideoFrameworkResources)
 
         val nativesPath = extractedResourcesDir.get().asFile.absolutePath

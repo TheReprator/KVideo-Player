@@ -1,17 +1,28 @@
 @file:OptIn(ExperimentalWasmDsl::class, ExperimentalKotlinGradlePluginApi::class)
 
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
-
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.android.kmp.library)
 }
 
+
 kotlin {
+
+    jvmToolchain(21)
+
+    android {
+        namespace = "dev.reprator.video"
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        androidResources.enable = true
+    }
+
     listOf(
         wasmJs {
             compilerOptions {
@@ -27,28 +38,29 @@ kotlin {
     }
 
     jvm("desktop")
-    androidTarget()
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            isStatic = true
-            baseName = "VideoFrameWork"
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         commonMain.dependencies {
             implementation(projects.framework.kmpPlayer)
+            implementation(libs.kotlinx.coroutines)
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
-            implementation(libs.kotlinx.coroutines)
+            implementation(compose.components.uiToolingPreview)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+            implementation(libs.kotlinx.coroutines.test)
         }
 
         val desktopMain by getting
@@ -58,23 +70,17 @@ kotlin {
         }
 
         androidMain.dependencies {
+            implementation(compose.uiTooling)
             implementation(libs.android.media3.ui)
             implementation(libs.android.media3.ui.compose)
         }
     }
 }
+
 composeCompiler {
     reportsDestination = layout.buildDirectory.dir("shared_compose_compiler")
     metricsDestination = layout.buildDirectory.dir("shared_compose_metric")
     stabilityConfigurationFiles.addAll(
         project.layout.projectDirectory.file("../scripts/compose-stability.conf"),
     )
-}
-
-android {
-    namespace = "dev.reprator.video"
-    compileSdk =
-        libs.versions.android.compileSdk
-            .get()
-            .toInt()
 }

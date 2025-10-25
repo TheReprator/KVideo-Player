@@ -17,3 +17,5 @@ captures
 **/xcshareddata/WorkspaceSettings.xcsettings
 /.kotlin/
 /kotlin-js-store/
+/framework/AppleKMPVideoPlayer/.build/
+/framework/AppleKMPVideoPlayer/.swiftpm/

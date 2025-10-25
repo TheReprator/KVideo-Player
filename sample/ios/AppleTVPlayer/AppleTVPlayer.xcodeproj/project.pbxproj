@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6AF2EDC52E6F321E00028A71 /* AppleTvPlayerUi in Frameworks */ = {isa = PBXBuildFile; productRef = 6AF2EDC42E6F321E00028A71 /* AppleTvPlayerUi */; };
+		A582EB642EAD4FAD007B57BF /* AppleVideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = A582EB632EAD4FAD007B57BF /* AppleVideoPlayer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AF2EDC52E6F321E00028A71 /* AppleTvPlayerUi in Frameworks */,
+				A582EB642EAD4FAD007B57BF /* AppleVideoPlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 			);
 			name = AppleTVPlayer;
 			packageProductDependencies = (
-				6AF2EDC42E6F321E00028A71 /* AppleTvPlayerUi */,
+				A582EB632EAD4FAD007B57BF /* AppleVideoPlayer */,
 			);
 			productName = AppleTVPlayer;
 			productReference = 6AF2EDB52E6F318A00028A71 /* AppleTVPlayer.app */;
@@ -114,7 +114,7 @@
 			mainGroup = 6AF2EDAC2E6F318900028A71;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				6AF2EDC32E6F321E00028A71 /* XCLocalSwiftPackageReference "../../../framework/AppleTvPlayerUi" */,
+				A582EB622EAD4FAD007B57BF /* XCLocalSwiftPackageReference "../../../framework/AppleKMPVideoPlayer" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6AF2EDB62E6F318A00028A71 /* Products */;
@@ -342,16 +342,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		6AF2EDC32E6F321E00028A71 /* XCLocalSwiftPackageReference "../../../framework/AppleTvPlayerUi" */ = {
+		A582EB622EAD4FAD007B57BF /* XCLocalSwiftPackageReference "../../../framework/AppleKMPVideoPlayer" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../../framework/AppleTvPlayerUi;
+			relativePath = ../../../framework/AppleKMPVideoPlayer;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6AF2EDC42E6F321E00028A71 /* AppleTvPlayerUi */ = {
+		A582EB632EAD4FAD007B57BF /* AppleVideoPlayer */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = AppleTvPlayerUi;
+			productName = AppleVideoPlayer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

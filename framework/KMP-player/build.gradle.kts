@@ -1,18 +1,28 @@
 @file:OptIn(ExperimentalWasmDsl::class, ExperimentalKotlinGradlePluginApi::class)
 
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.android.library)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.android.kmp.library)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 kotlin {
+
+    jvmToolchain(21)
+
+    android {
+        namespace = "dev.reprator.kmp.video"
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        androidResources.enable = true
+    }
 
     listOf(
         wasmJs {
@@ -28,24 +38,29 @@ kotlin {
     }
 
     jvm("desktop")
-    androidTarget()
 
     iosX64()
     iosArm64()
     iosSimulatorArm64()
 
-    val xcf = XCFramework()
+    val xcFrameworkName = "VideoFrameWorkKMP"
+    val xcf = XCFramework(xcFrameworkName)
     listOf(
         tvosArm64(),
         tvosSimulatorArm64(),
-        tvosX64()
+        tvosX64(),
+
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
     ).forEach { target ->
         target.binaries.framework {
+            baseName = xcFrameworkName
+            binaryOption("bundleId", "dev.reprator.${xcFrameworkName}")
             xcf.add(this)
-            baseName = "VideoFrameWorkKMP"
+            isStatic = true
         }
     }
-
 
     sourceSets {
         dependencies {
@@ -74,12 +89,4 @@ kotlin {
             implementation(libs.ios.xml)
         }
     }
-}
-
-android {
-    namespace = "dev.reprator.kmp.video"
-    compileSdk =
-        libs.versions.android.compileSdk
-            .get()
-            .toInt()
 }

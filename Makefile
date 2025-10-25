@@ -29,17 +29,23 @@ buildJsWeb: cleanBuild
 	$(GRADLEW) sample:jsBrowserDevelopmentRun --continuous
 	@echo "✅ Done!"
 
-# Run Desktop hot reload build
+# Run Desktop build
 buildDesktop: cleanBuild
-	@echo "⏳Desktop Hot reload build"
+	@echo "⏳Desktop build"
 	$(GRADLEW) sample:run
 	@echo "✅ Done!"
 
+# Run Desktop hot reload build
+buildDesktopHot: cleanBuild
+	@echo "⏳Desktop Hot build"
+	$(GRADLEW) sample:hotRunDesktop --auto
+	@echo "✅ Done!"
+
 # Generate KMP Player framework build
-buildTvKMP: cleanBuild
-	@echo "⏳KMP XCframework generation in progress"
-	$(GRADLEW) :framework:KMP-player:tasks --all; $(GRADLEW) :framework:KMP-player:assembleKMP-playerDebugXCFramework
-	 mkdir -p framework/AppleTvPlayerUi/Framework; cp -r Framework/KMP-player/build/XCFrameworks/debug/KMP_player.xcframework framework/AppleTvPlayerUi/Framework
+buildAppleSPM: cleanBuild
+	@echo "⏳KMP XCFramework generation in progress"
+	$(GRADLEW) :framework:KMP-player:tasks --all; $(GRADLEW) :framework:KMP-player:assembleVideoFrameWorkKMPDebugXCFramework
+	 mkdir -p framework/AppleKMPVideoPlayer/Framework; cp -r Framework/KMP-player/build/XCFrameworks/debug/VideoFrameWorkKMP.xcframework framework/AppleKMPVideoPlayer/Framework
 	@echo "✅ Done!"
 
 # Run IOS build
